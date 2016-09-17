@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <head>
+
+      <script type="text/javascript" src="{% static 'daily/jquery.min.js' %}"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+      <link rel="stylesheet" type="text/css" href= "{% static 'daily/bootstrap.min.css' %}"/>
+      <!-- Bootstrap theme -->
+      <script src="{% static 'daily/bootstrap.min.js' %}"></script>
+      <script src="{% static 'daily/docs.min.js' %}"></script>
+      <script type = "text/javascript" src="{% static 'daily/jquery-sortable.js'%}"></script>
+
+    </head>
+    <body>
+
+      <table class="table table-bordered">
+        <tr>
+          <td>#</td>
+          <td>Project</td>
+          <td>Time</td>
+          <td>Employees</td>
+          <td>Phones</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Tribal</td>
+          <td>1:00am</td>
+          <td>
+            <div class="container-fluid">
+              <ol class='nested_with_switch'>
+                <li>Ernie</li>
+                <li>Bert</li>
+                <li>Bob</li>
+                <li>Employees
+                  <ol id="emps">
+                    <li>Elmo</li>
+                    <li>Zoe</li>
+                    <li>BBird</li>
+                    <li>Grover</li>
+                  </ol>
+                </li>
+              </ol>
+            </div>
+            </td>
+            <td>T1</td>
+      </table>
+
+      <button type="button" class="btn btn-default btn-lg" onclick="printEmployees()">save</button>
+
+
+      <style type="text/css">
+        body.dragging, body.dragging * {
+          cursor: move !important;
+        }
+
+        .dragged {
+          position: absolute;
+          opacity: 0.5;
+          z-index: 2000;
+        }
+
+        .item-list li.placeholder {
+          position: relative;
+        }
+
+        .item-list li.placeholder:before { 
+          position: absolute;
+        }
+
+        .item-list {
+          min-height: 200px;
+          border: 1px solid #eee;
+        }
+
+        ol.nested_with_switch li.placeholder {
+          position: relative;
+        }
+
+        ol.nested_with_switch li.placeholder:before {
+          position: absolute;
+        }
+
+      </style>
+
+      <script>
+
+        function printEmployees() {
+          $("#emps").children('li').each(function() {
+            console.log($(this).text());
+          });
+        }
+
+        $('.item-list').sortable({
+          group: 'list-group',
+          pullPlaceholder: false,
+        });
+
+        var oldContainer;
+        $("ol.nested_with_switch").sortable({
+          group: 'nested',
+          afterMove: function (placeholder, container) {
+            if(oldContainer != container){
+              if(oldContainer)
+              oldContainer.el.removeClass("active");
+              container.el.addClass("active");
+              oldContainer = container;
+            }
+          },
+
+          onDrop: function ($item, container, _super) {
+            container.el.removeClass("active");
+            _super($item, container);
+          }
+        });
+
+        $(".switch-container").on("click", ".switch", function  (e) {
+          var method = $(this).hasClass("active") ? "enable" : "disable";
+          $(e.delegateTarget).next().sortable(method);
+        });
+
+      </script>
+    </body>

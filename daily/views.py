@@ -10,7 +10,7 @@ def index(request):
   today = timezone.now().date()
   todays_schedule = Project.objects.filter(date=today)
   context = {'schedule': todays_schedule, 'date': today}
-  return render(request, 'daily/boot-test.html/', context)
+  return render(request, 'daily/div-test.html/', context)
 
 def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))

@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Creating a School Timetable - jQuery EasyUI Demo</title>
+  <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+  <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+  <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo/demo.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+  <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+  <h2>Creating a School Timetable</h2>
+  <div class="demo-info" style="margin-bottom:10px">
+    <div class="demo-tip icon-tip">&nbsp;</div>
+    <div>Click and drag a class to timetable.</div>
+  </div>
+
+  <div style="width:700px;">
+    <div class="left">
+      <table>
+        {% for project in schedule.all %}
+          {% for emp in project.employee.all %}
+        <tr>
+          <td><div class="item">{{ emp.name }}</div></td>
+        </tr>
+          {% endfor %}
+        {% endfor %}
+      </table>
+    </div>
+
+
+    <div style="width:700px;">
+    <div class="emps">
+        {% for project in schedule.all %}
+          {% for emp in project.employee.all %}
+            <div class="item">{{ emp.name }}</div>
+          {% endfor %}
+        {% endfor %}
+    </div>
+
+
+    <div class="right">
+      <table>
+        <tr>
+          <td class="blank"></td>
+          <td class="title">Project</td>
+          <td class="title">Time</td>
+          <td class="title">Employee(s)</td>
+          <td class="title">Phone(s)</td>
+        </tr>
+        {% for p in schedule.all %}
+        <tr>
+          <td class="time"></td>
+          <td class="drop">{{ p.name }}</td>
+          <td class="drop">{{ p.time }}</td>
+          <td class="drop"></td>
+          <td class="drop"></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  <style type="text/css">
+    .time{
+      width:10px;
+    }
+    .left{
+      width:120px;
+      float:left;
+    }
+    .left table{
+      background:#E0ECFF;
+    }
+    .left td{
+      background:#eee;
+    }
+    .right{
+      float:right;
+      width:570px;
+    }
+    .right table{
+      background:#E0ECFF;
+      width:100%;
+    }
+    .right td{
+      background:#fafafa;
+      color:#444;
+      text-align:center;
+      padding:2px;
+    }
+    .right td{
+      background:#E0ECFF;
+    }
+    .right td.drop{
+      background:#fafafa;
+      width:100px;
+    }
+    .right td.over{
+      background:#FBEC88;
+    }
+    .item{
+      text-align:center;
+      border:1px solid #499B33;
+      background:#fafafa;
+      color:#444;
+      width:100px;
+    }
+    .assigned{
+      border:1px solid #BC2A4D;
+    }
+    .trash{
+      background-color:red;
+    }
+    
+  </style>
+  <script>
+    $(function(){
+      $('.emps .item').draggable({
+        proxy:'clone',
+        revert:true
+      });
+
+      $('.left .item').draggable({
+        revert:true,
+        proxy:'clone'
+      });
+      $('.right td.drop').droppable({
+        accept: '.item',
+        onDragEnter:function(){
+          $(this).addClass('over');
+        },
+        onDragLeave:function(){
+          $(this).removeClass('over');
+        },
+        onDrop:function(e,source){
+          $(this).removeClass('over');
+          if ($(source).hasClass('assigned')){
+            $(this).attr('rowspan', $(this).attr('rowspan') + 2);
+            $(this).append(source);
+            } else {
+              var c = $(source).clone().addClass('assigned');
+              $(this).empty().append(c);
+              $(this).css('height', ($(this).height()) + 10 );
+              $(this).attr('rowspan', 2);
+            c.draggable({
+              revert:true
+            });
+          }
+        }
+      });
+      $('.left').droppable({
+        accept:'.assigned',
+        onDragEnter:function(e,source){
+          $(source).addClass('trash');
+        },
+        onDragLeave:function(e,source){
+          $(source).removeClass('trash');
+        },
+        onDrop:function(e,source){
+          $(source).remove();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
