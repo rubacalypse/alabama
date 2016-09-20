@@ -15,111 +15,160 @@
 
     </head>
     <body>
-
-      <table class="table table-bordered">
-        <tr>
-          <td>#</td>
-          <td>Project</td>
-          <td>Time</td>
-          <td>Employees</td>
-          <td>Phones</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Tribal</td>
-          <td>1:00am</td>
-          <td>
-            <div class="container-fluid">
-              <ol class='nested_with_switch'>
-                <li>Ernie</li>
-                <li>Bert</li>
-                <li>Bob</li>
-                <li>Employees
-                  <ol id="emps">
-                    <li>Elmo</li>
-                    <li>Zoe</li>
-                    <li>BBird</li>
-                    <li>Grover</li>
+      <div id="daily-view">
+        <button type="button" class="btn btn-primary btn-lg" onclick="addProject()">New project</button>
+        <form method="post" action="new_project" onsubmit="saveProject()">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-default">Submit</button>
+          <input type="hidden" name="proj-name" id="proj-name"/>
+          <input type="hidden" name="proj-time" id="proj-time"/>
+          <input type="hidden" name="proj-emps" id="proj-emps"/>
+          <input type="hidden" name="proj-phone" id="proj-phone"/>
+        </form>
+          <table class="table table-bordered" id="daily-table">
+          <tbody>
+            <tr>
+              <td>#</td>
+              <td>Project</td>
+              <td>Time</td>
+              <td>Employees</td>
+              <td>Phones</td>
+            </tr>
+            {% for project in schedule.all %}
+            <tr>
+              <td></td>
+              <td>{{ project.name }}</td>
+              <td>{{ project.time }}</td>
+              <td>
+                <div class="container-fluid">
+                  <ol class='nested_with_switch' id="emps">
+                    {% for emp in project.employee.all %}
+                    <li>{{ emp.name }}</li>
+                    {% endfor %}
                   </ol>
-                </li>
-              </ol>
-            </div>
-            </td>
-            <td>T1</td>
-      </table>
+                </div>
+              </td>
+              <td>
+                <div class="container-fluid">
+                  <ol class='nested_with_switch' id="tels">
+                    {% for tel in project.phone.all %}
+                    <li>{{ tel.number }}</li>
+                    {% endfor %}
+                  </ol>
+                </div>
+              </td>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
 
-      <button type="button" class="btn btn-default btn-lg" onclick="printEmployees()">save</button>
 
-
-      <style type="text/css">
-        body.dragging, body.dragging * {
-          cursor: move !important;
-        }
-
-        .dragged {
-          position: absolute;
-          opacity: 0.5;
-          z-index: 2000;
-        }
-
-        .item-list li.placeholder {
-          position: relative;
-        }
-
-        .item-list li.placeholder:before { 
-          position: absolute;
-        }
-
-        .item-list {
-          min-height: 200px;
-          border: 1px solid #eee;
-        }
-
-        ol.nested_with_switch li.placeholder {
-          position: relative;
-        }
-
-        ol.nested_with_switch li.placeholder:before {
-          position: absolute;
-        }
-
-      </style>
-
-      <script>
-
-        function printEmployees() {
-          $("#emps").children('li').each(function() {
-            console.log($(this).text());
-          });
-        }
-
-        $('.item-list').sortable({
-          group: 'list-group',
-          pullPlaceholder: false,
-        });
-
-        var oldContainer;
-        $("ol.nested_with_switch").sortable({
-          group: 'nested',
-          afterMove: function (placeholder, container) {
-            if(oldContainer != container){
-              if(oldContainer)
-              oldContainer.el.removeClass("active");
-              container.el.addClass("active");
-              oldContainer = container;
-            }
-          },
-
-          onDrop: function ($item, container, _super) {
-            container.el.removeClass("active");
-            _super($item, container);
+        <style type="text/css">
+          body {
+            margin: auto;
+            width: 50%;
           }
-        });
+          body.dragging, body.dragging * {
+            cursor: move !important;
+          }
 
-        $(".switch-container").on("click", ".switch", function  (e) {
-          var method = $(this).hasClass("active") ? "enable" : "disable";
-          $(e.delegateTarget).next().sortable(method);
-        });
+          .dragged {
+            position: absolute;
+            opacity: 0.5;
+            z-index: 2000;
+          }
 
-      </script>
-    </body>
+          .item-list li.placeholder {
+            position: relative;
+          }
+
+          .item-list li.placeholder:before { 
+            position: absolute;
+          }
+
+          .item-list {
+            min-height: 200px;
+            border: 1px solid #eee;
+          }
+
+          ol.nested_with_switch li.placeholder {
+            position: relative;
+          }
+
+          ol.nested_with_switch li.placeholder:before {
+            position: absolute;
+          }
+
+        </style>
+
+        <script>
+
+
+          //function showEmps() {
+            //    <div class="container-fluid">
+              //    <ol class='nested_with_switch' id="emps">
+                //    {% for emp in project.employee.all %}
+                  //  <li>{{ emp.name }}</li>
+                   // {% endfor %}
+                 // </ol>
+                //</div>
+              //}
+
+          function saveProject(){
+            $('#proj-name').val($('#new-name').val());
+            $('#proj-time').val($('#new-time').val());
+            $('#proj-emps').val($('#new-emps').val());
+            $('#proj-phone').val($('#new-phone').val());
+            console.log($('#proj-name').val());
+            console.log($('#proj-time').val());
+            console.log($('#proj-emps').val());
+            console.log($('#proj-phone').val());
+          }
+
+          function addProject(){
+            $('#daily-table > tbody:last-child').append($('<tr>')
+                .append($('<td>'))
+                .append($('<td>')
+                  .append($('<input type="text" id="new-name">')))
+                .append($('<td>')
+                  .append($('<input type="text" id="new-time">')))
+                .append($('<td>')
+                  .append($('<input type="text" id="new-emps">')))
+                .append($('<td>')
+                  .append($('<input type="text" id="new-phone">')))
+              );
+            $('#new-name').focus();
+            }
+
+//emp_names
+              $('.item-list').sortable({
+                group: 'list-group',
+                pullPlaceholder: false,
+              });
+
+              var oldContainer;
+              $("ol.nested_with_switch").sortable({
+                group: 'nested',
+                afterMove: function (placeholder, container) {
+                  if(oldContainer != container){
+                    if(oldContainer){
+                      oldContainer.el.removeClass("active");
+                    }
+                    container.el.addClass("active");
+                    oldContainer = container;
+                  }
+                },
+
+                onDrop: function ($item, container, _super) {
+                  container.el.removeClass("active");
+                  _super($item, container);
+                }
+              });
+
+              $(".switch-container").on("click", ".switch", function  (e) {
+                var method = $(this).hasClass("active") ? "enable" : "disable";
+                $(e.delegateTarget).next().sortable(method);
+              });
+
+            </script>
+          </body>
