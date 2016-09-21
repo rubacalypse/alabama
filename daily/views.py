@@ -2,17 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.dateparse import parse_time
-
 from .models import Project, Employee, Phone
-
+import json
 import datetime
 
 def index(request):
   today = timezone.now().date()
   todays_schedule = Project.objects.filter(date=today)
-  employee_names = Employee.objects.all()
-  context = {'schedule': todays_schedule, 'date': today, 'emp_names':
-      employee_names}
+  employees = Employee.objects.all()
+  employee_names = [e.name for e in employees]
+  e_names = json.dumps(employee_names)
+  context = {'schedule': todays_schedule, 'date': today, 'emp_names': e_names}
   return render(request, 'daily/div-test.html/', context)
 
 def show_schedule(request, year, month, day):

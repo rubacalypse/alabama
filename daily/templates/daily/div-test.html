@@ -12,7 +12,9 @@
       <script src="{% static 'daily/bootstrap.min.js' %}"></script>
       <script src="{% static 'daily/docs.min.js' %}"></script>
       <script type = "text/javascript" src="{% static 'daily/jquery-sortable.js'%}"></script>
-
+      <link rel="stylesheet" type="text/css" href= "{% static 'daily/jquery.timepicker.css' %}"/>
+      <script type = "text/javascript" src="{% static 'daily/jquery.timepicker.js'%}"></script>
+    
     </head>
     <body>
       <div id="daily-view">
@@ -102,18 +104,8 @@
         </style>
 
         <script>
-
-
-          //function showEmps() {
-            //    <div class="container-fluid">
-              //    <ol class='nested_with_switch' id="emps">
-                //    {% for emp in project.employee.all %}
-                  //  <li>{{ emp.name }}</li>
-                   // {% endfor %}
-                 // </ol>
-                //</div>
-              //}
-
+          var e_names = {{ emp_names|safe }};
+          
           function saveProject(){
             $('#proj-name').val($('#new-name').val());
             $('#proj-time').val($('#new-time').val());
@@ -125,26 +117,56 @@
             console.log($('#proj-phone').val());
           }
 
-          function addProject(){
+          function addProject() {
             $('#daily-table > tbody:last-child').append($('<tr>')
                 .append($('<td>'))
                 .append($('<td>')
                   .append($('<input type="text" id="new-name">')))
                 .append($('<td>')
-                  .append($('<input type="text" id="new-time">')))
+                  .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
                 .append($('<td>')
-                  .append($('<input type="text" id="new-emps">')))
+                  .append($('<div class="container-fluid">')
+                    .append($("<ol class='nested_with_switch' id='emps_list'>"))))
                 .append($('<td>')
-                  .append($('<input type="text" id="new-phone">')))
-              );
-            $('#new-name').focus();
+                  .append($('<div class="container-fluid">')
+                    .append($("<ol class='nested_with_switch' id='emps_list'>"))))
+            );
+
+            for (let e of e_names) {
+              $('#emps_list').append($('<li>').append(e));
             }
 
-//emp_names
-              $('.item-list').sortable({
-                group: 'list-group',
-                pullPlaceholder: false,
-              });
+            $('#new-name').focus();
+            $('#new-time').timepicker({
+              'step': function(i) {
+                return (i%2) ? 15 : 45;
+              }
+            });
+
+            var oldContainer;
+            $("ol.nested_with_switch").sortable({
+              group: 'nested',
+              afterMove: function (placeholder, container) {
+                if(oldContainer != container){
+                  if(oldContainer){
+                    oldContainer.el.removeClass("active");
+                  }
+                  container.el.addClass("active");
+                  oldContainer = container;
+                }
+              },
+
+              onDrop: function ($item, container, _super) {
+                container.el.removeClass("active");
+                 _super($item, container);
+              }
+            });
+
+            $(".switch-container").on("click", ".switch", function  (e) {
+              var method = $(this).hasClass("active") ? "enable" : "disable";
+              $(e.delegateTarget).next().sortable(method);
+            });
+        }
 
               var oldContainer;
               $("ol.nested_with_switch").sortable({
@@ -164,6 +186,24 @@
                   _super($item, container);
                 }
               });
+
+              $("ol.simple_with_drop").sortable({
+                  group: 'no-drop',
+                    handle: 'i.icon-move',
+                      onDragStart: function ($item, container, _super) {
+                            // Duplicate items of the no drop area
+                                if(!container.options.drop)
+                                      $item.clone().insertAfter($item);
+                                          _super($item, container);
+                                            }
+              });
+
+
+              $('.item-list').sortable({
+                group: 'list-group',
+                pullPlaceholder: false,
+              });
+
 
               $(".switch-container").on("click", ".switch", function  (e) {
                 var method = $(this).hasClass("active") ? "enable" : "disable";
