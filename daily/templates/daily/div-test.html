@@ -282,6 +282,7 @@
             $('#new-name').focus();
             $('#new-time').timepicker({
               'step': function(i) {
+                return(i%2) ? 15 : 45;
               }
             });
 
