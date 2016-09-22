@@ -108,17 +108,17 @@
           <div class="v-box">
             <h3>employees</h3>
             <div class="container-fluid">
-                  <ol class='nested_with_switch' id="emps">
+                  <ol class='nested_with_switch' id="emps-flex-list">
                     {% for emp in emp_names.all %}
-                    <li>{{ emp.name }}</li>
+                    <li id="flex-li">{{ emp.name }}</li>
                     {% endfor %}
                   </ol>
                 </div>
                 <h3>phones</h3>
              <div class="container-fluid">
-                  <ol class='nested_with_switch' id="emps">
+                  <ol class='simple_with_no_drop' id="phones-flex-list">
                     {% for phone in phones.all %}
-                    <li>{{ phone.number }}</li>
+                    <li id="flex-li">{{ phone.number }}</li>
                     {% endfor %}
                   </ol>
                 </div>
@@ -129,8 +129,10 @@
 
 
         <style type="text/css">
-          .emps {
-            
+          #flex-li {
+            border: 1px solid black;
+            margin: 3px;
+            padding: 3px;
           }
           
           .h-box {
@@ -228,7 +230,14 @@
           ol.nested_with_switch li.placeholder:before {
             position: absolute;
           }
+          
+          ol.simple_with_no_drop li.placeholder {
+            position: relative;
+          }
 
+          ol.simple_with_no_drop li.placeholder:before {
+            position: absolute;
+          }
         </style>
 
         <script>
@@ -308,13 +317,17 @@
                   }
                 },
 
-                onDrop: function ($item, container, _super) {
+                  onDrop: function ($item, container, _super) {
                   container.el.removeClass("active");
                   _super($item, container);
                 }
               });
 
 
+              $("ol.simple_with_no_drop").sortable({
+                  group: 'no-drop',
+                    drop: false
+                });
 
               $('.item-list').sortable({
                 group: 'list-group',
