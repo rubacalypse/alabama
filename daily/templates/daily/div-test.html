@@ -249,12 +249,17 @@
             $('#save-button').css("display", "inline-block");
             $('#proj-name').val($('#new-name').val());
             $('#proj-time').val($('#new-time').val());
-            $('#proj-emps').val($('#new-emps').val());
-            $('#proj-phone').val($('#new-phone').val());
-            console.log($('#proj-name').val());
-            console.log($('#proj-time').val());
-            console.log($('#proj-emps').val());
-            console.log($('#proj-phone').val());
+            $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
+            $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
+          }
+          
+          function extractList(listId) {
+            var vals = []; 
+            $(listId).find('li').each(function() {
+              vals.push($(this).text());
+            });
+
+            return vals;
           }
 
           function addProject() {
@@ -266,10 +271,10 @@
                   .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
                 .append($('<td>')
                   .append($('<div class="container-fluid">')
-                    .append($("<ol class='simple_with_drop' id='emps_list'>"))))
+                    .append($("<ol class='simple_with_drop' id='new-emps'>"))))
                 .append($('<td>')
                   .append($('<div class="container-fluid">')
-                    .append($("<ol class='simple_with_drop' id='emps_list'>"))))
+                    .append($("<ol class='simple_with_drop' id='new-phones'>"))))
             );
 
             $('#new-proj-button').toggle();

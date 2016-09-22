@@ -25,18 +25,22 @@ def new_project(request):
   print(request.POST)
   pname = request.POST['proj-name']
   ptime = request.POST['proj-time']
-  pemps = request.POST['proj-emps']
-  pphones = request.POST['proj-phone']
-  print(pemps[0])
+  pemps = json.loads(request.POST['proj-emps'])
+  pphones = json.loads(request.POST['proj-phone'])
   
   p = Project()
   p.name=pname
   p.date=timezone.now().date()
   p.time=parse_time(ptime)
   p.save()
-  p.employee.add(Employee.objects.get(name=pemps))
-  p.phone.add(Phone.objects.get(number=pphones))
   
+  
+  for emp in pemps:
+    p.employee.add(Employee.objects.get(name=emp))
+
+  for phone in pphones:
+    p.phone.add(Phone.objects.get(number=phone))
+
   p.save()
   
   #add new project
