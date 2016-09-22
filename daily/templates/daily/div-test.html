@@ -8,6 +8,13 @@
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/bootstrap.min.css' %}"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+      
       <!-- Bootstrap theme -->
       <script src="{% static 'daily/bootstrap.min.js' %}"></script>
       <script src="{% static 'daily/docs.min.js' %}"></script>
@@ -17,20 +24,54 @@
     
     </head>
     <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Liverpool Window Cleaning</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+      
+      <div class="container">
+
+      <div class="starter-template">
+        <h1>{{ date }}</h1>
+      </div>
+
+    </div><!-- /.container -->      
+      
       <div id="daily-view">
-        <button type="button" class="btn btn-primary btn-lg" onclick="addProject()">New project</button>
+        <div id="form-fields">
+        <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
+        <button type="button" class="btn btn-primary btn-lg" id="show-emps-button" onclick="showEmps()">Show Employees</button>
+        <button type="button" class="btn btn-primary btn-lg" id="show-phones-button" onclick="showPhones()">Show Phones</button>
+        
         <form method="post" action="new_project" onsubmit="saveProject()">
           {% csrf_token %}
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-primary btn-lg" id="save-button">Save</button>
           <input type="hidden" name="proj-name" id="proj-name"/>
           <input type="hidden" name="proj-time" id="proj-time"/>
           <input type="hidden" name="proj-emps" id="proj-emps"/>
           <input type="hidden" name="proj-phone" id="proj-phone"/>
         </form>
+      </div>
           <table class="table table-bordered" id="daily-table">
           <tbody>
             <tr>
-              <td>#</td>
+              <td>  </td>
               <td>Project</td>
               <td>Time</td>
               <td>Employees</td>
@@ -66,10 +107,44 @@
 
 
         <style type="text/css">
-          body {
-            margin: auto;
+          
+          #form-fields {
+            padding: 10px;
+          }
+
+          #save-button {
+            display: none;
+            background: green;
+          }
+
+          #show-emps-button {
+            display: inline-block;
+          }
+
+          #daily-table {
             width: 50%;
           }
+          ol {
+            -webkit-padding-start: 0px;
+            list-style-type: none;
+          }
+
+          ol li {
+            float: center;
+          }
+          
+          #emps_list li{
+            border: 1px solid black; 
+            padding: 10px;
+            margin: 0 auto;
+          
+          }
+
+          body {
+            padding: 50px;
+            margin: auto;
+          }
+
           body.dragging, body.dragging * {
             cursor: move !important;
           }
@@ -104,9 +179,10 @@
         </style>
 
         <script>
-          var e_names = {{ emp_names|safe }};
-          
+
           function saveProject(){
+            $('#save-button').toggle();
+            $('#save-button').css("display", "inline-block");
             $('#proj-name').val($('#new-name').val());
             $('#proj-time').val($('#new-time').val());
             $('#proj-emps').val($('#new-emps').val());
@@ -132,10 +208,8 @@
                     .append($("<ol class='nested_with_switch' id='emps_list'>"))))
             );
 
-            for (let e of e_names) {
-              $('#emps_list').append($('<li>').append(e));
-            }
-
+            $('#new-proj-button').toggle();
+            $('#save-button').toggle();
             $('#new-name').focus();
             $('#new-time').timepicker({
               'step': function(i) {
@@ -187,16 +261,6 @@
                 }
               });
 
-              $("ol.simple_with_drop").sortable({
-                  group: 'no-drop',
-                    handle: 'i.icon-move',
-                      onDragStart: function ($item, container, _super) {
-                            // Duplicate items of the no drop area
-                                if(!container.options.drop)
-                                      $item.clone().insertAfter($item);
-                                          _super($item, container);
-                                            }
-              });
 
 
               $('.item-list').sortable({
