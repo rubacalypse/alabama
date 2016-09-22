@@ -57,10 +57,7 @@
       <div id="daily-view">
         <div id="form-fields">
           <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
-          <button type="button" class="btn btn-primary btn-lg" id="show-emps-button" onclick="showEmps()">Show Employees</button>
-          <button type="button" class="btn btn-primary btn-lg" id="show-phones-button" onclick="showPhones()">Show Phones</button>
-
-          <form method="post" action="new_project" onsubmit="saveProject()">
+          <form method="post" action="new_project" style="display: inline;"  onsubmit="saveProject()">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary btn-lg" id="save-button">Save</button>
             <input type="hidden" name="proj-name" id="proj-name"/>
@@ -68,6 +65,9 @@
             <input type="hidden" name="proj-emps" id="proj-emps"/>
             <input type="hidden" name="proj-phone" id="proj-phone"/>
           </form>
+          <button type="button" class="btn btn-primary btn-lg" id="show-emps-button" onclick="showEmps()">Show Employees</button>
+          <button type="button" class="btn btn-primary btn-lg" id="show-phones-button" onclick="showPhones()">Show Phones</button>
+
         </div>
         <div class="h-box">
         <table class="table table-bordered" id="daily-table">
