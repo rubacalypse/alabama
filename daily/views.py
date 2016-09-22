@@ -8,7 +8,8 @@ import datetime
 
 def index(request):
   today = timezone.now().date()
-  todays_schedule = Project.objects.filter(date=today)
+  #todays_schedule = Project.objects.filter(date=today)
+  todays_schedule = Project.objects.all()
   employees = Employee.objects.all()
   phones = Phone.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
