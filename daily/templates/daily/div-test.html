@@ -44,7 +44,8 @@
         </div><!--/.nav-collapse -->
       </div>
       </nav>
-      
+
+
       <div class="container">
 
       <div class="starter-template">
@@ -52,23 +53,24 @@
       </div>
 
     </div><!-- /.container -->      
-      
+
       <div id="daily-view">
         <div id="form-fields">
-        <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
-        <button type="button" class="btn btn-primary btn-lg" id="show-emps-button" onclick="showEmps()">Show Employees</button>
-        <button type="button" class="btn btn-primary btn-lg" id="show-phones-button" onclick="showPhones()">Show Phones</button>
-        
-        <form method="post" action="new_project" onsubmit="saveProject()">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary btn-lg" id="save-button">Save</button>
-          <input type="hidden" name="proj-name" id="proj-name"/>
-          <input type="hidden" name="proj-time" id="proj-time"/>
-          <input type="hidden" name="proj-emps" id="proj-emps"/>
-          <input type="hidden" name="proj-phone" id="proj-phone"/>
-        </form>
-      </div>
-          <table class="table table-bordered" id="daily-table">
+          <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
+          <button type="button" class="btn btn-primary btn-lg" id="show-emps-button" onclick="showEmps()">Show Employees</button>
+          <button type="button" class="btn btn-primary btn-lg" id="show-phones-button" onclick="showPhones()">Show Phones</button>
+
+          <form method="post" action="new_project" onsubmit="saveProject()">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg" id="save-button">Save</button>
+            <input type="hidden" name="proj-name" id="proj-name"/>
+            <input type="hidden" name="proj-time" id="proj-time"/>
+            <input type="hidden" name="proj-emps" id="proj-emps"/>
+            <input type="hidden" name="proj-phone" id="proj-phone"/>
+          </form>
+        </div>
+        <div class="h-box">
+        <table class="table table-bordered" id="daily-table">
           <tbody>
             <tr>
               <td>  </td>
@@ -103,11 +105,62 @@
               {% endfor %}
             </tbody>
           </table>
+          <div class="v-box">
+            <h3>employees</h3>
+            <div class="container-fluid">
+                  <ol class='nested_with_switch' id="emps">
+                    {% for emp in emp_names.all %}
+                    <li>{{ emp.name }}</li>
+                    {% endfor %}
+                  </ol>
+                </div>
+                <h3>phones</h3>
+             <div class="container-fluid">
+                  <ol class='nested_with_switch' id="emps">
+                    {% for phone in phones.all %}
+                    <li>{{ phone.number }}</li>
+                    {% endfor %}
+                  </ol>
+                </div>
+              
+              </div>
+        </div>
         </div>
 
 
         <style type="text/css">
+          .emps {
+            
+          }
           
+          .h-box {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+          }
+          .v-box {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+          }
+
+
           #form-fields {
             padding: 10px;
           }

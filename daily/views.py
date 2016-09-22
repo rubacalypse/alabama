@@ -10,11 +10,10 @@ def index(request):
   today = timezone.now().date()
   todays_schedule = Project.objects.filter(date=today)
   employees = Employee.objects.all()
-  #employee_names = [e.name for e in employees]
-  #e_names = json.dumps(employee_names)
+  phones = Phone.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
-  
-  context = {'date': date, 'schedule': todays_schedule, 'date': today, 'emp_names': employees}
+   
+  context = {'date': date, 'schedule': todays_schedule, 'date': today, 'emp_names': employees, 'phones': phones}
   
   return render(request, 'daily/div-test.html/', context)
 
