@@ -83,19 +83,19 @@
               <td>{{ project.name }}</td>
               <td>{{ project.time }}</td>
               <td>
-                <div class="container-fluid">
-                  <ol class='simple_with_drop' id="emps">
+                <div class="container-fluid-employee-list">
+                  <ol class='simple_with_drop employee_list' id="emps">
                     {% for emp in project.employee.all %}
-                    <li class="flex-li">{{ emp.name }}</li>
+                    <li class="flex-li employee">{{ emp.name }}</li>
                     {% endfor %}
                   </ol>
                 </div>
               </td>
               <td>
-                <div class="container-fluid">
-                  <ol class='simple_with_drop' id="tels">
+                <div class="container-fluid-phone-list">
+                  <ol class='simple_with_drop phone_list' id="tels">
                     {% for tel in project.phone.all %}
-                    <li class="flex-li">{{ tel.number }}</li>
+                    <li class="flex-li telephone">{{ tel.number }}</li>
                     {% endfor %}
                   </ol>
                 </div>
@@ -106,17 +106,17 @@
           <div class="v-box">
             <h3>employees</h3>
             <div class="container-fluid">
-                  <ol class='simple_with_no_drop' id="emps-flex-list">
+                  <ol class='simple_with_no_drop' id="emps-source">
                     {% for emp in emp_names.all %}
-                    <li class="flex-li">{{ emp.name }}</li>
+                    <li class="flex-li employee">{{ emp.name }}</li>
                     {% endfor %}
                   </ol>
                 </div>
                 <h3>phones</h3>
              <div class="container-fluid">
-                  <ol class='simple_with_no_drop' id="phones-flex-list">
+                  <ol class='simple_with_no_drop' id="phones-source">
                     {% for phone in phones.all %}
-                    <li class="flex-li">{{ phone.number }}</li>
+                    <li class="flex-li telephone">{{ phone.number }}</li>
                     {% endfor %}
                   </ol>
                 </div>
@@ -238,6 +238,7 @@
           ol.simple_with_no_drop li.placeholder:before {
             position: absolute;
           }
+
         </style>
 
         <script>
@@ -250,7 +251,7 @@
             $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
             $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
           }
-          
+
           function extractList(listId) {
             var vals = []; 
             $(listId).find('li').each(function() {
@@ -302,21 +303,80 @@
 
         }
 
-        $("ol.simple_with_drop").sortable({
-          group: 'no-drop',
-          //handle: 'i.icon-move',
+
+        $("ol.simple_with_drop.employee_list").sortable({
+          group: 'emps-group',
           onDragStart: function ($item, container, _super) {
             // Duplicate items of the no drop area
+            console.log("emp drag?");
             if(!container.options.drop)
             $item.clone().insertAfter($item);
             _super($item, container);
+          },
+          isValidTarget: function($item, container) {
+             return $item[0].classList.contains('employee');
+           }
+         });
+         
+         $("ol.simple_with_drop.phone_list").sortable({
+          group: 'phones-group',
+          onDragStart: function ($item, container, _super) {
+            console.log("phone drag?");
+            // Duplicate items of the no drop area
+
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer;
+
+            adjustment = {
+              left: pointer.left - offset.left,
+              top: pointer.top - offset.top
+            };
+
+            if(!container.options.drop) {
+              $item.clone().insertAfter($item);
+            }
+
+            _super($item, container);
+          },
+
+          onDrag: function ($item, position) {
+              $item.css({
+                left: position.left - adjustment.left,
+                top: position.top - adjustment.top
+              });
+            },
+
+          onDrop: function  ($item, container, _super) {
+              var $clonedItem = $('<li/>').css({height: 0});
+              $item.before($clonedItem);
+              $clonedItem.animate({'height': $item.height()});
+
+              $item.animate($clonedItem.position(), function  ()
+              {
+                $clonedItem.detach();
+                _super($item, container);
+              });
+          },
+
+          isValidTarget: function($item, container) {
+            return $item[0].classList.contains('telephone');
           }
+         });
+
+
+         $("ol.simple_with_no_drop#emps-source").sortable({
+           group: 'emps-group',
+           drop: false
+         });
+
+
+        $("ol.simple_with_no_drop#phones-source").sortable({
+          group: 'phones-group',
+          drop: false,
         });
 
-        $("ol.simple_with_no_drop").sortable({
-          group: 'no-drop',
-          drop: false
-        });
+
+
 
         $('.item-list').sortable({
           group: 'list-group',
