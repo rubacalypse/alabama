@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/bootstrap.min.css' %}"/>
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/daily.css' %}"/>
 
+      <link rel="stylesheet" type="text/css" href= "{% static 'daily/trash.css' %}"/>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
@@ -105,6 +106,11 @@
               {% endfor %}
             </tbody>
           </table>
+          <div class="trash-icon">
+            <div class="lid"></div>
+            <div class="lidcap"></div>
+            <div class="bin"></div>
+          </div>
           <div class="v-box">
             <h3>employees</h3>
             <div class="container-fluid">
@@ -114,16 +120,16 @@
                     {% endfor %}
               </ol>
                 </div>
-                <h3>phones</h3>
-                <div class="container-fluid">
-                  <ol class='sortable_with_no_drop' id="phones-source">
-                    {% for phone in phones.all %}
-                    <li class="flex-li telephone">{{ phone.number }}</li>
+            <h3>phones</h3>
+              <div class="container-fluid">
+                <ol class='sortable_with_no_drop' id="phones-source">
+                  {% for phone in phones.all %}
+                  <li class="flex-li telephone">{{ phone.number }}</li>
                     {% endfor %}
-                  </ol>
-                </div>
+                </ol>
               </div>
             </div>
+          </div>
       </div>
 
 

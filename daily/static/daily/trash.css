@@ -1,0 +1,52 @@
+.trash-icon {
+  background: #ffffff;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 10px 0 0;
+  border-radius: 2px;
+  transition: box-shadow .2s ease;
+}
+.trash-icon:hover {
+  box-shadow: 0 0 4px rgba(10, 10, 10, 0.3);
+}
+
+.trash-icon:hover .lid, .icon:hover .lidcap {
+  transform: rotate(10deg);
+  margin-bottom: 6px;
+}
+
+.lidcap, .lid, .bin {
+  position: absolute;
+}
+
+.lidcap, .lid {
+  border-top-left-radius: 1.6px;
+  border-top-right-radius: 1.6px;
+  background: #111;
+  transition: transform .2s linear, margin .2s linear;
+}
+
+.lidcap {
+  bottom: 55.2px;
+  left: 36px;
+  height: 4px;
+  width: 8px;
+}
+
+.lid {
+  bottom: 48px;
+  left: 12px;
+  width: 56px;
+  height: 8px;
+}
+
+.bin {
+  bottom: 0;
+  left: 16px;
+  width: 40px;
+  border-top: 48px solid #111;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
