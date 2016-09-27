@@ -304,6 +304,48 @@
               }
             });
 
+
+            $("ol.sortable_with_drop.new-phones").sortable({
+              group: 'phones-group',
+              onDragStart: function ($item, container, _super) {
+                console.log("phone drag?");
+                // Duplicate items of the no drop area
+
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer;
+
+            adjustment = {
+              left: pointer.left - offset.left,
+              top: pointer.top - offset.top
+            };
+
+            if(!container.options.drop) {
+              $item.clone().insertAfter($item);
+            }
+
+            _super($item, container);
+          },
+
+          onDrag: function ($item, position) {
+              $item.css({
+                left: position.left - adjustment.left,
+                top: position.top - adjustment.top
+              });
+            },
+
+          onDrop: function  ($item, container, _super) {
+              var $clonedItem = $('<li/>').css({height: 0});
+              $item.before($clonedItem);
+              $clonedItem.animate({'height': $item.height()});
+
+              $item.animate($clonedItem.position(), function  ()
+              {
+                $clonedItem.detach();
+                _super($item, container);
+              });
+          },
+         });
+
         }
 
 
