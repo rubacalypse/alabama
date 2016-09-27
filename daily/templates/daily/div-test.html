@@ -106,7 +106,7 @@
           <div class="v-box">
             <h3>employees</h3>
             <div class="container-fluid">
-                  <ol class='simple_with_no_drop' id="emps-source">
+                  <ol class='sortable_with_no_drop' id="emps-source">
                     {% for emp in emp_names.all %}
                     <li class="flex-li employee">{{ emp.name }}</li>
                     {% endfor %}
@@ -114,7 +114,7 @@
                 </div>
                 <h3>phones</h3>
              <div class="container-fluid">
-                  <ol class='simple_with_no_drop' id="phones-source">
+                  <ol class='sortable_with_no_drop' id="phones-source">
                     {% for phone in phones.all %}
                     <li class="flex-li telephone">{{ phone.number }}</li>
                     {% endfor %}
@@ -172,9 +172,6 @@
             background: green;
           }
 
-          #show-emps-button {
-            display: inline-block;
-          }
 
           #daily-table {
             width: 50%;
@@ -188,12 +185,6 @@
             float: center;
           }
           
-          #emps_list li{
-            border: 1px solid black; 
-            padding: 10px;
-            margin: 0 auto;
-          
-          }
 
           body {
             padding: 50px;
@@ -210,18 +201,6 @@
             z-index: 2000;
           }
 
-          .item-list li.placeholder {
-            position: relative;
-          }
-
-          .item-list li.placeholder:before { 
-            position: absolute;
-          }
-
-          .item-list {
-            min-height: 200px;
-            border: 1px solid #eee;
-          }
 
           ol.sortable_with_drop li.placeholder {
             position: relative;
@@ -231,11 +210,11 @@
             position: absolute;
           }
           
-          ol.simple_with_no_drop li.placeholder {
+          ol.sortable_with_no_drop li.placeholder {
             position: relative;
           }
 
-          ol.simple_with_no_drop li.placeholder:before {
+          ol.sortable_with_no_drop li.placeholder:before {
             position: absolute;
           }
 
@@ -410,13 +389,13 @@
          });
 
 
-         $("ol.simple_with_no_drop#emps-source").sortable({
+         $("ol.sortable_with_no_drop#emps-source").sortable({
            group: 'emps-group',
            drop: false
          });
 
 
-        $("ol.simple_with_no_drop#phones-source").sortable({
+        $("ol.sortable_with_no_drop#phones-source").sortable({
           group: 'phones-group',
           drop: false,
         });
