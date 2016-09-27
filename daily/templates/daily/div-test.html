@@ -14,14 +14,14 @@
 
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">
-      
+
       <!-- Bootstrap theme -->
       <script src="{% static 'daily/bootstrap.min.js' %}"></script>
       <script src="{% static 'daily/docs.min.js' %}"></script>
       <script type = "text/javascript" src="{% static 'daily/jquery-sortable.js'%}"></script>
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/jquery.timepicker.css' %}"/>
       <script type = "text/javascript" src="{% static 'daily/jquery.timepicker.js'%}"></script>
-    
+
     </head>
     <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -83,8 +83,8 @@
               <td>{{ project.name }}</td>
               <td>{{ project.time }}</td>
               <td>
-                <div class="container-fluid-employee-list">
-                  <ol class='simple_with_drop employee_list' id="emps">
+                <div class="container-fluid">
+                  <ol class='sortable_with_drop employee_list'>
                     {% for emp in project.employee.all %}
                     <li class="flex-li employee">{{ emp.name }}</li>
                     {% endfor %}
@@ -92,8 +92,8 @@
                 </div>
               </td>
               <td>
-                <div class="container-fluid-phone-list">
-                  <ol class='simple_with_drop phone_list' id="tels">
+                <div class="container-fluid">
+                  <ol class='sortable_with_drop phone_list'>
                     {% for tel in project.phone.all %}
                     <li class="flex-li telephone">{{ tel.number }}</li>
                     {% endfor %}
@@ -223,11 +223,11 @@
             border: 1px solid #eee;
           }
 
-          ol.simple_with_drop li.placeholder {
+          ol.sortable_with_drop li.placeholder {
             position: relative;
           }
 
-          ol.simple_with_drop li.placeholder:before {
+          ol.sortable_with_drop li.placeholder:before {
             position: absolute;
           }
           
@@ -270,10 +270,10 @@
                   .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
                 .append($('<td>')
                   .append($('<div class="container-fluid">')
-                    .append($("<ol class='simple_with_drop' id='new-emps'>"))))
+                    .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>"))))
                 .append($('<td>')
                   .append($('<div class="container-fluid">')
-                    .append($("<ol class='simple_with_drop' id='new-phones'>"))))
+                    .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))))
             );
 
             $('#new-proj-button').toggle();
@@ -285,40 +285,90 @@
               }
             });
 
-            $("ol.simple_with_drop").sortable({
-              group: 'no-drop',
-              handle: 'i.icon-move',
+            $("ol.sortable_with_drop.new-emps").sortable({
+              group: 'emps-group',
               onDragStart: function ($item, container, _super) {
                 // Duplicate items of the no drop area
+                console.log("emp drag?");
+                // Duplicate items of the no drop area
+
+                var offset = $item.offset(),
+                pointer = container.rootGroup.pointer;
+
+                adjustment = {
+                  left: pointer.left - offset.left,
+                  top: pointer.top - offset.top
+                };
+
                 if(!container.options.drop)
                 $item.clone().insertAfter($item);
                 _super($item, container);
-              }
-            });
+              },
 
-            $("ol.simple_with_no_drop").sortable({
-              group: 'no-drop',
-              drop: false
+              onDrag: function ($item, position) {
+                $item.css({
+                  left: position.left - adjustment.left,
+                  top: position.top - adjustment.top
+                });
+              },
+
+              onDrop: function  ($item, container, _super) {
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+
+                $item.animate($clonedItem.position(), function  ()
+                {
+                  $clonedItem.detach();
+                  _super($item, container);
+                });
+              }
             });
 
         }
 
 
-        $("ol.simple_with_drop.employee_list").sortable({
+        $("ol.sortable_with_drop.employee_list").sortable({
           group: 'emps-group',
           onDragStart: function ($item, container, _super) {
             // Duplicate items of the no drop area
             console.log("emp drag?");
+            // Duplicate items of the no drop area
+
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer;
+
+            adjustment = {
+              left: pointer.left - offset.left,
+              top: pointer.top - offset.top
+            };
+
             if(!container.options.drop)
             $item.clone().insertAfter($item);
             _super($item, container);
           },
-          isValidTarget: function($item, container) {
-             return $item[0].classList.contains('employee');
-           }
+
+          onDrag: function ($item, position) {
+            $item.css({
+              left: position.left - adjustment.left,
+              top: position.top - adjustment.top
+            });
+          },
+
+          onDrop: function  ($item, container, _super) {
+            var $clonedItem = $('<li/>').css({height: 0});
+            $item.before($clonedItem);
+            $clonedItem.animate({'height': $item.height()});
+
+            $item.animate($clonedItem.position(), function  ()
+            {
+              $clonedItem.detach();
+              _super($item, container);
+            });
+          }
          });
          
-         $("ol.simple_with_drop.phone_list").sortable({
+         $("ol.sortable_with_drop.phone_list").sortable({
           group: 'phones-group',
           onDragStart: function ($item, container, _super) {
             console.log("phone drag?");
@@ -357,10 +407,6 @@
                 _super($item, container);
               });
           },
-
-          isValidTarget: function($item, container) {
-            return $item[0].classList.contains('telephone');
-          }
          });
 
 
@@ -374,15 +420,6 @@
           group: 'phones-group',
           drop: false,
         });
-
-
-
-
-        $('.item-list').sortable({
-          group: 'list-group',
-          pullPlaceholder: false,
-        });
-
 
 
       </script>
