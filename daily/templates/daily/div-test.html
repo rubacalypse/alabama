@@ -23,6 +23,7 @@
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/jquery.timepicker.css' %}"/>
       <script type = "text/javascript" src="{% static 'daily/jquery.timepicker.js'%}"></script>
 
+      <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
     </head>
     <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -107,248 +108,23 @@
           <div class="v-box">
             <h3>employees</h3>
             <div class="container-fluid">
-                  <ol class='sortable_with_no_drop' id="emps-source">
+              <ol class='sortable_with_no_drop' id="emps-source">
                     {% for emp in emp_names.all %}
                     <li class="flex-li employee">{{ emp.name }}</li>
                     {% endfor %}
-                  </ol>
+              </ol>
                 </div>
                 <h3>phones</h3>
-             <div class="container-fluid">
+                <div class="container-fluid">
                   <ol class='sortable_with_no_drop' id="phones-source">
                     {% for phone in phones.all %}
                     <li class="flex-li telephone">{{ phone.number }}</li>
                     {% endfor %}
                   </ol>
                 </div>
-              
               </div>
-        </div>
-        </div>
+            </div>
+      </div>
 
 
-        <script>
-
-          function saveProject(){
-            $('#save-button').toggle();
-            $('#save-button').css("display", "inline-block");
-            $('#proj-name').val($('#new-name').val());
-            $('#proj-time').val($('#new-time').val());
-            $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
-            $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
-          }
-
-          function extractList(listId) {
-            var vals = []; 
-            $(listId).find('li').each(function() {
-              vals.push($(this).text());
-            });
-
-            return vals;
-          }
-
-          function addProject() {
-            $('#daily-table > tbody > tr:first-child').after($('<tr>')
-                .append($('<td>'))
-                .append($('<td>')
-                  .append($('<input type="text" id="new-name">')))
-                .append($('<td>')
-                  .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
-                .append($('<td>')
-                  .append($('<div class="container-fluid">')
-                    .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>"))))
-                .append($('<td>')
-                  .append($('<div class="container-fluid">')
-                    .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))))
-            );
-
-            $('#new-proj-button').toggle();
-            $('#save-button').toggle();
-            $('#new-name').focus();
-            $('#new-time').timepicker({
-              'step': function(i) {
-                return(i%2) ? 15 : 45;
-              }
-            });
-
-            $("ol.sortable_with_drop.new-emps").sortable({
-              group: 'emps-group',
-              onDragStart: function ($item, container, _super) {
-                // Duplicate items of the no drop area
-                console.log("emp drag?");
-                // Duplicate items of the no drop area
-
-                var offset = $item.offset(),
-                pointer = container.rootGroup.pointer;
-
-                adjustment = {
-                  left: pointer.left - offset.left,
-                  top: pointer.top - offset.top
-                };
-
-                if(!container.options.drop)
-                $item.clone().insertAfter($item);
-                _super($item, container);
-              },
-
-              onDrag: function ($item, position) {
-                $item.css({
-                  left: position.left - adjustment.left,
-                  top: position.top - adjustment.top
-                });
-              },
-
-              onDrop: function  ($item, container, _super) {
-                var $clonedItem = $('<li/>').css({height: 0});
-                $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
-
-                $item.animate($clonedItem.position(), function  ()
-                {
-                  $clonedItem.detach();
-                  _super($item, container);
-                });
-              }
-            });
-
-
-            $("ol.sortable_with_drop.new-phones").sortable({
-              group: 'phones-group',
-              onDragStart: function ($item, container, _super) {
-                console.log("phone drag?");
-                // Duplicate items of the no drop area
-
-            var offset = $item.offset(),
-            pointer = container.rootGroup.pointer;
-
-            adjustment = {
-              left: pointer.left - offset.left,
-              top: pointer.top - offset.top
-            };
-
-            if(!container.options.drop) {
-              $item.clone().insertAfter($item);
-            }
-
-            _super($item, container);
-          },
-
-          onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-                top: position.top - adjustment.top
-              });
-            },
-
-          onDrop: function  ($item, container, _super) {
-              var $clonedItem = $('<li/>').css({height: 0});
-              $item.before($clonedItem);
-              $clonedItem.animate({'height': $item.height()});
-
-              $item.animate($clonedItem.position(), function  ()
-              {
-                $clonedItem.detach();
-                _super($item, container);
-              });
-          },
-         });
-
-        }
-
-
-        $("ol.sortable_with_drop.employee_list").sortable({
-          group: 'emps-group',
-          onDragStart: function ($item, container, _super) {
-            // Duplicate items of the no drop area
-            console.log("emp drag?");
-            // Duplicate items of the no drop area
-
-            var offset = $item.offset(),
-            pointer = container.rootGroup.pointer;
-
-            adjustment = {
-              left: pointer.left - offset.left,
-              top: pointer.top - offset.top
-            };
-
-            if(!container.options.drop)
-            $item.clone().insertAfter($item);
-            _super($item, container);
-          },
-
-          onDrag: function ($item, position) {
-            $item.css({
-              left: position.left - adjustment.left,
-              top: position.top - adjustment.top
-            });
-          },
-
-          onDrop: function  ($item, container, _super) {
-            var $clonedItem = $('<li/>').css({height: 0});
-            $item.before($clonedItem);
-            $clonedItem.animate({'height': $item.height()});
-
-            $item.animate($clonedItem.position(), function  ()
-            {
-              $clonedItem.detach();
-              _super($item, container);
-            });
-          }
-         });
-         
-         $("ol.sortable_with_drop.phone_list").sortable({
-          group: 'phones-group',
-          onDragStart: function ($item, container, _super) {
-            console.log("phone drag?");
-            // Duplicate items of the no drop area
-
-            var offset = $item.offset(),
-            pointer = container.rootGroup.pointer;
-
-            adjustment = {
-              left: pointer.left - offset.left,
-              top: pointer.top - offset.top
-            };
-
-            if(!container.options.drop) {
-              $item.clone().insertAfter($item);
-            }
-
-            _super($item, container);
-          },
-
-          onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-                top: position.top - adjustment.top
-              });
-            },
-
-          onDrop: function  ($item, container, _super) {
-              var $clonedItem = $('<li/>').css({height: 0});
-              $item.before($clonedItem);
-              $clonedItem.animate({'height': $item.height()});
-
-              $item.animate($clonedItem.position(), function  ()
-              {
-                $clonedItem.detach();
-                _super($item, container);
-              });
-          },
-         });
-
-
-         $("ol.sortable_with_no_drop#emps-source").sortable({
-           group: 'emps-group',
-           drop: false
-         });
-
-
-        $("ol.sortable_with_no_drop#phones-source").sortable({
-          group: 'phones-group',
-          drop: false,
-        });
-
-
-      </script>
     </body>
