@@ -8,6 +8,7 @@
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/bootstrap.min.css' %}"/>
+      <link rel="stylesheet" type="text/css" href= "{% static 'daily/daily.css' %}"/>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -125,100 +126,6 @@
         </div>
         </div>
 
-
-        <style type="text/css">
-          .flex-li {
-            border: 1px solid black;
-            margin: 3px;
-            padding: 3px;
-            width: 100px;
-            text-align: center;
-          }
-          
-          .h-box {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-          }
-          .v-box {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-          }
-
-
-          #form-fields {
-            padding: 10px;
-          }
-
-          #save-button {
-            display: none;
-            background: green;
-          }
-
-
-          #daily-table {
-            width: 50%;
-          }
-          ol {
-            -webkit-padding-start: 0px;
-            list-style-type: none;
-          }
-
-          ol li {
-            float: center;
-          }
-          
-
-          body {
-            padding: 50px;
-            margin: auto;
-          }
-
-          body.dragging, body.dragging * {
-            cursor: move !important;
-          }
-
-          .dragged {
-            position: absolute;
-            opacity: 0.5;
-            z-index: 2000;
-          }
-
-
-          ol.sortable_with_drop li.placeholder {
-            position: relative;
-          }
-
-          ol.sortable_with_drop li.placeholder:before {
-            position: absolute;
-          }
-          
-          ol.sortable_with_no_drop li.placeholder {
-            position: relative;
-          }
-
-          ol.sortable_with_no_drop li.placeholder:before {
-            position: absolute;
-          }
-
-        </style>
 
         <script>
 
