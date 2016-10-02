@@ -25,11 +25,9 @@ function addProject() {
       .append($('<td>')
         .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
       .append($('<td>')
-        .append($('<div class="container-fluid">')
-          .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>"))))
+        .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>")))
       .append($('<td>')
-        .append($('<div class="container-fluid">')
-          .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))))
+        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>")))
       );
 
   $('#new-proj-button').toggle();

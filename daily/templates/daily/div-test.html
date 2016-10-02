@@ -86,22 +86,18 @@
               <td>{{ project.name }}</td>
               <td>{{ project.time }}</td>
               <td>
-                <div class="container-fluid">
-                  <ol class='sortable_with_drop employee_list'>
-                    {% for emp in project.employee.all %}
-                    <li class="flex-li employee">{{ emp.name }}</li>
-                    {% endfor %}
-                  </ol>
-                </div>
+                <ol class='sortable_with_drop employee_list'>
+                  {% for emp in project.employee.all %}
+                  <li class="flex-li employee">{{ emp.name }}</li>
+                  {% endfor %}
+                </ol>
               </td>
               <td>
-                <div class="container-fluid">
-                  <ol class='sortable_with_drop phone_list'>
-                    {% for tel in project.phone.all %}
-                    <li class="flex-li telephone">{{ tel.number }}</li>
-                    {% endfor %}
-                  </ol>
-                </div>
+                <ol class='sortable_with_drop phone_list'>
+                  {% for tel in project.phone.all %}
+                  <li class="flex-li telephone">{{ tel.number }}</li>
+                  {% endfor %}
+                </ol>
               </td>
               {% endfor %}
             </tbody>
@@ -113,23 +109,19 @@
           </div>
           <div class="v-box">
             <h3>employees</h3>
-            <div class="container-fluid">
-              <ol class='sortable_with_no_drop' id="emps-source">
-                    {% for emp in emp_names.all %}
-                    <li class="flex-li employee">{{ emp.name }}</li>
-                    {% endfor %}
-              </ol>
-                </div>
+            <ol class='sortable_with_no_drop' id="emps-source">
+              {% for emp in emp_names.all %}
+              <li class="flex-li employee">{{ emp.name }}</li>
+              {% endfor %}
+            </ol>
             <h3>phones</h3>
-              <div class="container-fluid">
-                <ol class='sortable_with_no_drop' id="phones-source">
-                  {% for phone in phones.all %}
-                  <li class="flex-li telephone">{{ phone.number }}</li>
-                    {% endfor %}
-                </ol>
-              </div>
-            </div>
+            <ol class='sortable_with_no_drop' id="phones-source">
+              {% for phone in phones.all %}
+              <li class="flex-li telephone">{{ phone.number }}</li>
+              {% endfor %}
+            </ol>
           </div>
+        </div>
       </div>
 
 
