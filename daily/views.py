@@ -16,7 +16,7 @@ def index(request):
    
   context = {'date': date, 'schedule': todays_schedule, 'date': today, 'emp_names': employees, 'phones': phones}
   
-  return render(request, 'daily/div-test.html/', context)
+  return render(request, 'daily/daily.html/', context)
 
 def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))
