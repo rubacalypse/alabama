@@ -27,8 +27,7 @@ function addProject() {
       .append($('<td>')
         .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>")))
       .append($('<td>')
-        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>")))
-      );
+        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))));
 
   $('#new-proj-button').toggle();
   $('#save-button').toggle();
@@ -40,10 +39,8 @@ function addProject() {
   });
 
   $("ol.sortable_with_drop.new-emps").sortable({
-    group: 'emps-group',
+    group: 'employees',
     onDragStart: function ($item, container, _super) {
-      // Duplicate items of the no drop area
-      console.log("emp drag?");
       // Duplicate items of the no drop area
 
       var offset = $item.offset(),
@@ -67,23 +64,26 @@ function addProject() {
             },
 
     onDrop: function  ($item, container, _super) {
-              var $clonedItem = $('<li/>').css({height: 0});
-              $item.before($clonedItem);
-              $clonedItem.animate({'height': $item.height()});
+    if (container.el.hasClass('trash')) {
+                $item.remove();
+      } else {
+        var $clonedItem = $('<li/>').css({height: 0});
+        $item.before($clonedItem);
+        $clonedItem.animate({'height': $item.height()});
 
-              $item.animate($clonedItem.position(), function  ()
-                  {
-                    $clonedItem.detach();
-                    _super($item, container);
-                  });
+        $item.animate($clonedItem.position(), function  ()
+            {
+              $clonedItem.detach();
+              _super($item, container);
+            });
+      } 
             }
   });
 
 
   $("ol.sortable_with_drop.new-phones").sortable({
-    group: 'phones-group',
+    group: 'phones',
     onDragStart: function ($item, container, _super) {
-      console.log("phone drag?");
       // Duplicate items of the no drop area
 
       var offset = $item.offset(),
@@ -109,7 +109,10 @@ function addProject() {
     },
 
     onDrop: function  ($item, container, _super) {
-      var $clonedItem = $('<li/>').css({height: 0});
+     if (container.el.hasClass('trash')) {
+                $item.remove();
+      } else {
+              var $clonedItem = $('<li/>').css({height: 0});
       $item.before($clonedItem);
       $clonedItem.animate({'height': $item.height()});
       $item.animate($clonedItem.position(), function  ()
@@ -117,69 +120,68 @@ function addProject() {
           $clonedItem.detach();
           _super($item, container);
         });
-    },
+      }
+            },
   });
 }
 
+var currentDragID;
 $(document).ready(function() {
-  $("ol.sortable_with_drop.employee_list").sortable({
-    group: 'emps-group',
-  onDragStart: function ($item, container, _super) {
-    // Duplicate items of the no drop area
-    console.log("emp drag?");
-    // Duplicate items of the no drop area
+  $("ol.sortable_with_drop.phone_list").sortable({
+    group: 'phones',
+    onDragStart: function ($item, container, _super) {
+      currentDragID = container.options.dragID;
+      var offset = $item.offset(), pointer = container.rootGroup.pointer;
 
-    var offset = $item.offset(),
-  pointer = container.rootGroup.pointer;
+      adjustment = {
+        left: pointer.left - offset.left, top: pointer.top - offset.top
+      };
 
-  adjustment = {
-    left: pointer.left - offset.left,
-  top: pointer.top - offset.top
-  };
+      if(!container.options.drop) {
+        $item.clone().insertAfter($item);
+      }
 
-  if(!container.options.drop)
-    $item.clone().insertAfter($item);
-  _super($item, container);
-  },
+      _super($item, container);
+    },
 
-  onDrag: function ($item, position) {
-            $item.css({
-              left: position.left - adjustment.left,
-            top: position.top - adjustment.top
-            });
-          },
+    onDrag: function ($item, position) {
+              $item.css({
+                left: position.left - adjustment.left,
+              top: position.top - adjustment.top
+              });
+            },
 
-  onDrop: function  ($item, container, _super) {
-            var $clonedItem = $('<li/>').css({height: 0});
-            $item.before($clonedItem);
-            $clonedItem.animate({'height': $item.height()});
-
-            $item.animate($clonedItem.position(), function  ()
-                {
+    onDrop: function  ($item, container, _super) {
+              if (container.el.hasClass('trash')) {
+                $item.remove();
+              } else {
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+                $item.animate($clonedItem.position(), function  () {
                   $clonedItem.detach();
                   _super($item, container);
                 });
-          }
+              }
+            },
   });
 
-  $("ol.sortable_with_drop.phone_list").sortable({
-    group: 'phones-group',
+  $("ol.sortable_with_drop.employee_list").sortable({
+    group: 'employees',
+
     onDragStart: function ($item, container, _super) {
-      console.log("phone drag?");
+      currentDragID = container.options.dragID;
       // Duplicate items of the no drop area
 
       var offset = $item.offset(),
     pointer = container.rootGroup.pointer;
 
   adjustment = {
-    left: pointer.left - offset.left,
-    top: pointer.top - offset.top
+    left: pointer.left - offset.left, top: pointer.top - offset.top
   };
 
-  if(!container.options.drop) {
+  if(!container.options.drop)
     $item.clone().insertAfter($item);
-  }
-
   _super($item, container);
     },
 
@@ -191,29 +193,39 @@ $(document).ready(function() {
             },
 
     onDrop: function  ($item, container, _super) {
-              var $clonedItem = $('<li/>').css({height: 0});
-              $item.before($clonedItem);
-              $clonedItem.animate({'height': $item.height()});
-
-              $item.animate($clonedItem.position(), function  ()
-                  {
-                    $clonedItem.detach();
-                    _super($item, container);
-                  });
-            },
+              if (container.el.hasClass('trash')) {
+                $item.remove();
+              } else {
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+                $item.animate($clonedItem.position(), function  ()
+                    {
+                      $clonedItem.detach();
+                      _super($item, container);
+                    });
+              }
+            }
   });
 
+  $(".phone_trash").sortable({
+    group: 'phones'
+  });
 
+  $(".employee_trash").sortable({
+    group: 'employees'
+  });
+
+  
   $("ol.sortable_with_no_drop#emps-source").sortable({
-    group: 'emps-group',
+    group: 'employees',
     drop: false
   });
 
 
   $("ol.sortable_with_no_drop#phones-source").sortable({
-    group: 'phones-group',
+    group: 'phones',
     drop: false,
   });
-
 
 });

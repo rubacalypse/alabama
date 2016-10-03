@@ -1,4 +1,4 @@
-.trash-icon {
+.trash {
   background: #ffffff;
   position: relative;
   width: 80px;
@@ -7,11 +7,11 @@
   border-radius: 2px;
   transition: box-shadow .2s ease;
 }
-.trash-icon:hover {
+.trash:hover {
   box-shadow: 0 0 4px rgba(10, 10, 10, 0.3);
 }
 
-.trash-icon:hover .lid, .icon:hover .lidcap {
+.trash:hover .lid, .icon:hover .lidcap {
   transform: rotate(10deg);
   margin-bottom: 6px;
 }
