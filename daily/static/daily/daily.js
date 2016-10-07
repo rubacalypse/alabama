@@ -1,11 +1,48 @@
+var newProjectClicked = false;
 
-function saveProject(){
-  $('#save-button').toggle();
-  $('#save-button').css("display", "inline-block");
-  $('#proj-name').val($('#new-name').val());
-  $('#proj-time').val($('#new-time').val());
-  $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
-  $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
+function updateSchedule(){
+  $('#schedule').val(jsonifyTable);
+  if (newProjectClicked) {
+    $('#new-proj').val(true);
+    //$('#save-button').toggle();
+    //$('#save-button').css("display", "inline-block");
+    $('#proj-name').val($('#new-name').val());
+    $('#proj-time').val($('#new-time').val());
+    $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
+    $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
+  } else {
+    $('#new-proj').val(false);
+  }
+}
+
+function jsonifyTable() {
+  var schedule = [];
+  $('#daily-table').find('tr.project').each(function(i, e) {
+   var project = {};
+   
+   $(this).find('td').each(function(j, e) {
+    switch(j) {
+      case 0:
+        project['proj-id'] = $(this).text();
+        break;
+      case 1:
+        project['proj-name'] = $(this).text();
+        break;
+      case 2:
+        project['proj-time'] = $(this).text();
+        break;
+      case 3:
+        project['proj-emps'] = extractList(this);
+        break;
+      case 4:
+        project['proj-phones'] = extractList(this);
+        schedule.push(project);
+        break;
+    }
+   });
+  });
+  var json_sched = JSON.stringify(schedule);
+  return json_sched;
 }
 
 function extractList(listId) {
@@ -19,7 +56,7 @@ function extractList(listId) {
 
 function addProject() {
   $('#daily-table > tbody > tr:first-child').after($('<tr>')
-      .append($('<td>'))
+      .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
       .append($('<td>')
@@ -30,7 +67,7 @@ function addProject() {
         .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))));
 
   $('#new-proj-button').toggle();
-  $('#save-button').toggle();
+ // $('#save-button').toggle();
   $('#new-name').focus();
   $('#new-time').timepicker({
     'step': function(i) {

@@ -22,27 +22,54 @@ def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))
   return render(request, 'daily/boot-test.html', {'date': date})
 
-def new_project(request):
+def update_schedule(request):
   print(request.POST)
-  pname = request.POST['proj-name']
-  ptime = request.POST['proj-time']
-  pemps = json.loads(request.POST['proj-emps'])
-  pphones = json.loads(request.POST['proj-phone'])
-  
-  p = Project()
-  p.name=pname
-  p.date=timezone.now().date()
-  p.time=parse_time(ptime)
-  p.save()
-  
-  
-  for emp in pemps:
-    p.employee.add(Employee.objects.get(name=emp))
+  schedule = json.loads(request.POST['schedule'])
+  for s in schedule:
+    proj = Project.objects.get(pk=s['proj-id'])
+    proj.name = s['proj-name']
+    new_time = s['proj-time']
+    proj.time = parse_time(new_time)
+    proj.save()
+    #TODO: add date
 
-  for phone in pphones:
-    p.phone.add(Phone.objects.get(number=phone))
+    proj.employee.clear()
+    pemps = s['proj-emps']
+    pphones = s['proj-phones']
 
-  p.save()
+    #import pdb
+    #pdb.set_trace()
+    for emp in pemps:
+      proj.employee.add(Employee.objects.get(name=emp))
+
+    for phone in pphones:
+      proj.phone.add(Phone.objects.get(number=phone))
+
+    proj.save()
+
+#  new_proj = request.POST['new-proj']
+#  print("new??: " + new_proj)
+#  if (new_proj == True):
+#    print("are you getting here?\n")
+#    pname = request.POST['proj-name']
+#    ptime = request.POST['proj-time']
+#    pemps = json.loads(request.POST['proj-emps'])
+#    pphones = json.loads(request.POST['proj-phone'])
+#
+#    p = Project()
+#    p.name=pname
+#    p.date=timezone.now().date()
+#    p.time=parse_time(ptime)
+#    p.save()
+#    for emp in pemps:
+#      p.employee.add(Employee.objects.get(name=emp))
+#
+#    for phone in pphones:
+#      p.phone.add(Phone.objects.get(number=phone))
+#
+#    p.save()
   
+
+
   #add new project
   return HttpResponseRedirect('/daily')

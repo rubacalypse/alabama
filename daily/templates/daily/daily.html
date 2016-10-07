@@ -62,9 +62,13 @@
       <div id="daily-view">
         <div id="form-fields">
           <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
-          <form method="post" action="new_project" style="display: inline;"  onsubmit="saveProject()">
+          <form method="post" action="new_project" style="display: inline;"
+            onsubmit="updateSchedule()">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-lg" id="save-button">Save</button>
+            <button type="submit" class="btn btn-primary btn-lg"
+              id="save-button">Save Changes</button>
+            <input type="hidden" name="schedule" id="schedule"/>
+            <input type="hidden" name="new-proj" id="new-proj"/>
             <input type="hidden" name="proj-name" id="proj-name"/>
             <input type="hidden" name="proj-time" id="proj-time"/>
             <input type="hidden" name="proj-emps" id="proj-emps"/>
@@ -83,10 +87,10 @@
               <td>Phones</td>
             </tr>
             {% for project in schedule.all %}
-            <tr>
-              <td></td>
+            <tr class ="project">
+              <td>{{ project.id }}</td>
               <td>{{ project.name }}</td>
-              <td>{{ project.time }}</td>
+              <td>{{project.time|time:"g:i a"}}</td>
               <td>
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
