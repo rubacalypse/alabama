@@ -2,34 +2,32 @@ var newProjectClicked = false;
 
 function updateSchedule(){
   $('#schedule').val(jsonifyTable);
-  if (newProjectClicked) {
-    $('#new-proj').val(true);
-    //$('#save-button').toggle();
-    //$('#save-button').css("display", "inline-block");
-    $('#proj-name').val($('#new-name').val());
-    $('#proj-time').val($('#new-time').val());
-    $('#proj-emps').val(JSON.stringify(extractList('#new-emps')));
-    $('#proj-phone').val(JSON.stringify(extractList('#new-phones')));
-  } else {
-    $('#new-proj').val(false);
-  }
 }
 
 function jsonifyTable() {
   var schedule = [];
   $('#daily-table').find('tr.project').each(function(i, e) {
    var project = {};
-   
+   var isNew = $(this).hasClass('new');
+
    $(this).find('td').each(function(j, e) {
     switch(j) {
       case 0:
         project['proj-id'] = $(this).text();
         break;
       case 1:
-        project['proj-name'] = $(this).text();
+        if (isNew) {
+          project['proj-name'] = $(this).find('input').val();
+        } else {
+          project['proj-name'] = $(this).text();
+        }
         break;
       case 2:
-        project['proj-time'] = $(this).text();
+        if (isNew) {
+          project['proj-time'] = $(this).find('input').val();
+        } else {
+          project['proj-time'] = $(this).text();
+        }
         break;
       case 3:
         project['proj-emps'] = extractList(this);
@@ -55,7 +53,7 @@ function extractList(listId) {
 }
 
 function addProject() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr>')
+  $('#daily-table > tbody > tr:first-child').after($('<tr class="project new">')
       .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
