@@ -6,6 +6,10 @@ function csrfSafeMethod(method) {
 }
 
 function updateSchedule(){
+  
+  $('.errors-box').empty();
+  $('.errors-box').hide();
+
   var jsonSched = jsonifyTable();
   if (jsonSched == null) {
     return;
