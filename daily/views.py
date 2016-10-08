@@ -23,8 +23,8 @@ def show_schedule(request, year, month, day):
   return render(request, 'daily/boot-test.html', {'date': date})
 
 def update_schedule(request):
-  print(request.POST)
-  schedule = json.loads(request.POST['schedule'])
+  schedule = json.loads(request.POST.get('schedule'))
+  print(schedule)
   for s in schedule:
     if int(s['proj-id']) == -1:
       proj = Project()
@@ -39,6 +39,7 @@ def update_schedule(request):
 
     proj.employee.clear()
     proj.phone.clear()
+    
     pemps = s['proj-emps']
     pphones = s['proj-phones']
 

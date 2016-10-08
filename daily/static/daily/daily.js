@@ -1,11 +1,37 @@
 var newProjectClicked = false;
 
+function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
 function updateSchedule(){
-  $('#schedule').val(jsonifyTable);
+  var jsonSched = jsonifyTable();
+  if (jsonSched == null) {
+    return;
+  } else {
+    $('#schedule').val(jsonSched);
+    var csrftoken = $('span.csrf input').val();
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+    $.ajax({
+      type: "POST",
+      url: "/daily/update_schedule",
+      data: {schedule: jsonSched},
+      success: location.reload(),
+    });
+  }
 }
 
 function jsonifyTable() {
   var schedule = [];
+  var errors = [];
   $('#daily-table').find('tr.project').each(function(i, e) {
    var project = {};
    var isNew = $(this).hasClass('new');
@@ -17,18 +43,34 @@ function jsonifyTable() {
         break;
       case 1:
         if (isNew) {
-          project['proj-name'] = $(this).find('input').val();
+          var newName = $(this).find('input').val();
+          //push error message if new name is empty
+          if (newName == "") {
+            var errorMsg = "name missing for new project";
+            errors.push(errorMsg);
+          } else {
+            //else: simply assign
+            project['proj-name'] = $(this).find('input').val();
+          }
         } else {
-          project['proj-name'] = $(this).text();
+            project['proj-name'] = $(this).text();
         }
         break;
+
       case 2:
         if (isNew) {
-          project['proj-time'] = $(this).find('input').val();
+          var newTime = $(this).find('input').val();
+          if (newTime == "") {
+            var errorMsg = "time missing for new project";
+            errors.push(errorMsg);
+          } else {
+            project['proj-time'] = $(this).find('input').val();
+          }
         } else {
           project['proj-time'] = $(this).text();
         }
         break;
+
       case 3:
         project['proj-emps'] = extractList(this);
         break;
@@ -39,6 +81,10 @@ function jsonifyTable() {
     }
    });
   });
+  if (errors.length > 0) {
+    $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
+    return null;
+  }
   var json_sched = JSON.stringify(schedule);
   return json_sched;
 }

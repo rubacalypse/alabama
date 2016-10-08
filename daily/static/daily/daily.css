@@ -1,3 +1,11 @@
+.errors-box {
+  border: 1px solid black;
+  margin: 3px;
+  padding: 3px;
+  display: inline-block;
+  color: #990000;
+}
+
 .flex-li {
   border: 1px solid black;
   margin: 3px auto;
