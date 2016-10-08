@@ -1,3 +1,6 @@
+.phone_trash {
+  visibility: hidden;
+}
 .trash {
   background: #ffffff;
   position: relative;

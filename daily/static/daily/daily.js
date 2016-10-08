@@ -238,6 +238,7 @@ $(document).ready(function() {
 
     onDrop: function  ($item, container, _super) {
               if (container.el.hasClass('trash')) {
+                console.log("are you hdfaksdfkaj");
                 $item.remove();
               } else {
                 var $clonedItem = $('<li/>').css({height: 0});
