@@ -1,4 +1,5 @@
 from pprint import pprint
+from django.db import transaction
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
@@ -26,6 +27,7 @@ def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))
   return render(request, 'daily/boot-test.html', {'date': date})
 
+@transaction.atomic
 def update_schedule(request):
   schedule = json.loads(request.POST.get('schedule'))
   pprint(schedule)
@@ -49,8 +51,6 @@ def update_schedule(request):
     pphones = s['proj-phones']
     pvehicles = s['proj-vehicles']
 
-    #import pdb
-    #pdb.set_trace()
     for emp in pemps:
       proj.employee.add(Employee.objects.get(name=emp))
 
