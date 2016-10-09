@@ -1,22 +1,23 @@
 .phone_trash {
   visibility: hidden;
 }
+
 .trash {
   background: #ffffff;
   position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 10px 0 0;
-  border-radius: 2px;
+  width: 160px;
+  height: 160px;
+  margin: 50px auto 0;
+  border-radius: 4px;
   transition: box-shadow .2s ease;
 }
 .trash:hover {
-  box-shadow: 0 0 4px rgba(10, 10, 10, 0.3);
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.3);
 }
 
-.trash:hover .lid, .icon:hover .lidcap {
+.trash:hover .lid, .trash:hover .lidcap {
   transform: rotate(10deg);
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .lidcap, .lid, .bin {
@@ -24,32 +25,31 @@
 }
 
 .lidcap, .lid {
-  border-top-left-radius: 1.6px;
-  border-top-right-radius: 1.6px;
+  border-top-left-radius: 3.2px;
+  border-top-right-radius: 3.2px;
   background: #111;
   transition: transform .2s linear, margin .2s linear;
 }
 
 .lidcap {
-  bottom: 55.2px;
-  left: 36px;
-  height: 4px;
-  width: 8px;
+  bottom: 110.4px;
+  left: 65px;
+  height: 8px;
+  width: 16px;
 }
 
 .lid {
-  bottom: 48px;
-  left: 12px;
-  width: 56px;
-  height: 8px;
+  bottom: 96px;
+  left: 24px;
+  width: 98px;
+  height: 16px;
 }
 
 .bin {
   bottom: 0;
-  left: 16px;
-  width: 40px;
-  border-top: 48px solid #111;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
+  left: 32px;
+  width: 80px;
+  border-top: 96px solid #111;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
 }
-
