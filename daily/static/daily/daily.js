@@ -80,11 +80,16 @@ function jsonifyTable() {
         break;
       case 4:
         project['proj-phones'] = extractList(this);
+        break;
+
+      case 5:
+        project['proj-vehicles'] = extractList(this);
         schedule.push(project);
         break;
     }
    });
   });
+  
   if (errors.length > 0) {
     $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
     return null;
@@ -96,7 +101,9 @@ function jsonifyTable() {
 function extractList(listId) {
   var vals = []; 
   $(listId).find('li').each(function() {
-    vals.push($(this).text());
+    if($(this).text() != "") {
+      vals.push($(this).text());
+    }
   });
 
   return vals;
@@ -112,7 +119,9 @@ function addProject() {
       .append($('<td>')
         .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>")))
       .append($('<td>')
-        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))));
+        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>")))
+      .append($('<td>')
+        .append($("<ol class='sortable_with_drop new-vehicles' id='new-vehicles'>"))));
 
   $('#new-proj-button').toggle();
  // $('#save-button').toggle();
@@ -165,7 +174,6 @@ function addProject() {
             }
   });
 
-
   $("ol.sortable_with_drop.new-phones").sortable({
     group: 'phones',
     onDragStart: function ($item, container, _super) {
@@ -208,6 +216,50 @@ function addProject() {
       }
             },
   });
+
+$("ol.sortable_with_drop.new-vehicles").sortable({
+    group: 'vehicles',
+    onDragStart: function ($item, container, _super) {
+      // Duplicate items of the no drop area
+
+      var offset = $item.offset(),
+    pointer = container.rootGroup.pointer;
+
+  adjustment = {
+    left: pointer.left - offset.left,
+    top: pointer.top - offset.top
+  };
+
+  if(!container.options.drop) {
+    $item.clone().insertAfter($item);
+  }
+
+  _super($item, container);
+    },
+
+    onDrag: function ($item, position) {
+      $item.css({
+        left: position.left - adjustment.left,
+        top: position.top - adjustment.top
+      });
+    },
+
+    onDrop: function  ($item, container, _super) {
+     if (container.el.hasClass('trash')) {
+                $item.remove();
+      } else {
+              var $clonedItem = $('<li/>').css({height: 0});
+      $item.before($clonedItem);
+      $clonedItem.animate({'height': $item.height()});
+      $item.animate($clonedItem.position(), function  ()
+        {
+          $clonedItem.detach();
+          _super($item, container);
+        });
+      }
+            },
+  });
+
 }
 
 var currentDragID;
@@ -294,6 +346,46 @@ $(document).ready(function() {
             }
   });
 
+$("ol.sortable_with_drop.vehicle_list").sortable({
+    group: 'vehicles',
+    onDragStart: function ($item, container, _super) {
+      currentDragID = container.options.dragID;
+      var offset = $item.offset(), pointer = container.rootGroup.pointer;
+
+      adjustment = {
+        left: pointer.left - offset.left, top: pointer.top - offset.top
+      };
+
+      if(!container.options.drop) {
+        $item.clone().insertAfter($item);
+      }
+
+      _super($item, container);
+    },
+
+    onDrag: function ($item, position) {
+              $item.css({
+                left: position.left - adjustment.left,
+              top: position.top - adjustment.top
+              });
+            },
+
+    onDrop: function  ($item, container, _super) {
+              if (container.el.hasClass('trash')) {
+                console.log("are you hdfaksdfkaj");
+                $item.remove();
+              } else {
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+                $item.animate($clonedItem.position(), function  () {
+                  $clonedItem.detach();
+                  _super($item, container);
+                });
+              }
+            },
+  });
+
   $(".phone_trash").sortable({
     group: 'phones'
   });
@@ -301,6 +393,11 @@ $(document).ready(function() {
   $(".employee_trash").sortable({
     group: 'employees'
   });
+
+  $(".vehicle_trash").sortable({
+    group: 'vehicles'
+  });
+
 
   
   $("ol.sortable_with_no_drop#emps-source").sortable({
@@ -311,6 +408,11 @@ $(document).ready(function() {
 
   $("ol.sortable_with_no_drop#phones-source").sortable({
     group: 'phones',
+    drop: false,
+  });
+
+  $("ol.sortable_with_no_drop#vehicles-source").sortable({
+    group: 'vehicles',
     drop: false,
   });
 

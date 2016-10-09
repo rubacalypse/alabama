@@ -15,14 +15,12 @@
 
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/trash.css' %}"/>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="{% static 'daily/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
 
       <!-- Bootstrap theme -->
       <script src="{% static 'daily/bootstrap.min.js' %}"></script>
-      <script src="{% static 'daily/docs.min.js' %}"></script>
+      <!--<script src="{% static 'daily/docs.min.js' %}"></script>-->
       <script type = "text/javascript" src="{% static 'daily/jquery-sortable.js'%}"></script>
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/jquery.timepicker.css' %}"/>
       <script type = "text/javascript" src="{% static 'daily/jquery.timepicker.js'%}"></script>
@@ -77,6 +75,7 @@
               <td>Time</td>
               <td>Employees</td>
               <td>Phones</td>
+              <td>Vehicles</td>
             </tr>
             {% for project in schedule.all %}
             <tr class ="project">
@@ -97,22 +96,25 @@
                   {% endfor %}
                 </ol>
               </td>
+              <td>
+                <ol class='sortable_with_drop vehicle_list'>
+                  {% for v in project.vehicle.all %}
+                  <li class="flex-li vehicle">{{ v.name }}</li>
+                  {% endfor %}
+                </ol>
+              </td>
               {% endfor %}
             </tbody>
           </table>
-          <div class="v-box">
           <ol class='trash employee_trash'>
             <li>
-              <div>
                 <div class="lid"></div>
+                <ol class='trash vehicle_trash'></ol>
                 <div class="lidcap"></div>
-                <ol class='trash phone_trash'>
-            </ol>
+                <ol class='trash phone_trash'></ol>
                 <div class="bin"></div>
-              </div>
               </li>
             </ol>
-          </div>
           <div class="v-box">
             <h3>employees</h3>
             <ol class='sortable_with_no_drop' id="emps-source">
@@ -124,6 +126,12 @@
             <ol class='sortable_with_no_drop' id="phones-source">
               {% for phone in phones.all %}
               <li class="flex-li telephone">{{ phone.number }}</li>
+              {% endfor %}
+            </ol>
+            <h3>vehicles</h3>
+            <ol class='sortable_with_no_drop' id="vehicles-source">
+              {% for v in vehicles.all %}
+              <li class="flex-li vehicle">{{ v.name }}</li>
               {% endfor %}
             </ol>
           </div>

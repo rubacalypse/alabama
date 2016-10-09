@@ -8,6 +8,12 @@ class Category(models.Model):
   def __str__(self):
     return self.name
 
+class Vehicle(models.Model):
+  name = models.CharField(max_length=100)
+
+  def __str__(self):
+    return self.name
+
 class Employee(models.Model):
   name = models.CharField(max_length=100)
   category = models.ManyToManyField(Category)
@@ -29,6 +35,7 @@ class Project(models.Model):
   time = models.TimeField('Time', default=timezone.now().time())
   employee = models.ManyToManyField(Employee)
   phone = models.ManyToManyField(Phone)
+  vehicle = models.ManyToManyField(Vehicle)
 
   def __str__(self):
     return self.name

@@ -1,8 +1,9 @@
+from pprint import pprint
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.dateparse import parse_time
-from .models import Project, Employee, Phone
+from .models import Project, Employee, Phone, Vehicle
 import json
 import datetime
 
@@ -12,9 +13,11 @@ def index(request):
   todays_schedule = Project.objects.all()
   employees = Employee.objects.all()
   phones = Phone.objects.all()
+  vehicles = Vehicle.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
    
-  context = {'date': date, 'schedule': todays_schedule, 'date': today, 'emp_names': employees, 'phones': phones}
+  context = {'date': date, 'schedule': todays_schedule, 'date': today,
+      'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
   
   return render(request, 'daily/daily.html/', context)
 
@@ -24,7 +27,7 @@ def show_schedule(request, year, month, day):
 
 def update_schedule(request):
   schedule = json.loads(request.POST.get('schedule'))
-  print(schedule)
+  pprint(schedule)
   for s in schedule:
     if int(s['proj-id']) == -1:
       proj = Project()
@@ -39,9 +42,11 @@ def update_schedule(request):
 
     proj.employee.clear()
     proj.phone.clear()
-    
+    proj.vehicle.clear()
+
     pemps = s['proj-emps']
     pphones = s['proj-phones']
+    pvehicles = s['proj-vehicles']
 
     #import pdb
     #pdb.set_trace()
@@ -50,6 +55,9 @@ def update_schedule(request):
 
     for phone in pphones:
       proj.phone.add(Phone.objects.get(number=phone))
+
+    for v in pvehicles:
+      proj.vehicle.add(Vehicle.objects.get(name=v))
 
     proj.save()
 
