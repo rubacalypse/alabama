@@ -10,14 +10,15 @@ import datetime
 def index(request):
   today = timezone.now().date()
   #todays_schedule = Project.objects.filter(date=today)
-  todays_schedule = Project.objects.all()
+  projects = Project.objects.all()
   employees = Employee.objects.all()
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
    
-  context = {'date': date, 'schedule': todays_schedule, 'date': today,
+  context = {'date': date, 'schedule': projects, 'date': today,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
+   
   
   return render(request, 'daily/daily.html/', context)
 

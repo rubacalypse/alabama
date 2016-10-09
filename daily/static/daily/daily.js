@@ -28,7 +28,7 @@ function updateSchedule(){
       type: "POST",
       url: "/daily/update_schedule",
       data: {schedule: jsonSched},
-      success: location.reload(),
+      success: location.reload,
     });
   }
 }
