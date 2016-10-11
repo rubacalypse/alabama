@@ -26,7 +26,7 @@
               {% for emp in employees.all %}
               <tr class="emp">
                 <td>{{ emp.id }}</td>
-                <td>{{ emp.name }}</td>
+                <td class="emp-name-td">{{ emp.name }}</td>
                 <td>
                   <ol class='sortable_with_drop cat_list'>
                     {% for cat in emp.category.all %}
@@ -55,7 +55,7 @@
             </ol>
           </div>
           </div>
-        
+
         </div>
 
       </body>

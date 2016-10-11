@@ -146,6 +146,24 @@ $(document).ready(function() {
     console.log("dfakljdsfkjad");
     $("#form-fields").before("<span>last saved: " + Date().toLocaleString("en-us"));
   }
+
+  $('td.emp-name-td').on('click', function() {
+    var $this = $(this);
+    if ($(".new-input").length) {
+      return;
+    }
+    var $input = $('<input>', {
+      value: $this.text(),
+        type: 'text',
+        class: 'new-input',
+        blur: function() {
+          $this.text(this.value);
+        },
+        keyup: function(e) {
+                 if (e.which === 13) $input.blur();
+               }
+    }).appendTo( $this.empty() ).focus();
+  });
 });
 
 

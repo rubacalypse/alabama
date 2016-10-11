@@ -57,10 +57,15 @@ function jsonifyTable() {
         break;
 
       case 2:
-        if (isNew) {
+        if ($(this).find('input').length > 0) {
           var newTime = $(this).find('input').val();
           if (newTime == "") {
-            var errorMsg = "time missing for new project";
+            var errorMsg;
+            if (project['proj-id'] < 0) {
+              errorMsg = "time missing for new project";
+            } else {
+              errorMsg = "time missing for project " + project['proj-id'];
+            }
             errors.push(errorMsg);
           } else {
             project['proj-time'] = $(this).find('input').val();
@@ -115,11 +120,16 @@ function addProject() {
     }
   });
 
-
   sortable_with_drop(".new-emps", "employees");
   sortable_with_drop(".new-phones", "phones");
   sortable_with_drop(".new-vehicles", "vehicles");
 
+}
+
+function addTimePicker(td) {
+  var time = td.text();
+  td.empty();
+  td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" value="' + time + '">'));
 }
 
 $(document).ready(function() {
@@ -147,4 +157,37 @@ $(document).ready(function() {
     console.log("dfakljdsfkjad");
     $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
+ 
+  
+  $('td.name-td').on('click', function() {
+    var $this = $(this);
+    if ($(".new-input").length) {
+      return;
+    }
+    var $input = $('<input>', {
+      value: $this.text(),
+        type: 'text',
+        class: 'new-input',
+        blur: function() {
+          $this.text(this.value);
+        },
+        keyup: function(e) {
+                 if (e.which === 13) $input.blur();
+               }
+    }).appendTo( $this.empty() ).focus();
+  });
+  
+  $('td.time-td span').on('click', function() {
+    var td = $(this).parent();
+    addTimePicker(td);
+    td.find('input').timepicker({
+      'step': function(i) {
+        return(i%2) ? 15 : 45;
+      }
+    });
+    td.find('input').trigger('click');
+  });
+
+
+
 });

@@ -34,8 +34,8 @@
             {% for project in schedule.all %}
             <tr class ="project">
               <td>{{ project.id }}</td>
-              <td>{{ project.name }}</td>
-              <td>{{project.time|time:"g:i a"}}</td>
+              <td class="name-td">{{ project.name }}</td>
+              <td class="time-td"><span>{{project.time|time:"g:i a"}}<span></td>
               <td>
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
