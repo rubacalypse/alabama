@@ -1,6 +1,17 @@
 {% extends 'daily/base.html' %}
+{% load static %}
+{% block includes %}
+    <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
+{% endblock %}
 {% block content %}
-     <div id="daily-view">
+      <div class="container">
+
+      <div class="starter-template">
+        <h1 id="date">{{ date }}</h1>
+      </div>
+
+    </div><!-- /.container -->      
+    <div id="daily-view">
         <div id="form-fields">
           <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
           <span class="csrf">{% csrf_token %}</span>

@@ -22,6 +22,7 @@ function updateEmployees(){
       url: "/daily/update_employee_list",
       data: {list: jsonList},
       success: function() {
+        location = location.pathname + "#saved";
         location.reload();
       }, 
     });
@@ -135,13 +136,16 @@ function addEmployee() {
 
 
 $(document).ready(function() {
-  
   sortable_with_drop(".cat_list", "categories");
   sortable_with_no_drop("#cats-source", "categories");
   $(".category_trash").sortable({
     group: 'categories'
   });
-  
+
+  if($(location).attr('hash') == '#saved') {
+    console.log("dfakljdsfkjad");
+    $("#form-fields").before("<span>last saved: " + Date().toLocaleString("en-us"));
+  }
 });
 
 
