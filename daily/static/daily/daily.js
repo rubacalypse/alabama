@@ -1,10 +1,4 @@
-function csrfSafeMethod(method) {
-      // these HTTP methods do not require CSRF protection
-  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
 function updateSchedule(){
-  
   $('.errors-box').empty();
   $('.errors-box').hide();
 
@@ -89,24 +83,13 @@ function jsonifyTable() {
     }
    });
   });
-  
+
   if (errors.length > 0) {
     $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
     return null;
   }
   var json_sched = JSON.stringify(schedule);
   return json_sched;
-}
-
-function extractList(listId) {
-  var vals = []; 
-  $(listId).find('li').each(function() {
-    if($(this).text() != "") {
-      vals.push($(this).text());
-    }
-  });
-
-  return vals;
 }
 
 function addProject() {
@@ -124,7 +107,6 @@ function addProject() {
         .append($("<ol class='sortable_with_drop new-vehicles' id='new-vehicles'>"))));
 
   $('#new-proj-button').toggle();
- // $('#save-button').toggle();
   $('#new-name').focus();
   $('#new-time').timepicker({
     'step': function(i) {
@@ -132,257 +114,22 @@ function addProject() {
     }
   });
 
-  $("ol.sortable_with_drop.new-emps").sortable({
-    group: 'employees',
-    onDragStart: function ($item, container, _super) {
-      // Duplicate items of the no drop area
 
-      var offset = $item.offset(),
-    pointer = container.rootGroup.pointer;
-
-  adjustment = {
-    left: pointer.left - offset.left,
-    top: pointer.top - offset.top
-  };
-
-  if(!container.options.drop)
-    $item.clone().insertAfter($item);
-  _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-              top: position.top - adjustment.top
-              });
-            },
-
-    onDrop: function  ($item, container, _super) {
-    if (container.el.hasClass('trash')) {
-                $item.remove();
-      } else {
-        var $clonedItem = $('<li/>').css({height: 0});
-        $item.before($clonedItem);
-        $clonedItem.animate({'height': $item.height()});
-
-        $item.animate($clonedItem.position(), function  ()
-            {
-              $clonedItem.detach();
-              _super($item, container);
-            });
-      } 
-            }
-  });
-
-  $("ol.sortable_with_drop.new-phones").sortable({
-    group: 'phones',
-    onDragStart: function ($item, container, _super) {
-      // Duplicate items of the no drop area
-
-      var offset = $item.offset(),
-    pointer = container.rootGroup.pointer;
-
-  adjustment = {
-    left: pointer.left - offset.left,
-    top: pointer.top - offset.top
-  };
-
-  if(!container.options.drop) {
-    $item.clone().insertAfter($item);
-  }
-
-  _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-      $item.css({
-        left: position.left - adjustment.left,
-        top: position.top - adjustment.top
-      });
-    },
-
-    onDrop: function  ($item, container, _super) {
-     if (container.el.hasClass('trash')) {
-                $item.remove();
-      } else {
-              var $clonedItem = $('<li/>').css({height: 0});
-      $item.before($clonedItem);
-      $clonedItem.animate({'height': $item.height()});
-      $item.animate($clonedItem.position(), function  ()
-        {
-          $clonedItem.detach();
-          _super($item, container);
-        });
-      }
-            },
-  });
-
-$("ol.sortable_with_drop.new-vehicles").sortable({
-    group: 'vehicles',
-    onDragStart: function ($item, container, _super) {
-      // Duplicate items of the no drop area
-
-      var offset = $item.offset(),
-    pointer = container.rootGroup.pointer;
-
-  adjustment = {
-    left: pointer.left - offset.left,
-    top: pointer.top - offset.top
-  };
-
-  if(!container.options.drop) {
-    $item.clone().insertAfter($item);
-  }
-
-  _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-      $item.css({
-        left: position.left - adjustment.left,
-        top: position.top - adjustment.top
-      });
-    },
-
-    onDrop: function  ($item, container, _super) {
-     if (container.el.hasClass('trash')) {
-                $item.remove();
-      } else {
-              var $clonedItem = $('<li/>').css({height: 0});
-      $item.before($clonedItem);
-      $clonedItem.animate({'height': $item.height()});
-      $item.animate($clonedItem.position(), function  ()
-        {
-          $clonedItem.detach();
-          _super($item, container);
-        });
-      }
-            },
-  });
+  sortable_with_drop(".new-emps", "employees");
+  sortable_with_drop(".new-phones", "phones");
+  sortable_with_drop(".new-vehicles", "vehicles");
 
 }
 
 $(document).ready(function() {
-  $("ol.sortable_with_drop.phone_list").sortable({
-    group: 'phones',
-    onDragStart: function ($item, container, _super) {
-      var offset = $item.offset(), pointer = container.rootGroup.pointer;
+  sortable_with_drop(".phone_list", "phones");
+  sortable_with_drop(".employee_list", "employees");
+  sortable_with_drop(".vehicle_list", "vehicles");
 
-      adjustment = {
-        left: pointer.left - offset.left, top: pointer.top - offset.top
-      };
+  sortable_with_no_drop("#emps-source", 'employees');
+  sortable_with_no_drop("#phones-source", 'phones');
+  sortable_with_no_drop("#vehicles-source", 'vehicles');
 
-      if(!container.options.drop) {
-        $item.clone().insertAfter($item);
-      }
-
-      _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-              top: position.top - adjustment.top
-              });
-            },
-
-    onDrop: function  ($item, container, _super) {
-              if (container.el.hasClass('trash')) {
-                console.log("are you hdfaksdfkaj");
-                $item.remove();
-              } else {
-                var $clonedItem = $('<li/>').css({height: 0});
-                $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
-                $item.animate($clonedItem.position(), function  () {
-                  $clonedItem.detach();
-                  _super($item, container);
-                });
-              }
-            },
-  });
-
-  $("ol.sortable_with_drop.employee_list").sortable({
-    group: 'employees',
-
-    onDragStart: function ($item, container, _super) {
-      currentDragID = container.options.dragID;
-      // Duplicate items of the no drop area
-
-      var offset = $item.offset(),
-    pointer = container.rootGroup.pointer;
-
-  adjustment = {
-    left: pointer.left - offset.left, top: pointer.top - offset.top
-  };
-
-  if(!container.options.drop)
-    $item.clone().insertAfter($item);
-  _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-              top: position.top - adjustment.top
-              });
-            },
-
-    onDrop: function  ($item, container, _super) {
-              if (container.el.hasClass('trash')) {
-                $item.remove();
-              } else {
-                var $clonedItem = $('<li/>').css({height: 0});
-                $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
-                $item.animate($clonedItem.position(), function  ()
-                    {
-                      $clonedItem.detach();
-                      _super($item, container);
-                    });
-              }
-            }
-  });
-
-$("ol.sortable_with_drop.vehicle_list").sortable({
-    group: 'vehicles',
-    onDragStart: function ($item, container, _super) {
-      currentDragID = container.options.dragID;
-      var offset = $item.offset(), pointer = container.rootGroup.pointer;
-
-      adjustment = {
-        left: pointer.left - offset.left, top: pointer.top - offset.top
-      };
-
-      if(!container.options.drop) {
-        $item.clone().insertAfter($item);
-      }
-
-      _super($item, container);
-    },
-
-    onDrag: function ($item, position) {
-              $item.css({
-                left: position.left - adjustment.left,
-              top: position.top - adjustment.top
-              });
-            },
-
-    onDrop: function  ($item, container, _super) {
-              if (container.el.hasClass('trash')) {
-                console.log("are you hdfaksdfkaj");
-                $item.remove();
-              } else {
-                var $clonedItem = $('<li/>').css({height: 0});
-                $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
-                $item.animate($clonedItem.position(), function  () {
-                  $clonedItem.detach();
-                  _super($item, container);
-                });
-              }
-            },
-  });
 
   $(".phone_trash").sortable({
     group: 'phones'
@@ -394,24 +141,6 @@ $("ol.sortable_with_drop.vehicle_list").sortable({
 
   $(".vehicle_trash").sortable({
     group: 'vehicles'
-  });
-
-
-  
-  $("ol.sortable_with_no_drop#emps-source").sortable({
-    group: 'employees',
-    drop: false
-  });
-
-
-  $("ol.sortable_with_no_drop#phones-source").sortable({
-    group: 'phones',
-    drop: false,
-  });
-
-  $("ol.sortable_with_no_drop#vehicles-source").sortable({
-    group: 'vehicles',
-    drop: false,
   });
 
 });
