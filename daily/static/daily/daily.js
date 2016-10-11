@@ -1,5 +1,3 @@
-var newProjectClicked = false;
-
 function csrfSafeMethod(method) {
       // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -262,12 +260,10 @@ $("ol.sortable_with_drop.new-vehicles").sortable({
 
 }
 
-var currentDragID;
 $(document).ready(function() {
   $("ol.sortable_with_drop.phone_list").sortable({
     group: 'phones',
     onDragStart: function ($item, container, _super) {
-      currentDragID = container.options.dragID;
       var offset = $item.offset(), pointer = container.rootGroup.pointer;
 
       adjustment = {

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.dateparse import parse_time
-from .models import Project, Employee, Phone, Vehicle
+from .models import Project, Employee, Phone, Vehicle, Category
 import json
 import datetime
 
@@ -63,3 +63,29 @@ def update_schedule(request):
     proj.save()
 
   return HttpResponseRedirect('/daily')
+
+def manage_employees(request):
+  employees = Employee.objects.all()
+  categories = Category.objects.all()
+  context = {'employees': employees, 'cats': categories}
+  return render(request, 'daily/employees.html', context)
+
+def update_employee_list(request):
+  emps = json.loads(request.POST.get('list'))
+  pprint(emps)
+  for e in emps:
+    pprint(e)
+    if int(e['emp-id']) == -1:
+      emp = Employee()
+    else:
+      emp = Employee.objects.get(pk=e['emp-id'])
+    emp.name = e['emp-name']
+    emp.save()
+    emp.category.clear()
+    ecats = e['emp-cats']
+    pprint(ecats)
+    for cat in ecats:
+      emp.category.add(Category.objects.get(name=cat))
+
+    emp.save()
+  return HttpResponseRedirect('employees')
