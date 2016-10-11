@@ -21,6 +21,7 @@ function updateSchedule(){
       url: "/daily/update_schedule",
       data: {schedule: jsonSched},
       success: function() {
+        location = location.pathname + "#saved";
         location.reload();
       },
     });
@@ -130,7 +131,6 @@ $(document).ready(function() {
   sortable_with_no_drop("#phones-source", 'phones');
   sortable_with_no_drop("#vehicles-source", 'vehicles');
 
-
   $(".phone_trash").sortable({
     group: 'phones'
   });
@@ -143,4 +143,8 @@ $(document).ready(function() {
     group: 'vehicles'
   });
 
+  if($(location).attr('hash') == '#saved') {
+    console.log("dfakljdsfkjad");
+    $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
+  }
 });

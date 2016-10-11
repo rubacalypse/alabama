@@ -9,6 +9,5 @@ urlpatterns = [
           views.show_schedule, name='show_schedule'),
         url(r'^update_schedule', views.update_schedule, name='update_schedule'),
         url(r'^employees', views.manage_employees, name="employees"),
-        url(r'^update_employee_list', views.update_employee_list,
-        name='update_employee_list'),
+        url(r'^update_employee_list', views.update_employee_list, name='update_employee_list'),
         ]

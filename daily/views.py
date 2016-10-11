@@ -16,16 +16,14 @@ def index(request):
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
-   
   context = {'date': date, 'schedule': projects, 'date': today,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
-   
   
   return render(request, 'daily/daily.html/', context)
 
 def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))
-  return render(request, 'daily/boot-test.html', {'date': date})
+  return render(request, 'daily/daily.html', {'date': date})
 
 @transaction.atomic
 def update_schedule(request):
