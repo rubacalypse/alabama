@@ -1,0 +1,46 @@
+{% extends 'daily/base.html' %}
+{% load static %}
+{% block includes %}
+    <script type="text/javascript" src="{% static 'daily/phone.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div id="form-fields">
+  <button type="button" class="btn btn-primary btn-lg"
+    id="new-phone-button" onclick="addPhone()">Add phone</button>
+  <span class="csrf">{% csrf_token %}</span>
+  <button type="button" class="btn btn-primary btn-lg"
+    id="save-button" onclick="updatePhones()">Save Changes</button>
+  <input type="hidden" name="phones-list" id="phones-list"/>
+
+</div>
+
+<div class="h-box">
+  <table class="table table-bordered" id="daily-table">
+    <tbody>
+      <tr>
+        <td> </td>
+        <td>Number</td>
+      </tr>
+      {% for phone in phones.all %}
+      <tr class="phone">
+        <td>{{ phone.id }}</td>
+        <td class="phone-number-td">{{ phone.number }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <ol class='trash category_trash'>
+    <li>
+    <div class="lid"></div>
+    <div class="lidcap"></div>
+    <div class="bin"></div>
+    </li>
+  </ol>
+
+</div>
+      </body>
+
+      {% endblock %}
+
+

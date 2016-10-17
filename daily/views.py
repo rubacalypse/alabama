@@ -87,3 +87,23 @@ def update_employee_list(request):
 
     emp.save()
   return HttpResponseRedirect('employees')
+
+def manage_phones(request):
+  phones = Phone.objects.all()
+  context = {'phones': phones}
+  return render(request, 'daily/phones.html', context)
+
+def update_phone_list(request):
+  phones = json.loads(request.POST.get('list'))
+  pprint(phones)
+  for p in phones:
+    pprint(p)
+    if int(p['phone-id']) == -1:
+      phone = Phone()
+    else:
+      phone = Phone.objects.get(pk=p['phone-id'])
+
+    phone.number = p['phone-number']
+    phone.save()
+  
+  return HttpResponseRedirect('phones')
