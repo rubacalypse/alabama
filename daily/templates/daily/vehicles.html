@@ -1,0 +1,46 @@
+{% extends 'daily/base.html' %}
+{% load static %}
+{% block includes %}
+    <script type="text/javascript" src="{% static 'daily/vehicle.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div id="form-fields">
+  <button type="button" class="btn btn-primary btn-lg"
+    id="new-vehicle-button" onclick="addVehicle()">Add vehicle</button>
+  <span class="csrf">{% csrf_token %}</span>
+  <button type="button" class="btn btn-primary btn-lg"
+    id="save-button" onclick="updateVehicles()">Save Changes</button>
+  <input type="hidden" name="vehicles-list" id="vehicles-list"/>
+
+</div>
+
+<div class="h-box">
+  <table class="table table-bordered" id="daily-table">
+    <tbody>
+      <tr>
+        <td> </td>
+        <td>Name</td>
+      </tr>
+      {% for vehicle in vehicles.all %}
+      <tr class="vehicle">
+        <td>{{ vehicle.id }}</td>
+        <td class="vehicle-name-td">{{ vehicle.name }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <ol class='trash category_trash'>
+    <li>
+    <div class="lid"></div>
+    <div class="lidcap"></div>
+    <div class="bin"></div>
+    </li>
+  </ol>
+
+</div>
+      </body>
+
+      {% endblock %}
+
+

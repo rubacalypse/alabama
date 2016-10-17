@@ -107,3 +107,22 @@ def update_phone_list(request):
     phone.save()
   
   return HttpResponseRedirect('phones')
+
+def manage_vehicles(request):
+  vehicles = Vehicle.objects.all()
+  context = {'vehicles': vehicles}
+  return render(request, 'daily/vehicles.html', context)
+
+def update_vehicle_list(request):
+  vehicles = json.loads(request.POST.get('list'))
+  pprint(vehicles)
+  for v in vehicles:
+    pprint(v)
+    if int(v['vehicle-id']) == -1:
+      vehicle = Vehicle()
+    else:
+      vehicle = Vehicle.objects.get(pk=v['vehicle-id'])
+
+    vehicle.name = v['vehicle-name']
+    vehicle.save()
+  return HttpResponseRedirect('vehicles')
