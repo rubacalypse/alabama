@@ -21,11 +21,17 @@
       <tr>
         <td> </td>
         <td>Name</td>
+        <td></td>
       </tr>
       {% for vehicle in vehicles.all %}
-      <tr class="vehicle">
+      <tr class="vehicle" id={{ vehicle.id }}>
         <td>{{ vehicle.id }}</td>
         <td class="vehicle-name-td">{{ vehicle.name }}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-danger
+            delete">delete record</button>
+          <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

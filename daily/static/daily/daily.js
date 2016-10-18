@@ -43,21 +43,6 @@ function getCompletedProjects() {
   return completed_json;
 }
 
-function getDeletedRows() {
-  var to_delete = {};
-  var deletes = [];
-  var rows = $('#daily-table').find('.danger');
-  $.each(rows, function(i, val) {
-    var id = $(val).attr('id');
-    if (id == "-1") {
-      return;
-    }
-    deletes.push(id);
-  });
-  var deleted_json = JSON.stringify(deletes); 
-  return deleted_json;
-}
-
 function jsonifyTable() {
   var schedule = [];
   var errors = [];
@@ -177,31 +162,8 @@ function addProject() {
   sortable_with_drop(".new-phones", "phones");
   sortable_with_drop(".new-vehicles", "vehicles");
 
-  $('button.delete').on('click', function() {
-    var parents = $(this).parents('tr');
-    var target = parents[0];
-    var undo = $(target).find('button.undo');
-    $(undo).toggle();
-    $(this).addClass('hidden-delete');
-    $(this).toggle();
-    $(undo).css("display", "inline-block");
-    $(target).addClass('danger');
-    var checkbox = $(target).find('input');
-    $(checkbox).attr('disabled', true);
-  });
-
-  $('button.undo').on('click', function() {
-    var parents = $(this).parents('tr');
-    var rightParent = parents[0];
-    var redo = $(rightParent).find('button.delete');
-    $(redo).toggle();
-    $(redo).removeClass('.hidden-delete');
-    $(rightParent).removeClass('danger');
-    var checkbox = $(rightParent).find('input');
-    $(checkbox).attr('disabled', false);
-    $(this).toggle();
-  });
-
+  configure_delete_button();
+  configure_undo_button();
 }
 
 function addTimePicker(td) {
@@ -270,30 +232,9 @@ $(document).ready(function() {
     }).focus();
     td.find('input').trigger('click');
   });
-
-  $('button.delete').on('click', function() {
-    var parents = $(this).parents('tr');
-    var target = parents[0];
-    var undo = $(target).find('button.undo');
-    $(undo).toggle();
-    $(this).addClass('hidden-delete');
-    $(this).toggle();
-    $(undo).css("display", "inline-block");
-    $(target).addClass('danger');
-    var checkbox = $(target).find('input');
-    $(checkbox).attr('disabled', true);
-  });
-
-  $('button.undo').on('click', function() {
-    var parents = $(this).parents('tr');
-    var rightParent = parents[0];
-    var redo = $(rightParent).find('button.delete');
-    $(redo).toggle();
-    $(redo).removeClass('.hidden-delete');
-    $(rightParent).removeClass('danger');
-    var checkbox = $(rightParent).find('input');
-    $(checkbox).attr('disabled', false);
-    $(this).toggle();
-  });
+  
+  configure_delete_button();
+  configure_undo_button();
+  
 
 });

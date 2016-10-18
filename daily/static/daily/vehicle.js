@@ -3,6 +3,7 @@ function updateVehicles(){
   $('.errors-box').empty();
   $('.errors-box').hide();
 
+  var deletedRows = getDeletedRows();
   var jsonList = jsonifyVehicleTable();
   if (jsonList == null) {
     return;
@@ -20,7 +21,7 @@ function updateVehicles(){
     $.ajax({
       type: "POST",
       url: "/daily/update_vehicle_list",
-      data: {list: jsonList},
+      data: {deleted: deletedRows, list: jsonList},
       success: function() {
         location = location.pathname + "#saved";
         location.reload();
@@ -34,6 +35,9 @@ function jsonifyVehicleTable() {
   var list = [];
   var errors = [];
   $('#daily-table').find('tr.vehicle').each(function(i, e) {
+   if($(this).hasClass('danger')) {
+    return;
+   }
    var vehicle = {};
    var isNew = $(this).hasClass('new');
 
@@ -76,13 +80,20 @@ function jsonifyVehicleTable() {
 }
 
 function addVehicle() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="vehicle new">')
+  $('#daily-table > tbody > tr:first-child').after($('<tr class="vehicle new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
-        .append($('<input type="text" id="new-name">'))));
+        .append($('<input type="text" id="new-name">')))
+      .append($('<td>')
+        .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
+          .append("delete record"))
+          .append($("<button type='button' class='btn btn-sm btn-info undo'>")
+            .append("Undo!"))));
 
   $('#new-vehicle-button').toggle();
   $('#new-name').focus();
+  configure_delete_button();
+  configure_undo_button();
 }
 
 $(document).ready(function() {
@@ -103,6 +114,9 @@ $(document).ready(function() {
              }
     }).appendTo($this.empty()).focus();
   });
+  
+  configure_delete_button();
+  configure_undo_button();
 });
 
 

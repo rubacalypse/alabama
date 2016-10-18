@@ -151,6 +151,15 @@ def manage_vehicles(request):
   return render(request, 'daily/vehicles.html', context)
 
 def update_vehicle_list(request):
+  deleted = json.loads(request.POST.get('deleted'))
+  pprint(deleted)
+  
+  for vehicleID in deleted:
+    pprint(vehicleID)
+    vehicle = Vehicle.objects.get(pk=vehicleID)
+    pprint(vehicle)
+    vehicle.delete()
+  
   vehicles = json.loads(request.POST.get('list'))
   pprint(vehicles)
   for v in vehicles:

@@ -1,3 +1,18 @@
+function getDeletedRows() {
+  var to_delete = {};
+  var deletes = [];
+  var rows = $('#daily-table').find('.danger');
+  $.each(rows, function(i, val) {
+    var id = $(val).attr('id');
+    if (id == "-1") {
+      return;
+    }
+    deletes.push(id);
+  });
+  var deleted_json = JSON.stringify(deletes); 
+  return deleted_json;
+}
+
 function csrfSafeMethod(method) {
       // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -11,6 +26,36 @@ function extractList(listId) {
     }
   });
   return vals;
+}
+
+function configure_delete_button() {
+  $('button.delete').on('click', function() {
+    var parents = $(this).parents('tr');
+    var target = parents[0];
+    var undo = $(target).find('button.undo');
+    $(undo).toggle();
+    $(this).addClass('hidden-delete');
+    $(this).toggle();
+    $(undo).css("display", "inline-block");
+    $(target).addClass('danger');
+    var checkbox = $(target).find('input');
+    $(checkbox).attr('disabled', true);
+  });
+}
+
+function configure_undo_button() {
+  $('button.undo').on('click', function() {
+    var parents = $(this).parents('tr');
+    var rightParent = parents[0];
+    var redo = $(rightParent).find('button.delete');
+    $(redo).toggle();
+    $(redo).removeClass('.hidden-delete');
+    $(rightParent).removeClass('danger');
+    var checkbox = $(rightParent).find('input');
+    $(checkbox).attr('disabled', false);
+    $(this).toggle();
+  });
+
 }
 
 function sortable_with_drop(classStr, group) {
