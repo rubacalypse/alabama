@@ -55,8 +55,12 @@ function jsonifyTable() {
             project['proj-name'] = $(this).text();
         }
         break;
-
+      
       case 2:
+        project['proj-emps'] = extractList(this);
+        break;
+      
+      case 3:
         if ($(this).find('input').length > 0) {
           var newTime = $(this).find('input').val();
           if (newTime == "") {
@@ -75,15 +79,12 @@ function jsonifyTable() {
         }
         break;
 
-      case 3:
-        project['proj-emps'] = extractList(this);
-        break;
       case 4:
-        project['proj-phones'] = extractList(this);
+        project['proj-vehicles'] = extractList(this);
         break;
 
       case 5:
-        project['proj-vehicles'] = extractList(this);
+        project['proj-phones'] = extractList(this);
         schedule.push(project);
         break;
     }
@@ -104,17 +105,20 @@ function addProject() {
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
       .append($('<td>')
-        .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
-      .append($('<td>')
         .append($("<ol class='sortable_with_drop new-emps' id='new-emps'>")))
       .append($('<td>')
-        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>")))
+        .append($('<input type="text" id="new-time" class="time ui-timepicker-input">')))
       .append($('<td>')
-        .append($("<ol class='sortable_with_drop new-vehicles' id='new-vehicles'>"))));
+        .append($("<ol class='sortable_with_drop new-vehicles' id='new-vehicles'>")))
+      .append($('<td>')
+        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))));
 
   $('#new-proj-button').toggle();
   $('#new-name').focus();
   $('#new-time').timepicker({
+    'timeFormat': 'h:i A',
+    'minTime': '6:00am',
+    'maxTime': '9:00pm',
     'step': function(i) {
       return(i%2) ? 15 : 45;
     }
@@ -129,7 +133,9 @@ function addProject() {
 function addTimePicker(td) {
   var time = td.text();
   td.empty();
-  td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" value="' + time + '">'));
+  //td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" value="' + time + '">'));
+
+  td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" >'));
 }
 
 $(document).ready(function() {
@@ -181,10 +187,13 @@ $(document).ready(function() {
     var td = $(this).parent();
     addTimePicker(td);
     td.find('input').timepicker({
+      'timeFormat': 'h:i A',
+      'minTime': '6:00am',
+      'maxTime': '9:00pm',
       'step': function(i) {
         return(i%2) ? 15 : 45;
       }
-    });
+    }).focus();
     td.find('input').trigger('click');
   });
 

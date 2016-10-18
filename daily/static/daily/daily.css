@@ -2,6 +2,9 @@ input {
   width: 100px;
 }
 
+.no-border {
+  border: 0px;
+}
 
 
 #new-name {

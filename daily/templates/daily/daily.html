@@ -26,16 +26,15 @@
             <tr>
               <td>  </td>
               <td>Project</td>
-              <td>Time</td>
               <td>Employees</td>
-              <td>Phones</td>
+              <td>Times</td>
               <td>Vehicles</td>
+              <td>Phones</td>
             </tr>
             {% for project in schedule.all %}
             <tr class ="project">
               <td>{{ project.id }}</td>
               <td class="name-td">{{ project.name }}</td>
-              <td class="time-td"><span>{{project.time|time:"g:i a"}}<span></td>
               <td>
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
@@ -43,17 +42,18 @@
                   {% endfor %}
                 </ol>
               </td>
-              <td>
-                <ol class='sortable_with_drop phone_list'>
-                  {% for tel in project.phone.all %}
-                  <li class="flex-li telephone">{{ tel.number }}</li>
-                  {% endfor %}
-                </ol>
-              </td>
+              <td class="time-td"><span>{{project.time|time:"g:i A"}}<span></td>
               <td>
                 <ol class='sortable_with_drop vehicle_list'>
                   {% for v in project.vehicle.all %}
                   <li class="flex-li vehicle">{{ v.name }}</li>
+                  {% endfor %}
+                </ol>
+              </td>
+              <td>
+                <ol class='sortable_with_drop phone_list'>
+                  {% for tel in project.phone.all %}
+                  <li class="flex-li telephone">{{ tel.number }}</li>
                   {% endfor %}
                 </ol>
               </td>

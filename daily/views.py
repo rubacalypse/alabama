@@ -7,6 +7,7 @@ from django.utils.dateparse import parse_time
 from .models import Project, Employee, Phone, Vehicle, Category
 import json
 import datetime
+import time
 
 def index(request):
   today = timezone.now().date()
@@ -37,7 +38,9 @@ def update_schedule(request):
       proj = Project.objects.get(pk=s['proj-id'])
     proj.name = s['proj-name']
     new_time = s['proj-time']
-    proj.time = parse_time(new_time)
+    
+    t_st = time.strptime(new_time, "%I:%M %p")
+    proj.time = datetime.time(t_st.tm_hour, t_st.tm_min)
     proj.save()
     #TODO: add date
 
