@@ -88,6 +88,15 @@ def manage_employees(request):
   return render(request, 'daily/employees.html', context)
 
 def update_employee_list(request):
+  deleted = json.loads(request.POST.get('deleted'))
+  pprint(deleted)
+  
+  for empID in deleted:
+    pprint(empID)
+    emp = Employee.objects.get(pk=empID)
+    pprint(emp)
+    emp.delete()
+  
   emps = json.loads(request.POST.get('list'))
   pprint(emps)
   for e in emps:
