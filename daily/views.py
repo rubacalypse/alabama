@@ -29,6 +29,15 @@ def show_schedule(request, year, month, day):
 
 @transaction.atomic
 def update_schedule(request):
+  deleted = json.loads(request.POST.get('deleted'))
+  pprint(deleted)
+  
+  for projID in deleted:
+    pprint(projID)
+    proj = Project.objects.get(pk=projID)
+    pprint(proj)
+    proj.delete()
+
   schedule = json.loads(request.POST.get('schedule'))
   pprint(schedule)
   for s in schedule:
@@ -36,10 +45,16 @@ def update_schedule(request):
       proj = Project()
       proj.date = timezone.now().date()
     else:
+      pprint(s['proj-id'])
       proj = Project.objects.get(pk=s['proj-id'])
     proj.name = s['proj-name']
     new_time = s['proj-time']
-    
+    complete = s['proj-status']
+    if (complete):
+      proj.status = 'CMP'
+    else:
+      proj.status = 'INCMP'
+
     t_st = time.strptime(new_time, "%I:%M %p")
     proj.time = datetime.time(t_st.tm_hour, t_st.tm_min)
     proj.save()

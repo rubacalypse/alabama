@@ -2,6 +2,8 @@ function updateSchedule(){
   $('.errors-box').empty();
   $('.errors-box').hide();
   
+  var deletedRows = getDeletedRows();
+
   var jsonSched = jsonifyTable();
   if (jsonSched == null) {
     return;
@@ -19,7 +21,7 @@ function updateSchedule(){
     $.ajax({
       type: "POST",
       url: "/daily/update_schedule",
-      data: {schedule: jsonSched},
+      data: {deleted: deletedRows, schedule: jsonSched},
       success: function() {
         location = location.pathname + "#saved";
         location.reload();
@@ -28,28 +30,39 @@ function updateSchedule(){
   }
 }
 
-function cleanupTable() {
+function getCompletedProjects() {
   completes = [];
-  deletes = [];
   $('#daily-table').find('tr.project').each(function(i, e) {
     var complete = $(this).find('.chk-box');
-    var deleted = $(this).hasClass('danger');
     if (complete.is(':checked')) {
      completes.push($(this).attr('id'));
     }
-    if (deleted) {
-      deletes.push($(this).attr('id'));
-    }
   });
   console.log(completes);
-  console.log(deletes);
+  var completed_json = JSON.stringify(completes);
+  return completed_json;
+}
+
+function getDeletedRows() {
+  var to_delete = {};
+  var deletes = [];
+  var rows = $('#daily-table').find('.danger');
+  $.each(rows, function(i, val) {
+    deletes.push($(val).attr('id'));
+  });
+  var deleted_json = JSON.stringify(deletes); 
+  return deleted_json;
 }
 
 function jsonifyTable() {
   var schedule = [];
   var errors = [];
   $('#daily-table').find('tr.project').each(function(i, e) {
-   var project = {};
+   //skip projects that are to be deleted 
+    if($(this).hasClass('danger')) {
+      return;
+   }
+    var project = {};
    var isNew = $(this).hasClass('new');
 
    $(this).find('td').each(function(j, e) {
@@ -102,6 +115,11 @@ function jsonifyTable() {
 
       case 5:
         project['proj-phones'] = extractList(this);
+        break;
+      
+      case 6:
+        var complete = $(this).find('.chk-box');
+        project['proj-status'] = complete.is(':checked');
         schedule.push(project);
         break;
     }
@@ -128,7 +146,17 @@ function addProject() {
       .append($('<td>')
         .append($("<ol class='sortable_with_drop new-vehicles' id='new-vehicles'>")))
       .append($('<td>')
-        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>"))));
+        .append($("<ol class='sortable_with_drop new-phones' id='new-phones'>")))
+      .append($('<td>')
+        .append($("<div class='checkbox'>")
+          .append($("<label>")
+            .append($("<input type='checkbox' class='chk-box'>"))
+            .append("completed"))))
+      .append($('<td>')
+        .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
+          .append("delete project"))
+          .append($("<button type='button' class='btn btn-sm btn-info undo'>")
+            .append("Undo!"))));
 
   $('#new-proj-button').toggle();
   $('#new-name').focus();
@@ -144,6 +172,31 @@ function addProject() {
   sortable_with_drop(".new-emps", "employees");
   sortable_with_drop(".new-phones", "phones");
   sortable_with_drop(".new-vehicles", "vehicles");
+
+  $('button.delete').on('click', function() {
+    var parents = $(this).parents('tr');
+    var target = parents[0];
+    var undo = $(target).find('button.undo');
+    $(undo).toggle();
+    $(this).addClass('hidden-delete');
+    $(this).toggle();
+    $(undo).css("display", "inline-block");
+    $(target).addClass('danger');
+    var checkbox = $(target).find('input');
+    $(checkbox).attr('disabled', true);
+  });
+
+  $('button.undo').on('click', function() {
+    var parents = $(this).parents('tr');
+    var rightParent = parents[0];
+    var redo = $(rightParent).find('button.delete');
+    $(redo).toggle();
+    $(redo).removeClass('.hidden-delete');
+    $(rightParent).removeClass('danger');
+    var checkbox = $(rightParent).find('input');
+    $(checkbox).attr('disabled', false);
+    $(this).toggle();
+  });
 
 }
 
