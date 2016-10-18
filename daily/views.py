@@ -9,7 +9,7 @@ import json
 import datetime
 import time
 
-def index(request):
+def schedule(request):
   today = timezone.now().date()
   #todays_schedule = Project.objects.filter(date=today)
   incompletes = Project.objects.filter(status='INCMP')
@@ -23,9 +23,10 @@ def index(request):
   
   return render(request, 'daily/daily.html/', context)
 
-def show_schedule(request, year, month, day):
+'''def show_schedule(request, year, month, day):
   date = datetime.date(int(year), int(month), int(day))
   return render(request, 'daily/daily.html', {'date': date})
+'''
 
 @transaction.atomic
 def update_schedule(request):

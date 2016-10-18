@@ -95,7 +95,7 @@ function addEmployee() {
         .append($("<ol class='sortable_with_drop new-cats' id='new-cats'>")))
       .append($('<td>')
         .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
-          .append("delete project"))
+          .append("delete record"))
           .append($("<button type='button' class='btn btn-sm btn-info undo'>")
             .append("Undo!"))));
 
