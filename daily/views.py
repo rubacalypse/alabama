@@ -12,12 +12,13 @@ import time
 def index(request):
   today = timezone.now().date()
   #todays_schedule = Project.objects.filter(date=today)
-  projects = Project.objects.all()
+  incompletes = Project.objects.filter(status='INCMP')
+  #projects = Project.objects.all()
   employees = Employee.objects.all()
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
-  context = {'date': date, 'schedule': projects, 'date': today,
+  context = {'date': date, 'schedule': incompletes, 'date': today,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
   
   return render(request, 'daily/daily.html/', context)

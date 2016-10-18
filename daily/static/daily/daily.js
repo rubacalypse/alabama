@@ -1,7 +1,7 @@
 function updateSchedule(){
   $('.errors-box').empty();
   $('.errors-box').hide();
-
+  
   var jsonSched = jsonifyTable();
   if (jsonSched == null) {
     return;
@@ -26,6 +26,23 @@ function updateSchedule(){
       },
     });
   }
+}
+
+function cleanupTable() {
+  completes = [];
+  deletes = [];
+  $('#daily-table').find('tr.project').each(function(i, e) {
+    var complete = $(this).find('.chk-box');
+    var deleted = $(this).hasClass('danger');
+    if (complete.is(':checked')) {
+     completes.push($(this).attr('id'));
+    }
+    if (deleted) {
+      deletes.push($(this).attr('id'));
+    }
+  });
+  console.log(completes);
+  console.log(deletes);
 }
 
 function jsonifyTable() {
@@ -197,6 +214,29 @@ $(document).ready(function() {
     td.find('input').trigger('click');
   });
 
+  $('button.delete').on('click', function() {
+    var parents = $(this).parents('tr');
+    var target = parents[0];
+    var undo = $(target).find('button.undo');
+    $(undo).toggle();
+    $(this).addClass('hidden-delete');
+    $(this).toggle();
+    $(undo).css("display", "inline-block");
+    $(target).addClass('danger');
+    var checkbox = $(target).find('input');
+    $(checkbox).attr('disabled', true);
+  });
 
+  $('button.undo').on('click', function() {
+    var parents = $(this).parents('tr');
+    var rightParent = parents[0];
+    var redo = $(rightParent).find('button.delete');
+    $(redo).toggle();
+    $(redo).removeClass('.hidden-delete');
+    $(rightParent).removeClass('danger');
+    var checkbox = $(rightParent).find('input');
+    $(checkbox).attr('disabled', false);
+    $(this).toggle();
+  });
 
 });

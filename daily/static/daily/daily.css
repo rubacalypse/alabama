@@ -6,7 +6,9 @@ input {
   border: 0px;
 }
 
-
+.undo {
+  display: none;
+}
 #new-name {
   min-width: 100px;
   max-width: 100px;

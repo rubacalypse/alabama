@@ -30,9 +30,11 @@
               <td>Times</td>
               <td>Vehicles</td>
               <td>Phones</td>
+              <td>Status </td>
+              <td></td>
             </tr>
             {% for project in schedule.all %}
-            <tr class ="project">
+            <tr id={{ project.id }} class ="project">
               <td>{{ project.id }}</td>
               <td class="name-td">{{ project.name }}</td>
               <td>
@@ -56,6 +58,17 @@
                   <li class="flex-li telephone">{{ tel.number }}</li>
                   {% endfor %}
                 </ol>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" class="chk-box"> completed
+                  </label>
+                </div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger delete">Delete</button>
+                <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
               </td>
               {% endfor %}
             </tbody>

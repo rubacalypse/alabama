@@ -30,13 +30,24 @@ class Phone(models.Model):
 
 class Project(models.Model):
   #TODO: check out this timezone.now().time() business
+  complete = 'CMP'
+  incomplete = 'INCMP'
+  status_choices = (
+      (complete, 'complete'), 
+      (incomplete, 'incomplete'),
+      )
   name = models.CharField(max_length=200)
   date = models.DateField('Date', default=timezone.now().date())
   time = models.TimeField('Time', default=timezone.now().time())
   employee = models.ManyToManyField(Employee)
   phone = models.ManyToManyField(Phone)
   vehicle = models.ManyToManyField(Vehicle)
-
+  status = models.CharField(
+      max_length=5,
+      choices=status_choices,
+      default=incomplete
+      )
+  
   def __str__(self):
     return self.name
 
