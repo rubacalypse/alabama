@@ -48,7 +48,11 @@ function getDeletedRows() {
   var deletes = [];
   var rows = $('#daily-table').find('.danger');
   $.each(rows, function(i, val) {
-    deletes.push($(val).attr('id'));
+    var id = $(val).attr('id');
+    if (id == "-1") {
+      return;
+    }
+    deletes.push(id);
   });
   var deleted_json = JSON.stringify(deletes); 
   return deleted_json;
@@ -135,7 +139,7 @@ function jsonifyTable() {
 }
 
 function addProject() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="project new">')
+  $('#daily-table > tbody > tr:first-child').after($('<tr class="project new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
