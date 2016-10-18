@@ -122,6 +122,15 @@ def manage_phones(request):
   return render(request, 'daily/phones.html', context)
 
 def update_phone_list(request):
+  deleted = json.loads(request.POST.get('deleted'))
+  pprint(deleted)
+  
+  for phoneID in deleted:
+    pprint(phoneID)
+    phone = Phone.objects.get(pk=phoneID)
+    pprint(phone)
+    phone.delete()
+  
   phones = json.loads(request.POST.get('list'))
   pprint(phones)
   for p in phones:

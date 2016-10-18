@@ -3,6 +3,7 @@ function updatePhones(){
   $('.errors-box').empty();
   $('.errors-box').hide();
 
+  var deletedRows = getDeletedRows();
   var jsonList = jsonifyPhoneTable();
   if (jsonList == null) {
     return;
@@ -20,7 +21,7 @@ function updatePhones(){
     $.ajax({
       type: "POST",
       url: "/daily/update_phone_list",
-      data: {list: jsonList},
+      data: {deleted: deletedRows, list: jsonList},
       success: function() {
         location = location.pathname + "#saved";
         location.reload();
@@ -29,12 +30,29 @@ function updatePhones(){
   }
 }
 
+function getDeletedRows() {
+  var to_delete = {};
+  var deletes = [];
+  var rows = $('#daily-table').find('.danger');
+  $.each(rows, function(i, val) {
+    var id = $(val).attr('id');
+    if (id == "-1") {
+      return;
+    }
+    deletes.push(id);
+  });
+  var deleted_json = JSON.stringify(deletes); 
+  return deleted_json;
+}
 
 function jsonifyPhoneTable() {
   console.log("jsonify?");
   var list = [];
   var errors = [];
   $('#daily-table').find('tr.phone').each(function(i, e) {
+   if($(this).hasClass('danger')) {
+    return;
+   }
    var phone = {};
    var isNew = $(this).hasClass('new');
 
@@ -77,13 +95,46 @@ function jsonifyPhoneTable() {
 }
 
 function addPhone() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="phone new">')
+  $('#daily-table > tbody > tr:first-child').after($('<tr class="phone new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
-        .append($('<input type="text" id="new-number">'))));
+        .append($('<input type="text" id="new-number">')))
+      .append($('<td>')
+        .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
+          .append("delete project"))
+          .append($("<button type='button' class='btn btn-sm btn-info undo'>")
+            .append("Undo!"))));
+      
+
 
   $('#new-phone-button').toggle();
   $('#new-number').focus();
+  $('button.delete').on('click', function() {
+    var parents = $(this).parents('tr');
+    var target = parents[0];
+    var undo = $(target).find('button.undo');
+    $(undo).toggle();
+    $(this).addClass('hidden-delete');
+    $(this).toggle();
+    $(undo).css("display", "inline-block");
+    $(target).addClass('danger');
+    var checkbox = $(target).find('input');
+    $(checkbox).attr('disabled', true);
+  });
+
+  $('button.undo').on('click', function() {
+    var parents = $(this).parents('tr');
+    var rightParent = parents[0];
+    var redo = $(rightParent).find('button.delete');
+    $(redo).toggle();
+    $(redo).removeClass('.hidden-delete');
+    $(rightParent).removeClass('danger');
+    var checkbox = $(rightParent).find('input');
+    $(checkbox).attr('disabled', false);
+    $(this).toggle();
+  });
+
+
 }
 
 $(document).ready(function() {
@@ -104,6 +155,33 @@ $(document).ready(function() {
              }
     }).appendTo($this.empty()).focus();
   });
+
+  $('button.delete').on('click', function() {
+    var parents = $(this).parents('tr');
+    var target = parents[0];
+    var undo = $(target).find('button.undo');
+    $(undo).toggle();
+    $(this).addClass('hidden-delete');
+    $(this).toggle();
+    $(undo).css("display", "inline-block");
+    $(target).addClass('danger');
+    var checkbox = $(target).find('input');
+    $(checkbox).attr('disabled', true);
+  });
+
+  $('button.undo').on('click', function() {
+    var parents = $(this).parents('tr');
+    var rightParent = parents[0];
+    var redo = $(rightParent).find('button.delete');
+    $(redo).toggle();
+    $(redo).removeClass('.hidden-delete');
+    $(rightParent).removeClass('danger');
+    var checkbox = $(rightParent).find('input');
+    $(checkbox).attr('disabled', false);
+    $(this).toggle();
+  });
+
+
 });
 
 

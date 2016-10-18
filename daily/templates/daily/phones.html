@@ -21,11 +21,17 @@
       <tr>
         <td> </td>
         <td>Number</td>
+        <td></td>
       </tr>
       {% for phone in phones.all %}
-      <tr class="phone">
+      <tr class="phone" id={{phone.id}}>
         <td>{{ phone.id }}</td>
         <td class="phone-number-td">{{ phone.number }}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-danger
+            delete">delete record</button>
+          <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
