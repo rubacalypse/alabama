@@ -184,7 +184,6 @@ $(document).ready(function() {
   });
 
   if($(location).attr('hash') == '#saved') {
-    console.log("dfakljdsfkjad");
     $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
  

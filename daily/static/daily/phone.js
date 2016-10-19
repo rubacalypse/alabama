@@ -7,7 +7,6 @@ function updatePhones() {
   if (jsonList == null) {
     return;
   } else {
-    console.log("are we after the jsonList is created");
     var csrftoken = $('span.csrf input').val();
     $.ajaxSetup({
       beforeSend: function(xhr, settings) {
@@ -31,7 +30,6 @@ function updatePhones() {
 
 
 function jsonifyPhoneTable() {
-  console.log("jsonify?");
   var list = [];
   var errors = [];
   $('#daily-table').find('tr.phone').each(function(i, e) {
@@ -48,7 +46,6 @@ function jsonifyPhoneTable() {
         break;
       case 1:
         if (isNew) {
-          console.log("isNew?");
           var newNumber = $(this).find('input').val();
           //push error message if new name is empty
           if (newNumber == "") {
@@ -56,7 +53,6 @@ function jsonifyPhoneTable() {
             console.log(errorMsg);
             errors.push(errorMsg);
           } else {
-            console.log("number is there");
             //else: simply assign
             phone['phone-number'] = $(this).find('input').val();
           }
@@ -71,7 +67,6 @@ function jsonifyPhoneTable() {
   });
   
   if (errors.length > 0) {
-    console.log("errors?");
     $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
     return null;
   }

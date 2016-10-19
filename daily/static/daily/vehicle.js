@@ -1,5 +1,4 @@
 function updateVehicles(){
- console.log("update??"); 
   $('.errors-box').empty();
   $('.errors-box').hide();
 
@@ -8,7 +7,6 @@ function updateVehicles(){
   if (jsonList == null) {
     return;
   } else {
-    console.log("are we after the jsonList is created");
     var csrftoken = $('span.csrf input').val();
     $.ajaxSetup({
       beforeSend: function(xhr, settings) {
@@ -31,7 +29,6 @@ function updateVehicles(){
 }
 
 function jsonifyVehicleTable() {
-  console.log("jsonify?");
   var list = [];
   var errors = [];
   $('#daily-table').find('tr.vehicle').each(function(i, e) {
@@ -48,7 +45,6 @@ function jsonifyVehicleTable() {
         break;
       case 1:
         if (isNew) {
-          console.log("isNew?");
           var newName = $(this).find('input').val();
           //push error message if new name is empty
           if (newName == "") {
@@ -56,7 +52,6 @@ function jsonifyVehicleTable() {
             console.log(errorMsg);
             errors.push(errorMsg);
           } else {
-            console.log("number is there");
             //else: simply assign
             vehicle['vehicle-name'] = $(this).find('input').val();
           }
@@ -71,7 +66,6 @@ function jsonifyVehicleTable() {
   });
   
   if (errors.length > 0) {
-    console.log("errors?");
     $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
     return null;
   }

@@ -1,5 +1,4 @@
 function updateEmployees(){
- console.log("update??"); 
   $('.errors-box').empty();
   $('.errors-box').hide();
 
@@ -33,7 +32,6 @@ function updateEmployees(){
 
 
 function jsonifyEmpTable() {
-  console.log("jsonify?");
   var list = [];
   var errors = [];
   $('#daily-table').find('tr.emp').each(function(i, e) {
@@ -50,7 +48,6 @@ function jsonifyEmpTable() {
         break;
       case 1:
         if (isNew) {
-          console.log("isNew?");
           var newName = $(this).find('input').val();
           //push error message if new name is empty
           if (newName == "") {
@@ -58,7 +55,6 @@ function jsonifyEmpTable() {
             console.log(errorMsg);
             errors.push(errorMsg);
           } else {
-            console.log("name is there");
             //else: simply assign
             employee['emp-name'] = $(this).find('input').val();
           }
@@ -76,7 +72,6 @@ function jsonifyEmpTable() {
   });
   
   if (errors.length > 0) {
-    console.log("errors?");
     $("#save-button").after($('<div class="errors-box">').text(errors.toString()));
     return null;
   }
@@ -156,7 +151,6 @@ $(document).ready(function() {
   });
 
   if($(location).attr('hash') == '#saved') {
-    console.log("dfakljdsfkjad");
     $("#form-fields").before("<span>last saved: " + Date().toLocaleString("en-us"));
   }
 
