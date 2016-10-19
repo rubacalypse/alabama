@@ -157,9 +157,9 @@ function addProject() {
 function addTimePicker(td) {
   var time = td.text();
   td.empty();
-  //td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" value="' + time + '">'));
+  td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" onclick="this.select()" value="' + time + '">'));
 
-  td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" >'));
+  //td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" >'));
 }
 
 $(document).ready(function() {
@@ -202,7 +202,7 @@ $(document).ready(function() {
           $this.text(this.value);
         },
         keyup: function(e) {
-//     if (e.which === 13) $input.blur();
+                 if (e.which === 13) $input.blur();
                }
     }).appendTo( $this.empty() ).focus();
   });
