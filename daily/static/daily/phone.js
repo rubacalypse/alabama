@@ -83,10 +83,10 @@ function addPhone() {
   $('#daily-table > tbody > tr:first-child').after($('<tr class="phone new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
-        .append($('<input type="text" id="new-number">')))
+        .append($('<input type="text" class="text-input" id="new-number">')))
       .append($('<td>')
         .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
-          .append("delete record"))
+          .append("delete"))
           .append($("<button type='button' class='btn btn-sm btn-info undo'>")
             .append("Undo!"))));
       

@@ -86,7 +86,7 @@ function addVehicle() {
         .append($('<input type="text" id="new-name">')))
       .append($('<td>')
         .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
-          .append("delete record"))
+          .append("delete"))
           .append($("<button type='button' class='btn btn-sm btn-info undo'>")
             .append("Undo!"))));
 

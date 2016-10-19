@@ -30,18 +30,6 @@ function updateSchedule(){
   }
 }
 
-function getCompletedProjects() {
-  completes = [];
-  $('#daily-table').find('tr.project').each(function(i, e) {
-    var complete = $(this).find('.chk-box');
-    if (complete.is(':checked')) {
-     completes.push($(this).attr('id'));
-    }
-  });
-  console.log(completes);
-  var completed_json = JSON.stringify(completes);
-  return completed_json;
-}
 
 function jsonifyTable() {
   var schedule = [];
@@ -143,7 +131,7 @@ function addProject() {
             .append("completed"))))
       .append($('<td>')
         .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
-          .append("delete project"))
+          .append("cancel project"))
           .append($("<button type='button' class='btn btn-sm btn-info undo'>")
             .append("Undo!"))));
 
@@ -214,7 +202,7 @@ $(document).ready(function() {
           $this.text(this.value);
         },
         keyup: function(e) {
-                 if (e.which === 13) $input.blur();
+//     if (e.which === 13) $input.blur();
                }
     }).appendTo( $this.empty() ).focus();
   });

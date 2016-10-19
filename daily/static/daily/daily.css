@@ -1,7 +1,25 @@
-input {
-  width: 100px;
+.chk-box label {
+  float: right;
 }
 
+.chk-box input {
+  float: right;
+}
+
+
+h3 {
+  text-align: center;
+}
+
+.new-input {
+  max-width: 50px;
+}
+#column-flexbox {
+  flex-direction: column;
+}
+#row-flexbox {
+  flex-direction: row;
+}
 .no-border {
   border: 0px;
 }
@@ -51,7 +69,7 @@ input {
 
 .v-box {
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 10px;
   list-style: none;
 
   display: -webkit-box;

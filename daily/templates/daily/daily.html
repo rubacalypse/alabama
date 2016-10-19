@@ -61,14 +61,14 @@
               </td>
               <td>
                 <div class="checkbox">
-                  <label>
-                    <input type="checkbox" class="chk-box"> completed
-                  </label>
-                </div>
+                  <label class="chk-box">
+                  <input type="checkbox" class="chk-box"> completed
+                </label>
+              </div>
               </td>
               <td>
                 <button type="button" class="btn btn-sm btn-danger
-                  delete">delete project</button>
+                  delete">cancel project</button>
                 <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
               </td>
               {% endfor %}
@@ -84,7 +84,7 @@
               </li>
             </ol>
           <div class="v-box" id="sources">
-            <h3>employees</h3>
+              <h3>employees</h3>
             <ol class='sortable_with_no_drop' id="emps-source">
               {% for emp in emp_names.all %}
               <li class="flex-li employee">{{ emp.name }}</li>
@@ -102,7 +102,6 @@
               <li class="flex-li vehicle">{{ v.name }}</li>
               {% endfor %}
             </ol>
-          </div>
         </div>
       </div>
     </body>
