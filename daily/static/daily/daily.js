@@ -113,7 +113,7 @@ function jsonifyTable() {
 
 function addProject() {
   $('#daily-table > tbody > tr:first-child').after($('<tr class="project new" id="-1">')
-      .append($('<td>').text("-1"))
+      .append($('<td class="proj-id-td">').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
       .append($('<td>')

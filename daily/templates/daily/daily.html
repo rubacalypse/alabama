@@ -24,7 +24,7 @@
         <table class="table table-bordered" id="daily-table">
           <tbody>
             <tr>
-              <td>  </td>
+              <td class="proj-id-td">  </td>
               <td>Project</td>
               <td>Employees</td>
               <td>Times</td>
@@ -34,7 +34,7 @@
             </tr>
             {% for project in schedule.all %}
             <tr id={{ project.id }} class ="project">
-              <td>{{ project.id }}</td>
+              <td class="proj-id-td">{{ project.id }}</td>
               <td class="name-td">{{ project.name }}</td>
               <td>
                 <div class="daily-employee-list">
