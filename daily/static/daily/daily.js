@@ -127,13 +127,13 @@ function addProject() {
       .append($('<td>')
         .append($("<div class='checkbox'>")
           .append($("<label>")
-            .append($("<input type='checkbox' class='chk-box'>"))
-            .append("completed"))))
-      .append($('<td>')
-        .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
-          .append("cancel project"))
-          .append($("<button type='button' class='btn btn-sm btn-info undo'>")
-            .append("Undo!"))));
+            .append($("<input type='checkbox' class='chk-box'>"))))));
+      //      .append("completed"))))
+     // .append($('<td>')
+       // .append($("<button type='button' class='btn btn-sm btn-danger delete'>")
+         // .append("cancel project"))
+          //.append($("<button type='button' class='btn btn-sm btn-info undo'>")
+            //.append("Undo!"))));
 
   $('#new-proj-button').toggle();
   $('#new-name').focus();

@@ -11,7 +11,7 @@
       </div>
 
     </div><!-- /.container -->      
-    <div id="daily-view">
+    <!--<div id="daily-view">-->
         <div id="form-fields">
           <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
           <span class="csrf">{% csrf_token %}</span>
@@ -30,50 +30,58 @@
               <td>Times</td>
               <td>Vehicles</td>
               <td>Phones</td>
-              <td>Status </td>
-              <td></td>
+              <td>Done</td>
             </tr>
             {% for project in schedule.all %}
             <tr id={{ project.id }} class ="project">
               <td>{{ project.id }}</td>
               <td class="name-td">{{ project.name }}</td>
               <td>
+                <div class="daily-employee-list">
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
                   <li class="flex-li employee">{{ emp.name }}</li>
                   {% endfor %}
                 </ol>
+              </div>
               </td>
               <td class="time-td"><span>{{project.time|time:"g:i A"}}<span></td>
-              <td>
+                  <td>
+                <div class="daily-vehicle-list">
                 <ol class='sortable_with_drop vehicle_list'>
                   {% for v in project.vehicle.all %}
                   <li class="flex-li vehicle">{{ v.name }}</li>
                   {% endfor %}
                 </ol>
+              </div>
               </td>
               <td>
+                <div class="daily-phone-list">
                 <ol class='sortable_with_drop phone_list'>
                   {% for tel in project.phone.all %}
                   <li class="flex-li telephone">{{ tel.number }}</li>
                   {% endfor %}
                 </ol>
+              </div>
               </td>
               <td>
                 <div class="checkbox">
                   <label class="chk-box">
-                  <input type="checkbox" class="chk-box"> completed
+                  <input type="checkbox" class="chk-box">
                 </label>
               </div>
-              </td>
+            </td>
+            <!--
               <td>
                 <button type="button" class="btn btn-sm btn-danger
                   delete">cancel project</button>
                 <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
               </td>
+              -->
               {% endfor %}
             </tbody>
           </table>
+          <div class='all-trash'>
           <ol class='trash employee_trash'>
             <li>
                 <div class="lid"></div>
@@ -83,6 +91,7 @@
                 <div class="bin"></div>
               </li>
             </ol>
+          </div>
           <div class="v-box" id="sources">
               <h3>employees</h3>
             <ol class='sortable_with_no_drop' id="emps-source">
@@ -103,6 +112,6 @@
               {% endfor %}
             </ol>
         </div>
-      </div>
+        <!--   </div>-->
     </body>
     {% endblock %}

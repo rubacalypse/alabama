@@ -31,7 +31,7 @@ function updateVehicles(){
 function jsonifyVehicleTable() {
   var list = [];
   var errors = [];
-  $('#daily-table').find('tr.vehicle').each(function(i, e) {
+  $('#general-table').find('tr.vehicle').each(function(i, e) {
    if($(this).hasClass('danger')) {
     return;
    }
@@ -74,7 +74,7 @@ function jsonifyVehicleTable() {
 }
 
 function addVehicle() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="vehicle new" id="-1">')
+  $('#general-table > tbody > tr:first-child').after($('<tr class="vehicle new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))

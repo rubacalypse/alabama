@@ -1,3 +1,12 @@
+.checkbox {
+  margin: 0px;
+}
+
+#daily-table>tbody>tr>td {
+  padding: 2px 5px 2px 5px;
+  height: auto;
+}
+
 .chk-box label {
   float: right;
 }
@@ -17,11 +26,13 @@ h3 {
 .new-input {
   max-width: 50px;
 }
+
 #column-flexbox {
-  flex-direction: column;
+//  flex-direction: column;
 }
+
 #row-flexbox {
-  flex-direction: row;
+ // flex-direction: row;
 }
 .no-border {
   border: 0px;
@@ -49,30 +60,35 @@ h3 {
 }
 
 .flex-li {
+  white-space: nowrap;
   border: 1px solid black;
-  margin: 3px auto;
-  padding: 3px;
-  width: 100px;
+  padding: 5px;
+  margin: 5px 5px 5px 5px;
+  width: auto; 
   text-align: center;
+  display: inline-block;
 }
 
 .h-box {
+  //margin-left: 0px;
+  //margin-right: auto;
+  //max-width: 1000px;
   padding: 0;
-  margin: 0;
   list-style: none;
-
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .v-box {
+  //max-width: 30%;
+ // float: right;
   padding: 0;
-  margin: 0 0 0 10px;
+  margin: auto;
   list-style: none;
 
   display: -webkit-box;
@@ -85,22 +101,55 @@ h3 {
 
 #sources {
   margin: 0 auto;
+  order: 3;
 }
 
 #form-fields {
   padding: 10px;
+  flex: 1 100%;
 }
 
 #save-button {
-  //display: none;
   background: green;
 }
 
-
-#daily-table {
+#general-table {
   float: left;
   width: auto; 
   margin: 0 auto;
+}
+
+.daily-vehicle-list {
+  max-width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+.daily-phone-list {
+  max-width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.daily-employee-list {
+  max-width: 505px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#daily-view {
+  flex: 1 100%;
+  justify-content: space-around;
+  align-items: baseline;
+  display: flex;
+  max-width: 1200px;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+#daily-table {
+  flex: 1;
+  width: auto;
 }
 
 ol {
@@ -110,6 +159,7 @@ ol {
   //height: 100%; 
   width: 100%;
   min-height: 30px;
+  margin: 3px;
 }
 
 ol li {

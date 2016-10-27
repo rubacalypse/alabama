@@ -34,7 +34,7 @@ function updateEmployees(){
 function jsonifyEmpTable() {
   var list = [];
   var errors = [];
-  $('#daily-table').find('tr.emp').each(function(i, e) {
+  $('#general-table').find('tr.emp').each(function(i, e) {
    if($(this).hasClass('danger')) {
     return;
    }
@@ -82,7 +82,7 @@ function jsonifyEmpTable() {
 
 
 function addEmployee() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="emp new" id="-1">')
+  $('#general-table > tbody > tr:first-child').after($('<tr class="emp new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))

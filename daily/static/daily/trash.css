@@ -1,3 +1,10 @@
+.all-trash {
+  //order: 2;
+  flex: 1;
+  visibility: hidden;
+  display: inline;
+}
+
 .phone_trash {
   visibility: hidden;
 }
