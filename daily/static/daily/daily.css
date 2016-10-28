@@ -96,7 +96,7 @@ h3 {
 }
 
 #sources {
-  margin: 0px;
+  margin: 100px auto;
   order: 3;
   position: absolute;
   left: 85%;
@@ -121,21 +121,25 @@ h3 {
 }
 
 .daily-vehicle-list {
-  max-width: auto;
-  overflow: hidden;
-  white-space: nowrap;
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 
 .daily-phone-list {
-  max-width: auto;
-  overflow: hidden;
-  white-space: nowrap;
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
+
 .daily-employee-list {
-  max-width: 505px;
-  overflow: hidden;
-  white-space: nowrap;
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 #daily-view {
@@ -143,14 +147,15 @@ h3 {
   justify-content: space-around;
   align-items: baseline;
   display: flex;
-  max-width: 1200px;
+  max-width: 100%;
+  //max-width: 1200px;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
 
 #daily-table {
   flex: 1;
-  width: auto;
+  max-width: 80%;
 }
 
 ol {
