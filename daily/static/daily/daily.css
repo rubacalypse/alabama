@@ -96,8 +96,13 @@ h3 {
 }
 
 #sources {
-  margin: 0 auto;
+  margin: 0px;
   order: 3;
+  position: absolute;
+  left: 90%;
+  top: 50px;
+  width: 10px;
+  
 }
 
 #form-fields {
