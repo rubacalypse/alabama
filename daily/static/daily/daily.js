@@ -203,7 +203,7 @@ $(document).ready(function() {
         keyup: function(e) {
                  if (e.which === 13) $input.blur();
                }
-    }).appendTo( $this.empty() ).focus();
+    }).select().appendTo( $this.empty() ).focus();
   });
   
   $('td.time-td span').on('click', function() {

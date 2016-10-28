@@ -24,7 +24,7 @@ h3 {
   max-width: 70px;
 }
 .new-input {
-  max-width: 50px;
+  max-width: auto; 
 }
 
 .proj-id-td {
