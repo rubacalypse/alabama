@@ -86,6 +86,7 @@ def update_schedule(request):
 
 def manage_employees(request):
   employees = Employee.objects.all()
+  print employees
   categories = Category.objects.all()
   context = {'employees': employees, 'cats': categories}
   return render(request, 'daily/employees.html', context)
@@ -115,7 +116,6 @@ def update_employee_list(request):
     pprint(ecats)
     for cat in ecats:
       emp.category.add(Category.objects.get(name=cat))
-
     emp.save()
   return HttpResponseRedirect('employees')
 
@@ -147,6 +147,34 @@ def update_phone_list(request):
     phone.save()
   
   return HttpResponseRedirect('phones')
+
+def manage_categories(request):
+  categories = Category.objects.all()
+  context = {'categories': categories}
+  return render(request, 'daily/categories.html', context)
+
+def update_category_list(request):
+  deleted = json.loads(request.POST.get('deleted'))
+  pprint(deleted)
+  
+  for catID in deleted:
+    pprint(catID)
+    category = Category.objects.get(pk=catID)
+    pprint(category)
+    category.delete()
+  
+  categories = json.loads(request.POST.get('list'))
+  pprint(categories)
+  for c in categories:
+    pprint(c)
+    if int(c['cat-id']) == -1:
+      category = Category()
+    else:
+      category = Category.objects.get(pk=c['cat-id'])
+
+    category.name = c['cat-name']
+    category.save()
+  return HttpResponseRedirect('categories')
 
 def manage_vehicles(request):
   vehicles = Vehicle.objects.all()

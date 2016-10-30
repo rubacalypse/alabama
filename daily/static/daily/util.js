@@ -1,7 +1,7 @@
-function getDeletedRows() {
+function getDeletedRows(tableID) {
   var to_delete = {};
   var deletes = [];
-  var rows = $('#daily-table').find('.danger');
+  var rows = $(tableID).find('.danger');
   $.each(rows, function(i, val) {
     var id = $(val).attr('id');
     if (id == "-1") {

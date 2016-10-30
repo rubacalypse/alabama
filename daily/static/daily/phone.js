@@ -2,7 +2,7 @@ function updatePhones() {
   $('.errors-box').empty();
   $('.errors-box').hide();
 
-  var deletedRows = getDeletedRows();
+  var deletedRows = getDeletedRows('#general-table');
   var jsonList = jsonifyPhoneTable();
   if (jsonList == null) {
     return;

@@ -1,0 +1,52 @@
+{% extends 'daily/base.html' %}
+{% load static %}
+{% block includes %}
+    <script type="text/javascript" src="{% static 'daily/category.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div id="form-fields">
+  <button type="button" class="btn btn-primary btn-lg"
+    id="new-category-button" onclick="addCategory()">Add category</button>
+  <span class="csrf">{% csrf_token %}</span>
+  <button type="button" class="btn btn-primary btn-lg"
+    id="save-button" onclick="updateCategories()">Save Changes</button>
+  <input type="hidden" name="categories-list" id="categories-list"/>
+
+</div>
+
+<div class="h-box">
+  <table class="table table-bordered" id="general-table">
+    <tbody>
+      <tr>
+        <td> </td>
+        <td>Category</td>
+        <td></td>
+      </tr>
+      {% for cat in categories.all %}
+      <tr class="cat" id={{ cat.id }}>
+        <td>{{ cat.id }}</td>
+        <td class="cat-name-td">{{ cat.name }}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-danger
+            delete">delete</button>
+          <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!--<ol class='trash category_trash'>
+    <li>
+    <div class="lid"></div>
+    <div class="lidcap"></div>
+    <div class="bin"></div>
+    </li>
+  </ol>
+  -->
+</div>
+      </body>
+
+      {% endblock %}
+
+

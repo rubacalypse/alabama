@@ -1,9 +1,9 @@
-function updateVehicles(){
+function updateCategories(){
   $('.errors-box').empty();
   $('.errors-box').hide();
 
   var deletedRows = getDeletedRows('#general-table');
-  var jsonList = jsonifyVehicleTable();
+  var jsonList = jsonifyCategoryTable();
   if (jsonList == null) {
     return;
   } else {
@@ -18,7 +18,7 @@ function updateVehicles(){
 
     $.ajax({
       type: "POST",
-      url: "/daily/update_vehicle_list",
+      url: "/daily/update_category_list",
       data: {deleted: deletedRows, list: jsonList},
       success: function() {
         location = location.pathname + "#saved";
@@ -28,38 +28,38 @@ function updateVehicles(){
   }
 }
 
-function jsonifyVehicleTable() {
+function jsonifyCategoryTable() {
   var list = [];
   var errors = [];
-  $('#general-table').find('tr.vehicle').each(function(i, e) {
+  $('#general-table').find('tr.cat').each(function(i, e) {
    if($(this).hasClass('danger')) {
     return;
    }
-   var vehicle = {};
+   var category = {};
    var isNew = $(this).hasClass('new');
 
    $(this).find('td').each(function(j, e) {
     switch(j) {
       case 0:
-        vehicle['vehicle-id'] = $(this).text();
+        category['cat-id'] = $(this).text();
         break;
       case 1:
         if (isNew) {
           var newName = $(this).find('input').val();
           //push error message if new name is empty
           if (newName == "") {
-            var errorMsg = "name missing for new vehicle";
+            var errorMsg = "name missing for new category";
             console.log(errorMsg);
             errors.push(errorMsg);
           } else {
             //else: simply assign
-            vehicle['vehicle-name'] = $(this).find('input').val();
+            category['cat-name'] = $(this).find('input').val();
           }
         } else {
-            vehicle['vehicle-name'] = $(this).text();
-            console.log(vehicle);
+            category['cat-name'] = $(this).text();
+            console.log(category);
         }
-        list.push(vehicle);
+        list.push(category);
         break;
     }
    });
@@ -73,8 +73,8 @@ function jsonifyVehicleTable() {
   return json_list;
 }
 
-function addVehicle() {
-  $('#general-table > tbody > tr:first-child').after($('<tr class="vehicle new" id="-1">')
+function addCategory() {
+  $('#general-table > tbody > tr:first-child').after($('<tr class="cat new" id="-1">')
       .append($('<td>').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
@@ -84,14 +84,14 @@ function addVehicle() {
           .append($("<button type='button' class='btn btn-sm btn-info undo'>")
             .append("Undo!"))));
 
-  $('#new-vehicle-button').toggle();
+  $('#new-category-button').toggle();
   $('#new-name').focus();
   configure_delete_button();
   configure_undo_button();
 }
 
 $(document).ready(function() {
-  $('td.vehicle-name-td').on('click', function() {
+  $('td.cat-name-td').on('click', function() {
     var $this = $(this);
     if ($(".new-input").length) {
       return;

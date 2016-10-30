@@ -16,4 +16,8 @@ urlpatterns = [
         url(r'^vehicles', views.manage_vehicles, name='vehicles'),
         url(r'^update_vehicle_list', views.update_vehicle_list,
         name='update_vehicle_list'),
+        url(r'^categories', views.manage_categories,
+        name='categories'),
+        url(r'^update_category_list', views.update_category_list,
+          name='update_category_list'),
         ]

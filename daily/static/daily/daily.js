@@ -2,7 +2,7 @@ function updateSchedule(){
   $('.errors-box').empty();
   $('.errors-box').hide();
   
-  var deletedRows = getDeletedRows();
+  var deletedRows = getDeletedRows('#daily-table');
 
   var jsonSched = jsonifyTable();
   if (jsonSched == null) {
