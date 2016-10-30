@@ -75,7 +75,7 @@ function jsonifyVehicleTable() {
 
 function addVehicle() {
   $('#general-table > tbody > tr:first-child').after($('<tr class="vehicle new" id="-1">')
-      .append($('<td>').text("-1"))
+      .append($('<td class="id-td">').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
       .append($('<td>')

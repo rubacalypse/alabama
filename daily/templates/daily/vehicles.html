@@ -19,13 +19,13 @@
   <table class="table table-bordered" id="general-table">
     <tbody>
       <tr>
-        <td> </td>
+        <td class="id-td"> </td>
         <td>Name</td>
         <td></td>
       </tr>
       {% for vehicle in vehicles.all %}
       <tr class="vehicle" id={{ vehicle.id }}>
-        <td>{{ vehicle.id }}</td>
+        <td class="id-td">{{ vehicle.id }}</td>
         <td class="vehicle-name-td">{{ vehicle.name }}</td>
         <td>
           <button type="button" class="btn btn-sm btn-danger

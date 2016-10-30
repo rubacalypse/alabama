@@ -19,14 +19,14 @@
           <table class="table table-bordered" id="general-table">
             <tbody>
               <tr>
-                <td> </td>
+                <td class="id-td"> </td>
                 <td>Name</td>
                 <td>Category</td>
                 <td></td>
               </tr>
               {% for emp in employees.all %}
               <tr class="emp" id={{ emp.id }}>
-                <td>{{ emp.id }}</td>
+                <td class="id-td">{{ emp.id }}</td>
                 <td class="emp-name-td">{{ emp.name }}</td>
                 <td>
                   <ol class='sortable_with_drop cat_list'>

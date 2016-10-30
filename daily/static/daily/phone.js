@@ -76,7 +76,7 @@ function jsonifyPhoneTable() {
 
 function addPhone() {
   $('#general-table > tbody > tr:first-child').after($('<tr class="phone new" id="-1">')
-      .append($('<td>').text("-1"))
+      .append($('<td class="id-td">').text("-1"))
       .append($('<td>')
         .append($('<input type="text" class="text-input" id="new-number">')))
       .append($('<td>')

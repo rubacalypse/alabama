@@ -19,13 +19,13 @@
   <table class="table table-bordered" id="general-table">
     <tbody>
       <tr>
-        <td> </td>
+        <td class="id-td"> </td>
         <td>Category</td>
         <td></td>
       </tr>
       {% for cat in categories.all %}
       <tr class="cat" id={{ cat.id }}>
-        <td>{{ cat.id }}</td>
+        <td class="id-td">{{ cat.id }}</td>
         <td class="cat-name-td">{{ cat.name }}</td>
         <td>
           <button type="button" class="btn btn-sm btn-danger
