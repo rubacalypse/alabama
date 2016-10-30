@@ -1,8 +1,8 @@
 .all-trash {
   //order: 2;
-  flex: 1;
-  visibility: hidden;
-  display: inline;
+  flex: 2;
+  //visibility: hidden;
+  //display: inline;
 }
 
 .phone_trash {

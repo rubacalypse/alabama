@@ -44,7 +44,7 @@ def update_schedule(request):
   for s in schedule:
     if int(s['proj-id']) == -1:
       proj = Project()
-      proj.date = timezone.now().date()
+      proj.dtime = timezone.now()
     else:
       pprint(s['proj-id'])
       proj = Project.objects.get(pk=s['proj-id'])
@@ -57,7 +57,9 @@ def update_schedule(request):
       proj.status = 'INCMP'
 
     t_st = time.strptime(new_time, "%I:%M %p")
-    proj.time = datetime.time(t_st.tm_hour, t_st.tm_min)
+    formatted_time = datetime.time(t_st.tm_hour, t_st.tm_min)
+
+    proj.dtime = datetime.datetime.combine(proj.dtime.date(), formatted_time) 
     proj.save()
     #TODO: add date
 

@@ -85,7 +85,7 @@ function sortable_with_drop(classStr, group) {
             },
 
     onDrop: function  ($item, container, _super) {
-    if (container.el.hasClass('trash')) {
+    if (container.el.hasClass('all-trash')) {
                 $item.remove();
       } else {
         var $clonedItem = $('<li/>').css({height: 0});

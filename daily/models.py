@@ -37,8 +37,9 @@ class Project(models.Model):
       (incomplete, 'incomplete'),
       )
   name = models.CharField(max_length=200)
-  date = models.DateField('Date', default=timezone.now().date())
-  time = models.TimeField('Time', default=timezone.now().time())
+  #date = models.DateField('Date', default=timezone.now().date())
+  #time = models.TimeField('Time', default=timezone.now().time())
+  dtime = models.DateTimeField('DTime', default=timezone.now)
   employee = models.ManyToManyField(Employee)
   phone = models.ManyToManyField(Phone)
   vehicle = models.ManyToManyField(Vehicle)
