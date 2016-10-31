@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+import datetime
 
 class Category(models.Model):
   name = models.CharField(max_length=100)
@@ -37,9 +38,7 @@ class Project(models.Model):
       (incomplete, 'incomplete'),
       )
   name = models.CharField(max_length=200)
-  #date = models.DateField('Date', default=timezone.now().date())
-  #time = models.TimeField('Time', default=timezone.now().time())
-  dtime = models.DateTimeField('DTime', default=timezone.now)
+  dtime = models.DateTimeField('DTime')
   employee = models.ManyToManyField(Employee)
   phone = models.ManyToManyField(Phone)
   vehicle = models.ManyToManyField(Vehicle)

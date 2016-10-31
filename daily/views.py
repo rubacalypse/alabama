@@ -4,16 +4,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.dateparse import parse_time
+from django.contrib.auth.decorators import login_required
 from .models import Project, Employee, Phone, Vehicle, Category
 import json
 import datetime
 import time
 
 def schedule(request):
-  today = timezone.now().date()
-  #todays_schedule = Project.objects.filter(date=today)
-  incompletes = Project.objects.filter(status='INCMP')
-  #projects = Project.objects.all()
+  today = timezone.now()
+  print(today)
+  incompletes = Project.objects.filter(dtime__year=today.year,
+      dtime__month=today.month, dtime__day=today.day, status='INCMP')
   employees = Employee.objects.all()
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
@@ -22,11 +23,6 @@ def schedule(request):
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
   
   return render(request, 'daily/daily.html/', context)
-
-'''def show_schedule(request, year, month, day):
-  date = datetime.date(int(year), int(month), int(day))
-  return render(request, 'daily/daily.html', {'date': date})
-'''
 
 @transaction.atomic
 def update_schedule(request):
