@@ -13,8 +13,9 @@ import time
 def schedule(request):
   today = timezone.now()
   print(today)
-  incompletes = Project.objects.filter(dtime__year=today.year,
-      dtime__month=today.month, dtime__day=today.day, status='INCMP')
+  incompletes = Project.objects.filter(status='INCMP')
+  #incompletes = Project.objects.filter(dtime__year=today.year,
+   #   dtime__month=today.month, dtime__day=today.day, status='INCMP')
   employees = Employee.objects.all()
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
