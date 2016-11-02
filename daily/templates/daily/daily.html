@@ -12,13 +12,15 @@
 
     </div><!-- /.container -->      
     <!--<div id="daily-view">-->
-        <div id="form-fields">
-          <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
-          <span class="csrf">{% csrf_token %}</span>
-             <button type="button" class="btn btn-primary btn-lg"
-              id="save-button" onclick="updateSchedule()">Save Changes</button>
-            <input type="hidden" name="schedule" id="schedule"/>
-
+      <div id="form-fields">
+      {% if user.is_authenticated %}
+      <button type="button" class="btn btn-primary btn-lg" id="new-proj-button" onclick="addProject()">New project</button>
+      <span class="csrf">{% csrf_token %}</span>
+      <button type="button" class="btn btn-primary btn-lg"
+        id="save-button" onclick="updateSchedule()">Save Changes</button>
+      <input type="hidden" name="schedule" id="schedule"/>
+        
+      {% endif %}
         </div>
         <div class="h-box">
         <table class="table table-bordered" id="daily-table">
@@ -81,6 +83,7 @@
               {% endfor %}
             </tbody>
           </table>
+      {% if user.is_authenticated %}
           <div class='all-trash'>
           <ol class='trash employee_trash'>
             <li>
@@ -113,5 +116,6 @@
             </ol>
         </div>
         <!--   </div>-->
+      {% endif %}
     </body>
     {% endblock %}
