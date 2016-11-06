@@ -30,6 +30,32 @@ function updateSchedule(){
   }
 }
 
+function login() {
+  var csrftoken = $('span.csrf input').val();
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+                  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  }
+                }
+  });
+  
+  var username = $('#user-username').val();
+  var password = $('#user-password').val();
+  console.log(username);
+  console.log(password);
+  $.ajax({
+    type: "POST",
+    url: "/daily/login",
+    data: {username: username, 
+      password: password},
+    success: function() {
+      location = location.pathname + "#saved";
+      location.reload();
+     
+    },
+  });
+}
 
 function jsonifyTable() {
   var schedule = [];

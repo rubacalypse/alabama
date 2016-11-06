@@ -4,11 +4,34 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.dateparse import parse_time
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from .models import Project, Employee, Phone, Vehicle, Category
 import json
 import datetime
 import time
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
+def logout_user(request):
+  logout(request);
+  return HttpResponseRedirect(reverse('schedule'))
+
+def login_user(request):
+  username = request.POST.get('username')
+  password = request.POST.get('password')
+  print(username)
+  print(password)
+  user = authenticate(username=username, password=password)
+  if user is not None:
+    if user.is_active:
+      print("HI")
+      login(request, user)
+      print("logged in")
+      return HttpResponseRedirect(reverse('schedule'))
+    else:
+      print("inactive user")
+  else:
+    return HttpResponseRedirect(reverse('schedule'))
 
 def schedule(request):
   today = timezone.now()
@@ -25,6 +48,7 @@ def schedule(request):
   
   return render(request, 'daily/daily.html/', context)
 
+@login_required
 @transaction.atomic
 def update_schedule(request):
   deleted = json.loads(request.POST.get('deleted'))

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+import django.contrib.auth.views
 
 from . import views
 import datetime
@@ -20,4 +21,6 @@ urlpatterns = [
         name='categories'),
         url(r'^update_category_list', views.update_category_list,
           name='update_category_list'),
+        url(r'^login', views.login_user, name='login'), 
+        url(r'^logout', views.logout_user, name='logout'),
         ]

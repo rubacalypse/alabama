@@ -71,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'liverpool.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -111,6 +110,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Login  redirect
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
