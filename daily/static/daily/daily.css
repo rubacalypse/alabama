@@ -1,3 +1,8 @@
+#invalid-login-message {
+  color: red;
+  text-align: center;
+}
+
 .form-group {
   margin: 5px;
 }

@@ -16,6 +16,7 @@ def logout_user(request):
   logout(request);
   return HttpResponseRedirect(reverse('schedule'))
 
+@transaction.atomic
 def login_user(request):
   username = request.POST.get('username')
   password = request.POST.get('password')
@@ -27,11 +28,14 @@ def login_user(request):
       print("HI")
       login(request, user)
       print("logged in")
-      return HttpResponseRedirect(reverse('schedule'))
+      response = HttpResponse(json.dumps({'login': 'valid'}), content_type='application/json')
+      return response
+      #return HttpResponseRedirect(reverse('schedule'))
     else:
       print("inactive user")
   else:
-    return HttpResponseRedirect(reverse('schedule'))
+      response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
+      return response
 
 def schedule(request):
   today = timezone.now()

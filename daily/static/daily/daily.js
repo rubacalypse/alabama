@@ -31,6 +31,7 @@ function updateSchedule(){
 }
 
 function login() {
+  console.log("whattt");
   var csrftoken = $('span.csrf input').val();
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
@@ -49,10 +50,18 @@ function login() {
     url: "/daily/login",
     data: {username: username, 
       password: password},
-    success: function() {
-      location = location.pathname + "#saved";
-      location.reload();
-     
+    success: function(request) {
+      switch(request.login) {
+        case 'valid':
+          location = location.pathname + "#valid";
+          window.location.reload();
+          break;
+        case 'invalid':
+          console.log(location);
+          location = location.pathname + "#invalid";
+          window.location.reload();
+          break;
+      }
     },
   });
 }
@@ -211,6 +220,13 @@ $(document).ready(function() {
 
   if($(location).attr('hash') == '#saved') {
     $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
+  }
+
+  if($(location).attr('hash') == '#invalid') {
+    $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
+    setTimeout(function() {
+      $("a#login-dropdown").trigger('click');
+    }, 10);
   }
  
   
