@@ -4,7 +4,7 @@
     <script type="text/javascript" src="{% static 'daily/employee.js' %}"></script>
 {% endblock %}
 {% block content %}
-        
+        {% if user.is_authenticated %}        
         <div id="form-fields">
           <button type="button" class="btn btn-primary btn-lg"
             id="new-emp-button" onclick="addEmployee()">Add employee</button>
@@ -14,7 +14,9 @@
           <input type="hidden" name="emps-list" id="emps-list"/>
 
         </div>
-
+        {% else %}
+        <div id="form-fields"></div>
+        {% endif %}
         <div class="h-box">
           <table class="table table-bordered" id="general-table">
             <tbody>
@@ -22,7 +24,9 @@
                 <td class="id-td"> </td>
                 <td>Name</td>
                 <td>Category</td>
+                {% if user.is_authenticated %}        
                 <td></td>
+                {% endif %}
               </tr>
               {% for emp in employees.all %}
               <tr class="emp" id={{ emp.id }}>
@@ -35,15 +39,18 @@
                       {% endfor %}
                   </ol>
                 </td>
+                {% if user.is_authenticated %}        
                 <td>
                   <button type="button" class="btn btn-sm btn-danger
                     delete">delete</button>
                   <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
                 </td>
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>
           </table>
+          {% if user.is_authenticated %}        
           <ol class='trash category_trash'>
             <li>
                 <div class="lid"></div>
@@ -61,6 +68,7 @@
             </ol>
           </div>
           </div>
+          {% endif %}
 
         </div>
 

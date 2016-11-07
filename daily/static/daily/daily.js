@@ -198,9 +198,10 @@ function addTimePicker(td) {
 }
 
 $(document).ready(function() {
-  sortable_with_drop(".phone_list", "phones");
-  sortable_with_drop(".employee_list", "employees");
-  sortable_with_drop(".vehicle_list", "vehicles");
+  if($(location).attr('hash') == '#login-valid') {
+    sortable_with_drop(".phone_list", "phones");
+    sortable_with_drop(".employee_list", "employees");
+    sortable_with_drop(".vehicle_list", "vehicles");
 
   sortable_with_no_drop("#emps-source", 'employees');
   sortable_with_no_drop("#phones-source", 'phones');
@@ -222,12 +223,6 @@ $(document).ready(function() {
     $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
 
-  if($(location).attr('hash') == '#invalid') {
-    $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
-    setTimeout(function() {
-      $("a#login-dropdown").trigger('click');
-    }, 10);
-  }
  
   
   $('td.name-td').on('click', function() {
@@ -261,9 +256,18 @@ $(document).ready(function() {
     }).focus();
     td.find('input').trigger('click');
   });
-  
+
   configure_delete_button();
   configure_undo_button();
+}
+
+  if($(location).attr('hash') == '#login-invalid') {
+    $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
+    setTimeout(function() {
+      $("a#login-dropdown").trigger('click');
+    }, 10);
+  }
+ 
   
 
 });

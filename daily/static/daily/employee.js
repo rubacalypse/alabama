@@ -144,37 +144,39 @@ function addEmployee() {
 
 
 $(document).ready(function() {
-  sortable_with_drop(".cat_list", "categories");
-  sortable_with_no_drop("#cats-source", "categories");
-  $(".category_trash").sortable({
-    group: 'categories'
-  });
+  
+  if ($(".loggedin").text() == 'True')  {
+    sortable_with_drop(".cat_list", "categories");
+    sortable_with_no_drop("#cats-source", "categories");
+    $(".category_trash").sortable({
+      group: 'categories'
+    });
 
-  if($(location).attr('hash') == '#saved') {
-    $("#form-fields").before("<span>last saved: " + Date().toLocaleString("en-us"));
-  }
-
-  $('td.emp-name-td').on('click', function() {
-    var $this = $(this);
-    if ($(".new-input").length) {
-      return;
+    if($(location).attr('hash') == '#saved') {
+      $("#form-fields").before("<span>last saved: " + Date().toLocaleString("en-us"));
     }
-    var $input = $('<input>', {
-      value: $this.text(),
-        type: 'text',
-        class: 'new-input',
-        blur: function() {
-          $this.text(this.value);
-        },
-        keyup: function(e) {
-                 if (e.which === 13) $input.blur();
-               }
-    }).appendTo( $this.empty() ).focus();
-  });
 
-  configure_delete_button();
-  configure_undo_button();
+    $('td.emp-name-td').on('click', function() {
+      var $this = $(this);
+      if ($(".new-input").length) {
+        return;
+      }
+      var $input = $('<input>', {
+        value: $this.text(),
+          type: 'text',
+          class: 'new-input',
+          blur: function() {
+            $this.text(this.value);
+          },
+          keyup: function(e) {
+                   if (e.which === 13) $input.blur();
+                 }
+      }).appendTo( $this.empty() ).focus();
+    });
 
+    configure_delete_button();
+    configure_undo_button();
+  }
 });
 
 

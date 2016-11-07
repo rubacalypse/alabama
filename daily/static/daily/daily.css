@@ -3,6 +3,9 @@
   text-align: center;
 }
 
+.loggedin {
+  display: none;
+}
 .form-group {
   margin: 5px;
 }

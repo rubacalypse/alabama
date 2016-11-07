@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
 
+{% if user.is_authenticated %}
 <div id="form-fields">
   <button type="button" class="btn btn-primary btn-lg"
     id="new-category-button" onclick="addCategory()">Add category</button>
@@ -12,26 +13,31 @@
   <button type="button" class="btn btn-primary btn-lg"
     id="save-button" onclick="updateCategories()">Save Changes</button>
   <input type="hidden" name="categories-list" id="categories-list"/>
-
 </div>
-
+{% else %}
+<div id="form-fields"></div>
+{% endif %}
 <div class="h-box">
   <table class="table table-bordered" id="general-table">
     <tbody>
       <tr>
         <td class="id-td"> </td>
         <td>Category</td>
+        {% if user.is_authenicated %}
         <td></td>
+        {% endif %}
       </tr>
       {% for cat in categories.all %}
       <tr class="cat" id={{ cat.id }}>
         <td class="id-td">{{ cat.id }}</td>
         <td class="cat-name-td">{{ cat.name }}</td>
+        {% if user.is_authenicated %}
         <td>
           <button type="button" class="btn btn-sm btn-danger
             delete">delete</button>
           <button type="button" class="btn btn-sm btn-info undo">Undo!</button>
         </td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>

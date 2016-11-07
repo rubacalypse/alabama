@@ -20,22 +20,22 @@ def logout_user(request):
 def login_user(request):
   username = request.POST.get('username')
   password = request.POST.get('password')
+  next = request.POST.get('next')
   print(username)
   print(password)
+  print(next)
   user = authenticate(username=username, password=password)
   if user is not None:
     if user.is_active:
-      print("HI")
       login(request, user)
-      print("logged in")
-      response = HttpResponse(json.dumps({'login': 'valid'}), content_type='application/json')
-      return response
-      #return HttpResponseRedirect(reverse('schedule'))
+      response = next + '#login-valid'
+      #response = HttpResponse(json.dumps({'login': 'valid'}), content_type='application/json')
     else:
       print("inactive user")
   else:
-      response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
-      return response
+      response = next + '#login-invalid'
+    #response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
+  return HttpResponseRedirect(response)
 
 def schedule(request):
   today = timezone.now()
@@ -109,6 +109,7 @@ def update_schedule(request):
 
   return HttpResponseRedirect('/daily')
 
+@login_required
 def manage_employees(request):
   employees = Employee.objects.all()
   print employees
@@ -116,6 +117,7 @@ def manage_employees(request):
   context = {'employees': employees, 'cats': categories}
   return render(request, 'daily/employees.html', context)
 
+@login_required
 def update_employee_list(request):
   deleted = json.loads(request.POST.get('deleted'))
   pprint(deleted)
@@ -144,11 +146,13 @@ def update_employee_list(request):
     emp.save()
   return HttpResponseRedirect('employees')
 
+@login_required
 def manage_phones(request):
   phones = Phone.objects.all()
   context = {'phones': phones}
   return render(request, 'daily/phones.html', context)
 
+@login_required
 def update_phone_list(request):
   deleted = json.loads(request.POST.get('deleted'))
   pprint(deleted)
@@ -173,11 +177,13 @@ def update_phone_list(request):
   
   return HttpResponseRedirect('phones')
 
+@login_required
 def manage_categories(request):
   categories = Category.objects.all()
   context = {'categories': categories}
   return render(request, 'daily/categories.html', context)
 
+@login_required
 def update_category_list(request):
   deleted = json.loads(request.POST.get('deleted'))
   pprint(deleted)
@@ -201,11 +207,13 @@ def update_category_list(request):
     category.save()
   return HttpResponseRedirect('categories')
 
+@login_required
 def manage_vehicles(request):
   vehicles = Vehicle.objects.all()
   context = {'vehicles': vehicles}
   return render(request, 'daily/vehicles.html', context)
 
+@login_required
 def update_vehicle_list(request):
   deleted = json.loads(request.POST.get('deleted'))
   pprint(deleted)
