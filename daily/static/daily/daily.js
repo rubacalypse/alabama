@@ -147,7 +147,7 @@ function jsonifyTable() {
 }
 
 function addProject() {
-  $('#daily-table > tbody > tr:first-child').after($('<tr class="project new" id="-1">')
+  $('#daily-table > tbody > tr:last-child').after($('<tr class="project new" id="-1">')
       .append($('<td class="proj-id-td">').text("-1"))
       .append($('<td>')
         .append($('<input type="text" id="new-name">')))
@@ -261,6 +261,7 @@ $(document).ready(function() {
   configure_undo_button();
 }
 
+  
   if($(location).attr('hash') == '#login-invalid') {
     $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
     setTimeout(function() {
