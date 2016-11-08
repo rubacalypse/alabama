@@ -198,7 +198,7 @@ function addTimePicker(td) {
 }
 
 $(document).ready(function() {
-  if($(location).attr('hash') == '#login-valid') {
+  if($("#loginflag").val() == 'true') {
     sortable_with_drop(".phone_list", "phones");
     sortable_with_drop(".employee_list", "employees");
     sortable_with_drop(".vehicle_list", "vehicles");

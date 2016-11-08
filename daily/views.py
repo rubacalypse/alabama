@@ -28,8 +28,7 @@ def login_user(request):
   if user is not None:
     if user.is_active:
       login(request, user)
-      response = next + '#login-valid'
-      #response = HttpResponse(json.dumps({'login': 'valid'}), content_type='application/json')
+      response = next
     else:
       print("inactive user")
   else:

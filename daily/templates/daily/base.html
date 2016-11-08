@@ -3,6 +3,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <head>
 
+      
       <script type="text/javascript" src="{% static 'daily/jquery.min.js' %}"></script>
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -25,6 +26,11 @@
       <link rel="stylesheet" type="text/css" href= "{% static 'daily/jquery.timepicker.css' %}"/>
       <script type = "text/javascript" src="{% static 'daily/jquery.timepicker.js'%}"></script>
 
+      {% if user.is_authenticated %}
+      <input type="hidden" id="loginflag" value=true></div>
+      {% else %}
+      <input type="hidden" id="loginflag" value=false></div>
+      {% endif %}
     </head>
     <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -54,15 +60,14 @@
                 </ul>
                 </li>
                 {% endif %}
-            </li>
-          </ul>
+                </li>
+              </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
             <li class="dropdown">
             <a href="#" id="login-dropdown" class="dropdown-toggle" data-toggle="dropdown"><b>Log In</b> <span class="caret"></span></a>
             <ul id="login-dp" class="dropdown-menu">
               <li>
-             <li class="loggedin">False</li>
               <div class="row">
                 <div class="col-md-12">
       
@@ -91,7 +96,6 @@
           <form method="post" action="{% url 'logout' %}" id="logout-form" class="form" role="form"  accept-charset="UTF-8" >
       <span class="csrf">{% csrf_token %}</span>
       <div class="form-group">
-          <li class="loggedin">True<li>
         <button type="submit"  class="btn btn-primary btn-block">Logout</button>
       </div>
          </form>
