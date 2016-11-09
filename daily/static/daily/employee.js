@@ -145,7 +145,7 @@ function addEmployee() {
 
 $(document).ready(function() {
   
-  if ($(".loggedin").text() == 'True')  {
+  if($("#loginflag").val() == 'true') {
     sortable_with_drop(".cat_list", "categories");
     sortable_with_no_drop("#cats-source", "categories");
     $(".category_trash").sortable({

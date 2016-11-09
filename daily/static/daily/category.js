@@ -91,6 +91,7 @@ function addCategory() {
 }
 
 $(document).ready(function() {
+  if($("#loginflag").val() == 'true') {
   $('td.cat-name-td').on('click', function() {
     var $this = $(this);
     if ($(".new-input").length) {
@@ -111,6 +112,8 @@ $(document).ready(function() {
   
   configure_delete_button();
   configure_undo_button();
+
+  }
 });
 
 
