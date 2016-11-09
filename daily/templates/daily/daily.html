@@ -2,6 +2,7 @@
 {% load static %}
 {% block includes %}
     <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href= "{% static 'daily/category.css' %}"/>
 {% endblock %}
 {% block content %}
       <div class="container">
@@ -44,7 +45,7 @@
                 <div class="daily-employee-list">
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
-                  <li class="flex-li employee">{{ emp.name }}</li>
+                  <li class="flex-li employee {% for c in emp.category.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
                   {% endfor %}
                 </ol>
               </div>

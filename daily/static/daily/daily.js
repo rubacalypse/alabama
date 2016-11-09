@@ -242,7 +242,7 @@ $(document).ready(function() {
                }
     }).select().appendTo( $this.empty() ).focus();
   });
-  
+
   $('td.time-td span').on('click', function() {
     var td = $(this).parent();
     addTimePicker(td);
@@ -261,14 +261,11 @@ $(document).ready(function() {
   configure_undo_button();
 }
 
-  
   if($(location).attr('hash') == '#login-invalid') {
     $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
     setTimeout(function() {
       $("a#login-dropdown").trigger('click');
     }, 10);
   }
- 
-  
 
 });
