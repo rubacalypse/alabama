@@ -106,6 +106,12 @@ h3 {
   flex-direction: column;
 }
 
+#emps-source {
+  overflow:hidden; 
+  overflow-y:scroll;
+  height: 40%;
+}
+
 #sources {
   margin: 100px auto;
   order: 3;
@@ -113,7 +119,7 @@ h3 {
   left: 85%;
   top: 50px;
   width: 10%;
-  
+  height: 100%;  
 }
 
 #form-fields {
