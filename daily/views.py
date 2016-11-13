@@ -42,7 +42,7 @@ def schedule(request):
   incompletes = Project.objects.filter(status='INCMP')
   #incompletes = Project.objects.filter(dtime__year=today.year,
    #   dtime__month=today.month, dtime__day=today.day, status='INCMP')
-  employees = Employee.objects.all()
+  employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
   date = datetime.date(int(today.year), int(today.month), int(today.day))
