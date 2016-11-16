@@ -36,19 +36,39 @@ def login_user(request):
     #response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
   return HttpResponseRedirect(response)
 
-def schedule(request):
-  today = timezone.now()
-  print(today)
-  incompletes = Project.objects.filter(status='INCMP')
-  #incompletes = Project.objects.filter(dtime__year=today.year,
-   #   dtime__month=today.month, dtime__day=today.day, status='INCMP')
+def show_schedule(request, year, month, day): 
+  print("do we come to show schedule?")
+  date = datetime.datetime(int(year), int(month), int(day)) 
+  #incompletes = Project.objects.filter(status='INCMP')
+  incompletes = Project.objects.filter(dtime__year=year, dtime__month=month, dtime__day=day, status='INCMP')
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
-  date = datetime.date(int(today.year), int(today.month), int(today.day))
-  context = {'date': date, 'schedule': incompletes, 'date': today,
+  #date = datetime.date(int(today.year), int(today.month), int(today.day))
+  context = {'schedule': incompletes, 'date': date,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
+ 
+  return render(request, 'daily/daily.html/', context)
+
+
+def schedule(request):
+  print("do we come here again?")
+  today = timezone.now()
+  date = request.POST.get('date')
+  pprint(date) 
+  if date is None:
+    date = timezone.now()
+  else:
+    date = datetime.datetime.strptime(date, "%B %d, %Y")
   
+  #incompletes = Project.objects.filter(status='INCMP')
+  incompletes = Project.objects.filter(dtime__year=date.year, dtime__month=date.month, dtime__day=date.day, status='INCMP')
+  employees = Employee.objects.all().order_by('name')
+  phones = Phone.objects.all()
+  vehicles = Vehicle.objects.all()
+  context = {'schedule': incompletes, 'date': date,
+      'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
+
   return render(request, 'daily/daily.html/', context)
 
 @login_required

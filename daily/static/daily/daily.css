@@ -3,6 +3,16 @@
   text-align: center;
 }
 
+#datepicker {
+  height: 10%;
+  font-size: 35px;
+  font-weight: 500;
+  color: black;
+}
+.input-group.date {
+  width: 50%;
+}
+
 .form-group {
   margin: 5px;
 }

@@ -220,7 +220,7 @@ $(document).ready(function() {
   });
 
   if($(location).attr('hash') == '#saved') {
-    $("#date").after("<span>last saved: " + Date().toLocaleString("en-us"));
+    $(".date").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
 
  
@@ -243,7 +243,7 @@ $(document).ready(function() {
     }).select().appendTo( $this.empty() ).focus();
   });
 
-  $('td.time-td span').on('click', function() {
+    $('td.time-td span').on('click', function() {
     var td = $(this).parent();
     addTimePicker(td);
     td.find('input').timepicker({
@@ -268,4 +268,13 @@ $(document).ready(function() {
     }, 10);
   }
 
+  $("#datepicker").datepicker({
+    dateFormat: "MM dd, yy",
+    defaultDate: new Date(),
+    onSelect: function(dateText, inst) {
+      console.log($(this).val());
+      $("#datepicker-form").submit();
+    },
+  });
 });
+

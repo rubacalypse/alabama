@@ -1,15 +1,22 @@
 {% extends 'daily/base.html' %}
 {% load static %}
 {% block includes %}
-    <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href= "{% static 'daily/category.css' %}"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href= "{% static 'daily/category.css' %}"/>
 {% endblock %}
 {% block content %}
       <div class="container">
 
       <div class="starter-template">
-        <h1 id="date">{{ date }}</h1>
-      </div>
+      <h1></h1>
+      <form id="datepicker-form" method='POST' action="{% url 'schedule' %}">
+        <p><input type="text" id="datepicker" value = '{{ date|date:"F d, Y" }}' name="date"></p>
+      <span class="csrf">{% csrf_token %}</span>
+      </form>
+    </div>
 
     </div><!-- /.container -->      
     <!--<div id="daily-view">-->
@@ -20,7 +27,6 @@
       <button type="button" class="btn btn-primary btn-lg"
         id="save-button" onclick="updateSchedule()">Save Changes</button>
       <input type="hidden" name="schedule" id="schedule"/>
-        
       {% endif %}
         </div>
         <div class="h-box">
