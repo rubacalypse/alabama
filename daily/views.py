@@ -11,6 +11,7 @@ import datetime
 import time
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.db.models import Q
 
 def logout_user(request):
   logout(request);
@@ -40,7 +41,8 @@ def show_schedule(request, year, month, day):
   print("do we come to show schedule?")
   date = datetime.datetime(int(year), int(month), int(day)) 
   #incompletes = Project.objects.filter(status='INCMP')
-  incompletes = Project.objects.filter(dtime__year=year, dtime__month=month, dtime__day=day, status='INCMP')
+  incompletes = Project.objects.filter(Q(start_date__year=year, start_date__month=month,
+    start__day=day) | Q(status='INCMP'))
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
@@ -55,14 +57,20 @@ def schedule(request):
   print("do we come here again?")
   today = timezone.now()
   date = request.POST.get('date')
-  pprint(date) 
+  #pprint(date) 
   if date is None:
     date = timezone.now()
   else:
     date = datetime.datetime.strptime(date, "%B %d, %Y")
-  
-  #incompletes = Project.objects.filter(status='INCMP')
-  incompletes = Project.objects.filter(dtime__year=date.year, dtime__month=date.month, dtime__day=date.day, status='INCMP')
+ 
+  print(date)
+  incompletes = Project.objects.filter(start_date__year__lte=date.year,
+      start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP')
+  #incompletes = Project.objects.filter(start_date__year__gte=date.year,
+      #start_date__month__gte=date.month, start_date__day__gte=date.day, status='INCMP')
+  pprint(incompletes)
+  for p in incompletes:
+    pprint(p.start_date)
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all()
   vehicles = Vehicle.objects.all()
@@ -74,38 +82,54 @@ def schedule(request):
 @login_required
 @transaction.atomic
 def update_schedule(request):
+  print("we are in update schedule")
+  now = timezone.now()
+  current_time = now.time()
+  tz = timezone.get_default_timezone()
+  
+  date = request.POST.get('schedule_date')
+  date = datetime.datetime.strptime(date, "%B %d, %Y")
+  pprint(date)
+  date = tz.localize(date)
+  pprint("after localize")
+  pprint(date)
   deleted = json.loads(request.POST.get('deleted'))
-  pprint(deleted)
+  #pprint(deleted)
   
   for projID in deleted:
     pprint(projID)
     proj = Project.objects.get(pk=projID)
-    pprint(proj)
     proj.delete()
 
   schedule = json.loads(request.POST.get('schedule'))
   pprint(schedule)
+
   for s in schedule:
     if int(s['proj-id']) == -1:
       proj = Project()
-      proj.dtime = timezone.now()
+      proj.start_date = date
+      #proj.start_date = tz.localize(proj.start_date)
     else:
-      pprint(s['proj-id'])
       proj = Project.objects.get(pk=s['proj-id'])
     proj.name = s['proj-name']
     new_time = s['proj-time']
     complete = s['proj-status']
+
     if (complete):
       proj.status = 'CMP'
+      proj.end_date = date
+      proj.end_date = datetime.datetime.combine(proj.end_date.date(), current_time) 
+      proj.end_date = tz.localize(proj.end_date)
     else:
       proj.status = 'INCMP'
 
+    #update time in case it's been changed (this is complicated)
     t_st = time.strptime(new_time, "%I:%M %p")
     formatted_time = datetime.time(t_st.tm_hour, t_st.tm_min)
 
-    proj.dtime = datetime.datetime.combine(proj.dtime.date(), formatted_time) 
+    proj.start_date = datetime.datetime.combine(proj.start_date.date(), formatted_time) 
+    proj.start_date = tz.localize(proj.start_date)
     proj.save()
-    #TODO: add date
 
     proj.employee.clear()
     proj.phone.clear()

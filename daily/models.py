@@ -38,7 +38,8 @@ class Project(models.Model):
       (incomplete, 'incomplete'),
       )
   name = models.CharField(max_length=200)
-  dtime = models.DateTimeField('DTime')
+  start_date = models.DateTimeField('StartDate', null=True)
+  end_date = models.DateTimeField('EndDate', null=True)
   employee = models.ManyToManyField(Employee)
   phone = models.ManyToManyField(Phone)
   vehicle = models.ManyToManyField(Vehicle)

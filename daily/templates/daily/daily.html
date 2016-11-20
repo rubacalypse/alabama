@@ -55,8 +55,8 @@
                   {% endfor %}
                 </ol>
               </div>
-              </td>
-              <td class="time-td"><span>{{project.dtime|time:"g:i A"}}<span></td>
+            </td>
+              <td id={{project.start_date.date}} class="time-td"><span>{{project.start_date|time:"g:i A"}}<span></td>
                   <td>
                 <div class="daily-vehicle-list">
                 <ol class='sortable_with_drop vehicle_list'>

@@ -3,7 +3,7 @@ function updateSchedule(){
   $('.errors-box').hide();
   
   var deletedRows = getDeletedRows('#daily-table');
-
+  var schedule_date = $("#datepicker").val(); 
   var jsonSched = jsonifyTable();
   if (jsonSched == null) {
     return;
@@ -21,7 +21,7 @@ function updateSchedule(){
     $.ajax({
       type: "POST",
       url: "/daily/update_schedule",
-      data: {deleted: deletedRows, schedule: jsonSched},
+      data: {deleted: deletedRows, schedule: jsonSched, schedule_date},
       success: function() {
         location = location.pathname + "#saved";
         location.reload();
