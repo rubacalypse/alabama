@@ -43,6 +43,7 @@
               <td>Done</td>
               {% endif %}
             </tr>
+            {% if schedule %}
             {% for project in schedule.all %}
             <tr id={{ project.id }} class ="project">
               <td class="proj-id-td">{{ project.id }}</td>
@@ -92,6 +93,32 @@
               </td>
               -->
               {% endfor %}
+              {% else %}
+              <!--
+                I'm making this invisible temporary row because the only way
+                that the sources lists would be set up with a cloning feature is
+                if the droppable lists (employee_list, phone_list, etc) were set up.. 
+                otherwise you could drag from the sources list and the
+                value wouldn't be cloned..
+                -->
+                <tr id="hidden-tmp-row">
+                <td>
+                  <div class="daily-employee-list">
+                    <ol class='sortable_with_drop employee_list'></ol>
+                  </div>
+                </td>
+                <td>
+                  <div class="daily-phone-list">
+                    <ol class='sortable_with_drop phone_list'></ol>
+                  </div>
+                </td>
+                <td>
+                  <div class="daily-phone-list">
+                    <ol class='sortable_with_drop phone_list'></ol>
+                  </div>
+                </td>
+              </tr>  
+              {% endif %}
             </tbody>
           </table>
       {% if user.is_authenticated %}

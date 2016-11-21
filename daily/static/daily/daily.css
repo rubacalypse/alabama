@@ -1,3 +1,6 @@
+tr#hidden-tmp-row {
+  display: none;
+}
 #invalid-login-message {
   color: red;
   text-align: center;
