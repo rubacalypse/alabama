@@ -75,6 +75,11 @@ function sortable_with_drop(classStr, group) {
   if(!container.options.drop)
     $item.clone().insertAfter($item);
   _super($item, container);
+    
+    
+  if (container.el.hasClass('all-trash')) {
+    $item.remove();
+  }
     },
 
     onDrag: function ($item, position) {
@@ -85,7 +90,7 @@ function sortable_with_drop(classStr, group) {
             },
 
     onDrop: function  ($item, container, _super) {
-    if (container.el.hasClass('all-trash')) {
+    if ((container.el.hasClass('all-trash')) || (container.el.hasClass('sortable_with_no_drop'))) {
                 $item.remove();
       } else {
         var $clonedItem = $('<li/>').css({height: 0});

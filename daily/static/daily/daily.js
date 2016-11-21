@@ -208,15 +208,18 @@ $(document).ready(function() {
   sortable_with_no_drop("#vehicles-source", 'vehicles');
 
   $(".phone_trash").sortable({
-    group: 'phones'
+    group: 'phones',
+    drag: false
   });
 
   $(".employee_trash").sortable({
-    group: 'employees'
+    group: 'employees',
+    drag: false,
   });
 
   $(".vehicle_trash").sortable({
-    group: 'vehicles'
+    group: 'vehicles',
+    drag: false,
   });
 
   if($(location).attr('hash') == '#saved') {
