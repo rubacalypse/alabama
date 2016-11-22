@@ -110,15 +110,17 @@ function sortable_with_drop(classStr, group, sourceStr, assigned) {
                         element.css('color', 'lightgrey');
                         break;
                       } else {
+                        console.log('it is not assigned!');
                         element.css('color', 'black');
                       } 
                     }
                 } else {
                   var element = $("ol#" + sourceStr).find('li:contains('+ $item.text() + ')'); 
-                  if ($.inArray(element.text(), assigned) == -1) {
-                    element.css('color', 'black');
-                  }
-                }
+                  console.log('is not assigned');
+                  element.css('color', 'black');
+                  var index = assigned.indexOf($item.text());   
+                  assigned.splice(index, 1);
+               }
                   $item.remove();
                 } else {
                 used_emps.push($item.text());  

@@ -9,15 +9,13 @@
 {% endblock %}
 {% block content %}
       <div class="container">
-
-      <div class="starter-template">
       <h1></h1>
+        <div class="starter-template">
       <form id="datepicker-form" method='POST' action="{% url 'schedule' %}">
         <p><input type="text" id="datepicker" value = '{{ date|date:"F d, Y" }}' name="date"></p>
-      <span class="csrf">{% csrf_token %}</span>
+        <span class="csrf">{% csrf_token %}</span>
       </form>
     </div>
-
     </div><!-- /.container -->      
     <!--<div id="daily-view">-->
       <div id="form-fields">
@@ -27,6 +25,16 @@
       <button type="button" class="btn btn-primary btn-lg"
         id="save-button" onclick="updateSchedule()">Save Changes</button>
       <input type="hidden" name="schedule" id="schedule"/>
+    <div class="form-inline form-group" id="show_projects">
+      <label for="show">Show:</label>
+      <select class="form-control" id="show">
+        <option>incomplete projects</option>
+        <option>completed projects</option>
+        <option>all projects</option>
+      </select>
+    </div>
+  </div>
+
       {% endif %}
         </div>
         <div class="h-box">
