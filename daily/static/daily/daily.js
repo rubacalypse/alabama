@@ -197,15 +197,45 @@ function addTimePicker(td) {
   //td.append($('<input type="text" id="changed-time" class="time ui-timepicker-input" >'));
 }
 
+function getAssignedVals(type, assigned) {
+  $("." + type).each(function(){
+    assigned.push($(this).text());
+  });
+  return assigned;
+}
+
+function markAssignedVals(source, assigned) {
+  $("ol#" + source).children().each(function() {
+    var i;
+    for (i = 0; i < assigned.length; i++) {
+      if ($(this).text() == assigned[i]) {
+        $(this).css('color', 'lightgrey');
+      } 
+    }
+  });
+ }
+
 $(document).ready(function() {
   if($("#loginflag").val() == 'true') {
-    sortable_with_drop(".phone_list", "phones");
-    sortable_with_drop(".employee_list", "employees");
-    sortable_with_drop(".vehicle_list", "vehicles");
+    var used_emps = [];
+    var used_phones = [];
+    var used_vehicles = [];
 
-  sortable_with_no_drop("#emps-source", 'employees');
-  sortable_with_no_drop("#phones-source", 'phones');
-  sortable_with_no_drop("#vehicles-source", 'vehicles');
+    getAssignedVals('assigned-emp', used_emps);
+    getAssignedVals('assigned-tel', used_phones);
+    getAssignedVals('assigned-vehicle', used_vehicles);
+
+    markAssignedVals('emps-source', used_emps);
+    markAssignedVals('phones-source', used_phones);
+    markAssignedVals('vehicles-source', used_vehicles);
+
+    sortable_with_drop(".phone_list", "phones", "phones-source", used_phones);
+    sortable_with_drop(".employee_list", "employees", "emps-source", used_emps);
+    sortable_with_drop(".vehicle_list", "vehicles", "vehicles-source", used_vehicles);
+
+    sortable_with_no_drop("#emps-source", 'employees');
+    sortable_with_no_drop("#phones-source", 'phones');
+    sortable_with_no_drop("#vehicles-source", 'vehicles');
 
   $(".phone_trash").sortable({
     group: 'phones',

@@ -52,7 +52,7 @@
                 <div class="daily-employee-list">
                 <ol class='sortable_with_drop employee_list'>
                   {% for emp in project.employee.all %}
-                  <li class="flex-li employee {% for c in emp.category.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
+                  <li class="flex-li assigned-emp employee {% for c in emp.category.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
                   {% endfor %}
                 </ol>
               </div>
@@ -62,7 +62,7 @@
                 <div class="daily-vehicle-list">
                 <ol class='sortable_with_drop vehicle_list'>
                   {% for v in project.vehicle.all %}
-                  <li class="flex-li vehicle">{{ v.name }}</li>
+                  <li class="flex-li assigned-vehicle vehicle">{{ v.name }}</li>
                   {% endfor %}
                 </ol>
               </div>
@@ -71,7 +71,7 @@
                 <div class="daily-phone-list">
                 <ol class='sortable_with_drop phone_list'>
                   {% for tel in project.phone.all %}
-                  <li class="flex-li telephone">{{ tel.number }}</li>
+                  <li class="flex-li assigned-tel telephone">{{ tel.number }}</li>
                   {% endfor %}
                 </ol>
               </div>
