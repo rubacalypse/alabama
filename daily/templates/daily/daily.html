@@ -150,7 +150,7 @@
               <h3>employees</h3>
             <ol class='sortable_with_no_drop' id="emps-source">
               {% for emp in emp_names.all %}
-              <li class="flex-li employee">{{ emp.name }}</li>
+                  <li class="flex-li employee {% for c in emp.categroy.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
               {% endfor %}
             </ol>
             <h3>phones</h3>
