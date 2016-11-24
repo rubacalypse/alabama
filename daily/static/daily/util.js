@@ -116,13 +116,30 @@ function sortable_with_drop(classStr, group, sourceStr, assigned) {
                     }
                 } else {
                   var element = $("ol#" + sourceStr).find('li:contains('+ $item.text() + ')'); 
-                  console.log('is not assigned');
-                  element.css('color', 'black');
+                    //console.log('is not assigned');
+                  //element.css('color', 'black');
                   var index = assigned.indexOf($item.text());   
                   assigned.splice(index, 1);
-               }
-                  $item.remove();
-                } else {
+                  if (assigned.length == 0) {
+                    element.css('color', 'black');
+                  } else {
+                  var i;
+                  for (i = 0; i < assigned.length; i++)
+                    {
+                      if(assigned[i] == element.text())  {
+                        console.log("is it assigned");
+                        element.css('color', 'lightgrey');
+                        break;
+                      } 
+                        console.log('it is not assigned!');
+                        element.css('color', 'black');
+
+                    }
+                  }
+ 
+                }
+                $item.remove();
+              } else {
                 used_emps.push($item.text());  
                 var $clonedItem = $('<li/>').css({height: 0});
                 $item.before($clonedItem);

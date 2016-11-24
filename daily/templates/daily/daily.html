@@ -27,13 +27,14 @@
       <input type="hidden" name="schedule" id="schedule"/>
     <div class="form-inline form-group" id="show_projects">
       <label for="show">Show:</label>
-      <select class="form-control" id="show">
-        <option>incomplete projects</option>
-        <option>completed projects</option>
-        <option>all projects</option>
+      <select class="form-control" name="show" id="show">
+        <option value="INCMP">ongoing projects</option>
+        <option value="CMP">completed projects</option>
+        <option value="all">all projects</option>
       </select>
-    </div>
-  </div>
+        <input type="hidden" name='date' value='{{ date|date:"F d, Y" }}'>
+      </div> <!-- show_projects -->
+  </div> 
 
       {% endif %}
         </div>
@@ -53,7 +54,7 @@
             </tr>
             {% if schedule %}
             {% for project in schedule.all %}
-            <tr id={{ project.id }} class ="project">
+            <tr id={{ project.id }} class ="project {{project.status}}">
               <td class="proj-id-td">{{ project.id }}</td>
               <td class="name-td">{{ project.name }}</td>
               <td>
@@ -65,7 +66,7 @@
                 </ol>
               </div>
             </td>
-              <td id={{project.start_date.date}} class="time-td"><span>{{project.start_date|time:"g:i A"}}<span></td>
+            <td id={{project.start_date.date}} class="time-td"><span>{{project.start_date|time:"g:i A"}}<span></td>
                   <td>
                 <div class="daily-vehicle-list">
                 <ol class='sortable_with_drop vehicle_list'>
@@ -88,7 +89,11 @@
               <td>
                 <div class="checkbox">
                   <label class="chk-box">
+                  {% if project.status == "CMP" %}
+                  <input type="checkbox" checked=true class="chk-box">
+                  {% else %}
                   <input type="checkbox" class="chk-box">
+                  {% endif %} 
                 </label>
               </div>
             </td>
@@ -104,7 +109,7 @@
               {% else %}
               <!--
                 I'm making this invisible temporary row because the only way
-                that the sources lists would be set up with a cloning feature is
+                that the sources lists would be set up with a cloning feature when the schedule is initially empty is
                 if the droppable lists (employee_list, phone_list, etc) were set up.. 
                 otherwise you could drag from the sources list and the
                 value wouldn't be cloned..

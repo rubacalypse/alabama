@@ -12,6 +12,7 @@ import time
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
+from itertools import chain 
 
 def logout_user(request):
   logout(request);
@@ -37,22 +38,6 @@ def login_user(request):
     #response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
   return HttpResponseRedirect(response)
 
-def show_schedule(request, year, month, day): 
-  print("do we come to show schedule?")
-  date = datetime.datetime(int(year), int(month), int(day)) 
-  #incompletes = Project.objects.filter(status='INCMP')
-  incompletes = Project.objects.filter(Q(start_date__year=year, start_date__month=month,
-    start__day=day) | Q(status='INCMP'))
-  employees = Employee.objects.all().order_by('name')
-  phones = Phone.objects.all()
-  vehicles = Vehicle.objects.all()
-  #date = datetime.date(int(today.year), int(today.month), int(today.day))
-  context = {'schedule': incompletes, 'date': date,
-      'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
- 
-  return render(request, 'daily/daily.html/', context)
-
-
 def schedule(request):
   print("do we come here again?")
   today = timezone.now()
@@ -64,10 +49,14 @@ def schedule(request):
     date = datetime.datetime.strptime(date, "%B %d, %Y")
  
   print(date)
-  incompletes = Project.objects.filter(start_date__year__lte=date.year,
-      start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP')
-  #incompletes = Project.objects.filter(start_date__year__gte=date.year,
-      #start_date__month__gte=date.month, start_date__day__gte=date.day, status='INCMP')
+  incompletes = Project.objects.filter(Q(start_date__year__lte=date.year,
+      start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
+      start_date__month=date.month, start_date__day=date.day))
+  
+  today_projects = Project.objects.filter(start_date__year=date.year,
+      start_date__month=date.month, start_date__day=date.day)
+  
+  
   pprint(incompletes)
   for p in incompletes:
     pprint(p.start_date)

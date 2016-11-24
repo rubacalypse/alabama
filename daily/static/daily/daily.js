@@ -256,7 +256,7 @@ $(document).ready(function() {
     $(".date").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
 
- 
+   
   
   $('td.name-td').on('click', function() {
     var $this = $(this);
@@ -290,10 +290,29 @@ $(document).ready(function() {
     td.find('input').trigger('click');
   });
 
+  $("#show").on('change', function() {
+    switch($(this).val()) {
+      case 'INCMP':
+        $('tr.project.INCMP').show();
+        $('tr.project.CMP').hide();
+        break;
+      case 'CMP':
+        $('tr.project.INCMP').hide();
+        $('tr.project.CMP').show();
+        break;
+      case 'all':
+        $('tr.project.INCMP').show();
+        $('tr.project.CMP').show();
+        break;
+    }
+});
   configure_delete_button();
   configure_undo_button();
 }
-
+  
+  $('tr.project.INCMP').show();
+  $('tr.project.CMP').hide();
+  
   if($(location).attr('hash') == '#login-invalid') {
     $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");
     setTimeout(function() {

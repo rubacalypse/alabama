@@ -3,6 +3,13 @@
   display: inline-block;
 }
 
+.INCMP {
+  background: lightyellow;
+}
+
+.CMP {
+  background: darkseagreen;
+}
 tr#hidden-tmp-row {
   display: none;
 }
