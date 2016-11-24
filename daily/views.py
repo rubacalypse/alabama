@@ -61,7 +61,7 @@ def schedule(request):
   for p in incompletes:
     pprint(p.start_date)
   employees = Employee.objects.all().order_by('name')
-  phones = Phone.objects.all()
+  phones = Phone.objects.all().order_by('number')
   vehicles = Vehicle.objects.all()
   context = {'schedule': incompletes, 'date': date,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
