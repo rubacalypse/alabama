@@ -253,7 +253,7 @@ $(document).ready(function() {
   });
 
   if($(location).attr('hash') == '#saved') {
-    $(".date").after("<span>last saved: " + Date().toLocaleString("en-us"));
+    $(".date-div").after("<span>last saved: " + Date().toLocaleString("en-us"));
   }
 
    
@@ -325,7 +325,18 @@ $(document).ready(function() {
     defaultDate: new Date(),
     onSelect: function(dateText, inst) {
       console.log($(this).val());
-      $("#datepicker-form").submit();
+      var d = new Date(dateText);
+      year = d.getFullYear();
+      month = d.getMonth() + 1;
+      day = d.getDate();
+      if(month < 10) {
+        month = "0" + month;
+      }
+      if(day < 10) {
+        day = "0" + day;
+      }
+      window.location="/daily/" + year + "/" + month + "/" + day;
+      //$("#datepicker-form").submit();
     },
   });
 });

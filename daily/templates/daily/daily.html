@@ -1,7 +1,7 @@
 {% extends 'daily/base.html' %}
 {% load static %}
 {% block includes %}
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="{% static 'daily/daily.js' %}"></script>
@@ -10,7 +10,7 @@
 {% block content %}
       <div class="container">
       <h1></h1>
-        <div class="starter-template">
+        <div class="date-div starter-template">
       <form id="datepicker-form" method='POST' action="{% url 'schedule' %}">
         <p><input type="text" id="datepicker" value = '{{ date|date:"F d, Y" }}' name="date"></p>
         <span class="csrf">{% csrf_token %}</span>

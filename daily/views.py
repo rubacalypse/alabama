@@ -1,7 +1,7 @@
 from pprint import pprint
 from django.db import transaction
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils import timezone
 from django.utils.dateparse import parse_time
 from django.contrib.auth import authenticate, login, logout
@@ -38,35 +38,34 @@ def login_user(request):
     #response = HttpResponse(json.dumps({'login': 'invalid'}), content_type='application/json')
   return HttpResponseRedirect(response)
 
-def schedule(request):
-  print("do we come here again?")
-  today = timezone.now()
-  date = request.POST.get('date')
-  #pprint(date) 
-  if date is None:
+
+def schedule(request, year=None, month=None, day=None):
+  if year is None and month is None and day is None:
     date = timezone.now()
   else:
-    date = datetime.datetime.strptime(date, "%B %d, %Y")
- 
-  print(date)
+    try:
+      date = datetime.datetime(int(year), int(month), int(day))
+      tz = timezone.get_default_timezone()
+      date = tz.localize(date)
+    except ValueError:
+      raise Http404("Invalid date")
+
+  #print(date)
   incompletes = Project.objects.filter(Q(start_date__year__lte=date.year,
       start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
       start_date__month=date.month, start_date__day=date.day))
-  
+
   today_projects = Project.objects.filter(start_date__year=date.year,
       start_date__month=date.month, start_date__day=date.day)
-  
-  
-  pprint(incompletes)
-  for p in incompletes:
-    pprint(p.start_date)
+
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all().order_by('number')
   vehicles = Vehicle.objects.all().order_by('name')
+  print(date)
   context = {'schedule': incompletes, 'date': date,
       'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
 
-  return render(request, 'daily/daily.html/', context)
+  return render(request, 'daily/daily.html', context)
 
 @login_required
 @transaction.atomic
