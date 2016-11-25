@@ -1,5 +1,7 @@
 from django.conf.urls import url
 import django.contrib.auth.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 import datetime
@@ -22,4 +24,4 @@ urlpatterns = [
           name='update_category_list'),
         url(r'^login', views.login_user, name='login'), 
         url(r'^logout', views.logout_user, name='logout'),
-        ]
+        ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

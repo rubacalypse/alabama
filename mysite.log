@@ -552,3 +552,519 @@ ValueError: The file 'util.js' could not be found with <whitenoise.storage.Compr
 [25/Nov/2016 13:05:16] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
 [25/Nov/2016 13:05:16] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
 [25/Nov/2016 13:05:16] WARNING [django.server:131] "GET /static/daily/bootstrap.min.css.map HTTP/1.1" 404 1694
+[25/Nov/2016 21:12:59] DEBUG [django.db.backends:90] (0.004) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[25/Nov/2016 21:12:59] DEBUG [django.db.backends:90] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.005) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:27:16.578521+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 27, 16, 578521, tzinfo=<UTC>))
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.002) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.005) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.002) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.001) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:27:16] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8844
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:27:16] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:27:17] WARNING [django.server:131] "GET /static/daily/bootstrap.min.css.map HTTP/1.1" 404 1694
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.003) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:27:21.925284+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 27, 21, 925284, tzinfo=<UTC>))
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.002) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:27:21] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:27:21] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8844
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:27:22] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:27:22] WARNING [django.server:131] "GET /static/daily/bootstrap.min.css.map HTTP/1.1" 404 1694
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.003) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:55:14.553429+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 55, 14, 553429, tzinfo=<UTC>))
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.004) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:55:14] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8859
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:55:14] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:55:16] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 542194
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:57:51.991812+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 57, 51, 991812, tzinfo=<UTC>))
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.002) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:57:52] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8859
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:57:52] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 542194
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.005) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:58:00.755030+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 58, 0, 755030, tzinfo=<UTC>))
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.004) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.002) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.003) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:58:00] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8859
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:58:00] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:58:01] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 542194
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.004) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'rpk3qb841xc9qggp1xzczo64kd3kk889' AND "django_session"."expire_date" > '2016-11-25T18:59:12.566509+00:00'::timestamptz); args=('rpk3qb841xc9qggp1xzczo64kd3kk889', datetime.datetime(2016, 11, 25, 18, 59, 12, 566509, tzinfo=<UTC>))
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.002) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_project"."id", "daily_project"."name", "daily_project"."start_date", "daily_project"."end_date", "daily_project"."status" FROM "daily_project" WHERE (("daily_project"."status" = 'INCMP' AND EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 5 AND "daily_project"."start_date" <= '2016-12-31T23:59:59.999999+03:00'::timestamptz AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') <= 11) OR (EXTRACT('day' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 5 AND EXTRACT('month' FROM "daily_project"."start_date" AT TIME ZONE 'Asia/Bahrain') = 11 AND "daily_project"."start_date" BETWEEN '2016-01-01T00:00:00+03:00'::timestamptz AND '2016-12-31T23:59:59.999999+03:00'::timestamptz)); args=('INCMP', 'Asia/Bahrain', 5, datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), 'Asia/Bahrain', 11, 'Asia/Bahrain', 5, 'Asia/Bahrain', 11, datetime.datetime(2016, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>), datetime.datetime(2016, 12, 31, 23, 59, 59, 999999, tzinfo=<DstTzInfo 'Asia/Bahrain' AST+3:00:00 STD>))
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" INNER JOIN "daily_project_employee" ON ("daily_employee"."id" = "daily_project_employee"."employee_id") WHERE "daily_project_employee"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" INNER JOIN "daily_project_vehicle" ON ("daily_vehicle"."id" = "daily_project_vehicle"."vehicle_id") WHERE "daily_project_vehicle"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" INNER JOIN "daily_project_phone" ON ("daily_phone"."id" = "daily_project_phone"."phone_id") WHERE "daily_project_phone"."project_id" = 22; args=(22,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_employee"."id", "daily_employee"."name" FROM "daily_employee" ORDER BY "daily_employee"."name" ASC; args=()
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 1; args=(1,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.001) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 2; args=(2,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 5; args=(5,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 3; args=(3,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.000) SELECT "daily_category"."id", "daily_category"."name" FROM "daily_category" INNER JOIN "daily_employee_category" ON ("daily_category"."id" = "daily_employee_category"."category_id") WHERE "daily_employee_category"."employee_id" = 6; args=(6,)
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.000) SELECT "daily_phone"."id", "daily_phone"."number" FROM "daily_phone" ORDER BY "daily_phone"."number" ASC; args=()
+[25/Nov/2016 21:59:12] DEBUG [django.db.backends:90] (0.000) SELECT "daily_vehicle"."id", "daily_vehicle"."name" FROM "daily_vehicle" ORDER BY "daily_vehicle"."name" ASC; args=()
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 8859
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/util.js HTTP/1.1" 200 5065
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/css/category.css HTTP/1.1" 200 51
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/css/daily.css HTTP/1.1" 200 3310
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/css/trash.css HTTP/1.1" 200 1034
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 121200
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.css HTTP/1.1" 200 433
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/jquery.min.js HTTP/1.1" 200 97163
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/jquery.timepicker.css HTTP/1.1" 200 1584
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/daily.js HTTP/1.1" 200 9605
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/jquery-sortable.js HTTP/1.1" 200 23859
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 37045
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/daily/jquery.timepicker.js HTTP/1.1" 200 30595
+[25/Nov/2016 21:59:12] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 542194
+[25/Nov/2016 22:14:24] DEBUG [django.db.backends:90] (0.004) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[25/Nov/2016 22:14:24] DEBUG [django.db.backends:90] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Nov/2016 22:14:37] DEBUG [django.db.backends:90] (0.005) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[25/Nov/2016 22:14:37] DEBUG [django.db.backends:90] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Nov/2016 22:15:26] DEBUG [django.db.backends:90] (0.003) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[25/Nov/2016 22:15:26] DEBUG [django.db.backends:90] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Nov/2016 22:20:50] ERROR [django.request:124] Internal Server Error: /daily/2016/11/05/
+Traceback (most recent call last):
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/ruba/code/liverpool/liverpool/daily/views.py", line 68, in schedule
+    return render(request, 'daily/daily.html', context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/backends/django.py", line 66, in render
+    return self.template.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 208, in render
+    return self._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader_tags.py", line 174, in render
+    return compiled_parent._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 104, in render
+    url = self.url(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 101, in url
+    return self.handle_simple(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 114, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 132, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 292, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 95, in hashed_name
+    (clean_name, self))
+ValueError: The file 'bootstrap/css/bootstrap.min.css' could not be found with <whitenoise.storage.CompressedManifestStaticFilesStorage object at 0x110d213d0>.
+[25/Nov/2016 22:20:50] ERROR [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 500 27
+[25/Nov/2016 22:20:51] ERROR [django.request:124] Internal Server Error: /daily/2016/11/05/
+Traceback (most recent call last):
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/ruba/code/liverpool/liverpool/daily/views.py", line 68, in schedule
+    return render(request, 'daily/daily.html', context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/backends/django.py", line 66, in render
+    return self.template.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 208, in render
+    return self._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader_tags.py", line 174, in render
+    return compiled_parent._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 104, in render
+    url = self.url(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 101, in url
+    return self.handle_simple(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 114, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 132, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 292, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 95, in hashed_name
+    (clean_name, self))
+ValueError: The file 'bootstrap/css/bootstrap.min.css' could not be found with <whitenoise.storage.CompressedManifestStaticFilesStorage object at 0x110d213d0>.
+[25/Nov/2016 22:20:51] ERROR [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 500 27
+[25/Nov/2016 22:20:56] ERROR [django.request:124] Internal Server Error: /daily/2016/11/05/
+Traceback (most recent call last):
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/ruba/code/liverpool/liverpool/daily/views.py", line 68, in schedule
+    return render(request, 'daily/daily.html', context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/backends/django.py", line 66, in render
+    return self.template.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 208, in render
+    return self._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/loader_tags.py", line 174, in render
+    return compiled_parent._render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 104, in render
+    url = self.url(context)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 101, in url
+    return self.handle_simple(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/templatetags/static.py", line 114, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 132, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 292, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/ruba/.virtualenvs/liverpoop/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 95, in hashed_name
+    (clean_name, self))
+ValueError: The file 'bootstrap/css/bootstrap.min.css' could not be found with <whitenoise.storage.CompressedManifestStaticFilesStorage object at 0x10f2c5b10>.
+[25/Nov/2016 22:20:56] ERROR [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 500 27
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 9028
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/daily/util.35dda94c7b70.js
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 404 107
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/daily/daily.cf6f3c7d2bea.js
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 404 108
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/css/category.998ebc956df3.css
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 404 110
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 404 125
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/css/daily.8b693657c71c.css
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/css/trash.52a448ac9048.css
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 404 107
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 404 107
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:23:05] WARNING [django.request:152] Not Found: /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:23:05] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:23:05] WARNING [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 404 123
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/daily/util.35dda94c7b70.js
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 404 125
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 404 107
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/daily/daily.cf6f3c7d2bea.js
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 404 108
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/css/category.998ebc956df3.css
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/css/trash.52a448ac9048.css
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/css/daily.8b693657c71c.css
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 404 107
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 404 110
+[25/Nov/2016 22:23:06] WARNING [django.request:152] Not Found: /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 404 107
+[25/Nov/2016 22:23:06] WARNING [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 404 123
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 9028
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 200 19643
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 200 51
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 200 1069
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 200 430
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 200 1434
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 200 9806
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 200 2726
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:25:42] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:25:43] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165
+[25/Nov/2016 22:26:13] INFO [django.server:131] "POST /daily/update_schedule HTTP/1.1" 302 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /daily/ HTTP/1.1" 200 22616
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 10455
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:13] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:14] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:14] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:19] INFO [django.server:131] "POST /daily/update_schedule HTTP/1.1" 302 0
+[25/Nov/2016 22:26:19] INFO [django.server:131] "GET /daily/ HTTP/1.1" 200 22829
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 10668
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:20] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "POST /daily/update_schedule HTTP/1.1" 302 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /daily/ HTTP/1.1" 200 22917
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /daily/2016/11/05/ HTTP/1.1" 200 10756
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 304 0
+[25/Nov/2016 22:26:25] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:30] WARNING [django.request:152] Not Found: /daily/2016/11/33/
+[25/Nov/2016 22:27:30] WARNING [django.server:131] "GET /daily/2016/11/33/ HTTP/1.1" 404 91
+[25/Nov/2016 22:27:34] INFO [django.server:131] "GET /daily/2016/11/30/ HTTP/1.1" 200 22917
+[25/Nov/2016 22:27:42] INFO [django.server:131] "POST /daily/update_schedule HTTP/1.1" 302 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /daily/ HTTP/1.1" 200 21189
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /daily/2016/11/30/ HTTP/1.1" 200 21189
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 304 0
+[25/Nov/2016 22:27:42] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 304 0
+[25/Nov/2016 22:28:28] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /daily/2016/11/15 HTTP/1.1" 301 0
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /daily/2016/11/15/ HTTP/1.1" 200 8639
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 200 19643
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 200 51
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 200 1069
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 200 430
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 200 1434
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 200 2726
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 200 9806
+[25/Nov/2016 22:28:35] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:28:36] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165
+[25/Nov/2016 22:28:39] INFO [django.server:131] "GET /daily/2016/11/14 HTTP/1.1" 301 0
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /daily/2016/11/14/ HTTP/1.1" 200 8639
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 200 1434
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 200 19643
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 200 51
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 200 2726
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 200 1069
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 200 430
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 200 9806
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:28:40] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165
+[25/Nov/2016 22:28:44] INFO [django.server:131] "GET /daily/2016/11/16 HTTP/1.1" 301 0
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /daily/2016/11/16/ HTTP/1.1" 200 12342
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 200 19643
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 200 1434
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 200 2726
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 200 51
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 200 1069
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 200 430
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 200 9806
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:28:45] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /daily/2016/11/09 HTTP/1.1" 301 0
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /daily/2016/11/09/ HTTP/1.1" 200 9028
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/jquery.min.4f252523d4af.js HTTP/1.1" 200 33738
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.ec3bb52a00e1.css HTTP/1.1" 200 19643
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/util.35dda94c7b70.js HTTP/1.1" 200 1434
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/css/category.998ebc956df3.css HTTP/1.1" 200 51
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/css/daily.8b693657c71c.css HTTP/1.1" 200 1069
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/css/trash.52a448ac9048.css HTTP/1.1" 200 430
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/ie10-viewport-bug-workaround.631c61015480.css HTTP/1.1" 200 280
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/daily.cf6f3c7d2bea.js HTTP/1.1" 200 2726
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/jquery-sortable.7ff03231b0d5.js HTTP/1.1" 200 6720
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/jquery.timepicker.6d754b934c8e.css HTTP/1.1" 200 443
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/bootstrap/js/bootstrap.min.5869c96cc8f1.js HTTP/1.1" 200 9806
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/daily/jquery.timepicker.2eab8d27a541.js HTTP/1.1" 200 7786
+[25/Nov/2016 22:28:51] INFO [django.server:131] "GET /static/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 99165

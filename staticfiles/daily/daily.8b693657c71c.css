@@ -1,0 +1,251 @@
+#show_projects {
+  width: 20%;
+  display: inline-block;
+}
+
+.INCMP {
+  background: lightyellow;
+}
+
+.CMP {
+  background: darkseagreen;
+}
+tr#hidden-tmp-row {
+  display: none;
+}
+#invalid-login-message {
+  color: red;
+  text-align: center;
+}
+
+#datepicker {
+  height: 10%;
+  font-size: 35px;
+  font-weight: 500;
+  color: black;
+}
+.input-group.date {
+  width: 50%;
+}
+
+.form-group {
+  margin: 5px;
+}
+.checkbox {
+  margin: 0px;
+}
+
+#daily-table>tbody>tr>td {
+  padding: 2px 5px 2px 5px;
+  height: auto;
+}
+
+.chk-box label {
+  float: right;
+}
+
+.chk-box input {
+  float: right;
+}
+
+
+h3 {
+  text-align: center;
+}
+
+.time{
+  max-width: 70px;
+}
+.new-input {
+  max-width: auto; 
+}
+
+.id-td {
+  visibility: hidden;
+}
+.proj-id-td {
+  visibility: hidden;
+  display: none;
+}
+.no-border {
+  border: 0px;
+}
+
+.undo {
+  display: none;
+}
+#new-name {
+  min-width: 100px;
+  max-width: 100px;
+}
+
+#new-time {
+  min-width: 70px;
+  max-width: 70px;
+}
+
+.errors-box {
+  border: 1px solid black;
+  margin: 3px;
+  padding: 3px;
+  display: inline-block;
+  color: #990000;
+}
+
+.flex-li {
+  white-space: nowrap;
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px 5px 5px 5px;
+  width: auto; 
+  text-align: center;
+  display: inline-block;
+}
+
+.h-box {
+  //margin-left: 0px;
+  //margin-right: auto;
+  //max-width: 1000px;
+  padding: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.v-box {
+  //max-width: 30%;
+ // float: right;
+  padding: 0;
+  margin: auto;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+
+#emps-source {
+  overflow:hidden; 
+  overflow-y:scroll;
+  height: 40%;
+}
+
+#sources {
+  margin: 100px auto;
+  order: 3;
+  position: absolute;
+  left: 85%;
+  top: 50px;
+  width: 10%;
+  height: 100%;  
+}
+
+#form-fields {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+#save-button {
+  background: green;
+}
+
+#general-table {
+  float: left;
+  width: auto; 
+  margin: 0 auto;
+}
+
+.daily-vehicle-list {
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+
+.daily-phone-list {
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.daily-employee-list {
+  display: flex;
+  width: auto;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+#daily-view {
+  flex: 1 100%;
+  justify-content: space-around;
+  align-items: baseline;
+  display: flex;
+  max-width: 100%;
+  //max-width: 1200px;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+#daily-table {
+  flex: 1;
+  max-width: 80%;
+}
+
+ol {
+  display: inline-block;
+  -webkit-padding-start: 0px;
+  list-style-type: none;
+  //height: 100%; 
+  width: 100%;
+  min-height: 30px;
+  margin: 3px;
+}
+
+ol li {
+  float: center;
+}
+
+
+body {
+  padding: 50px;
+  margin: auto;
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+
+ol.sortable_with_drop li.placeholder {
+  position: relative;
+}
+
+ol.sortable_with_drop li.placeholder:before {
+  position: absolute;
+}
+
+ol.sortable_with_no_drop li.placeholder {
+  position: relative;
+}
+
+ol.sortable_with_no_drop li.placeholder:before {
+  position: absolute;
+}
+
+

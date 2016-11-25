@@ -1,0 +1,67 @@
+.all-trash {
+  //order: 2;
+  flex: 2;
+  //visibility: hidden;
+  //display: inline;
+}
+
+.phone_trash {
+  visibility: hidden;
+}
+
+.vehicle_trash {
+  visibility: hidden;
+}
+
+.trash {
+  visibility: hidden;
+  background: #ffffff;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  //margin: 50px auto 0;
+  border-radius: 4px;
+  transition: box-shadow .2s ease;
+}
+.trash:hover {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.3);
+}
+
+.trash:hover .lid, .trash:hover .lidcap {
+  transform: rotate(10deg);
+  margin-bottom: 12px;
+}
+
+.lidcap, .lid, .bin {
+  position: absolute;
+}
+
+.lidcap, .lid {
+  border-top-left-radius: 3.2px;
+  border-top-right-radius: 3.2px;
+  background: #111;
+  transition: transform .2s linear, margin .2s linear;
+}
+
+.lidcap {
+  bottom: 110.4px;
+  left: 65px;
+  height: 8px;
+  width: 16px;
+}
+
+.lid {
+  bottom: 96px;
+  left: 24px;
+  width: 98px;
+  height: 16px;
+}
+
+.bin {
+  bottom: 0;
+  left: 32px;
+  width: 80px;
+  border-top: 96px solid #111;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
