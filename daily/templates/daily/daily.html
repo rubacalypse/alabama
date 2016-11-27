@@ -147,24 +147,30 @@
             </ol>
           </div>
           <div class="v-box" id="sources">
-              <h3>employees</h3>
+            <div id="emp-source-div">
+            <h3>employees</h3>
             <ol class='sortable_with_no_drop' id="emps-source">
               {% for emp in emp_names.all %}
                   <li class="flex-li employee {% for c in emp.category.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
               {% endfor %}
             </ol>
+          </div>
+          <div id="phone-source-div">
             <h3>phones</h3>
             <ol class='sortable_with_no_drop' id="phones-source">
               {% for phone in phones.all %}
               <li class="flex-li telephone">{{ phone.number }}</li>
               {% endfor %}
             </ol>
+          </div>
+          <div id="vehicle-source-div">
             <h3>vehicles</h3>
             <ol class='sortable_with_no_drop' id="vehicles-source">
               {% for v in vehicles.all %}
               <li class="flex-li vehicle">{{ v.name }}</li>
               {% endfor %}
             </ol>
+          </div>
         </div>
         <!--   </div>-->
       {% endif %}
