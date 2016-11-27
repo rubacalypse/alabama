@@ -44,17 +44,17 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="dailyschedule">Schedule</a></li>
+            <li><a href="/daily">Schedule</a></li>
             {% if user.is_authenticated %}
             <li class="dropdown">
             <a href="#" class="dropdown-toggle"
               data-toggle="dropdown" role="button" aria-haspopup="true"
               aria-expanded="false">Manage <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="categories">Employee Categories</a></li>
-                  <li><a href="employees">Employees</a></li>
-                  <li><a href="phones">Phones</a></li>
-                  <li><a href="vehicles">Vehicles</a></li>
+                  <li><a href="/daily/categories">Employee Categories</a></li>
+                  <li><a href="/daily/employees">Employees</a></li>
+                  <li><a href="/daily/phones">Phones</a></li>
+                  <li><a href="/daily/vehicles">Vehicles</a></li>
                 </ul>
                 </li>
                 {% endif %}
