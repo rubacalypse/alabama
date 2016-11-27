@@ -3,6 +3,9 @@
   display: inline-block;
 }
 
+#emp-source-div {
+  height: 40%;
+}
 .INCMP {
   background: lightyellow;
 }
@@ -135,7 +138,7 @@ h3 {
 #emps-source {
   overflow:hidden; 
   overflow-y:scroll;
-  height: 40%;
+  height: 70%;
 }
 
 #sources {

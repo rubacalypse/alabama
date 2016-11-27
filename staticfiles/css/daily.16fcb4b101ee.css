@@ -4,7 +4,7 @@
 }
 
 #emp-source-div {
-  height: 40%;
+  height: 50%;
 }
 .INCMP {
   background: lightyellow;
@@ -138,7 +138,7 @@ h3 {
 #emps-source {
   overflow:hidden; 
   overflow-y:scroll;
-  height: 70%;
+  height: 50%;
 }
 
 #sources {
