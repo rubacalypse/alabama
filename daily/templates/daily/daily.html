@@ -147,25 +147,40 @@
             </ol>
           </div>
           <div class="v-box" id="sources">
-              <h3>employees</h3>
+            <div id="emp-sources-div">
+              <button data-toggle="collapse" class="collapsible btn btn-primary btn-block"
+                data-target="#emp-sources-list">Employees</button>
+            <div id="emp-sources-list" class="collapse">
+              <!--<h3>employees</h3>-->
             <ol class='sortable_with_no_drop' id="emps-source">
               {% for emp in emp_names.all %}
                   <li class="flex-li employee {% for c in emp.category.all %}{{ c.name }}{% endfor %}">{{ emp.name }}</li>
               {% endfor %}
             </ol>
-            <h3>phones</h3>
+          </div>
+        </div>
+            <div id="phone-sources-div">
+              <button data-toggle="collapse" class="btn btn-primary btn-block" data-target="#phone-sources-list">Phones</button>
+          <div id="phone-sources-list" class="collapse">
             <ol class='sortable_with_no_drop' id="phones-source">
               {% for phone in phones.all %}
               <li class="flex-li telephone">{{ phone.number }}</li>
               {% endfor %}
             </ol>
-            <h3>vehicles</h3>
+          </div>
+          </div>
+          <div id="vehicle-sources-div">
+              <button data-toggle="collapse" class="btn btn-primary btn-block"
+                data-target="#vehicle-sources-list">Vehicles</button>
+          <div id="vehicle-sources-list" class="collapse">
             <ol class='sortable_with_no_drop' id="vehicles-source">
               {% for v in vehicles.all %}
               <li class="flex-li vehicle">{{ v.name }}</li>
               {% endfor %}
             </ol>
+          </div>
         </div>
+      </div>
         <!--   </div>-->
       {% endif %}
     </body>

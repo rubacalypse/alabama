@@ -3,6 +3,18 @@
   display: inline-block;
 }
 
+#emp-sources-div {
+  margin: 3px;
+}
+
+#phone-sources-div {
+  margin: 3px;
+}
+#vehicle-sources-div {
+  margin: 3px;
+}
+
+
 .INCMP {
   background: lightyellow;
 }
@@ -133,9 +145,9 @@ h3 {
 }
 
 #emps-source {
-  overflow:hidden; 
-  overflow-y:scroll;
-  height: 40%;
+  //overflow:hidden; 
+  //overflow-y:scroll;
+  height: 60%;
 }
 
 #sources {
