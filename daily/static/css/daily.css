@@ -1,3 +1,7 @@
+.date-container {
+  padding-left: 0px;
+}
+
 td {
   padding: 10px;
 }
@@ -156,7 +160,7 @@ h3 {
 }
 
 #form-fields {
-  padding: 10px;
+  padding: 10px 10px 10px 0px;
   flex: 1 100%;
 }
 
