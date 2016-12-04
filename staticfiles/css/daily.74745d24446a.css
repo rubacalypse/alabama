@@ -10,12 +10,13 @@ td {
   height: 40%;
 }
 
-td.table-header {
+tr.table-header {
   font-weight: bold;
 }
 
 .CMP {
-  background: darkseagreen;
+  //background: darkseagreen;
+  background: red;
 }
 tr#hidden-tmp-row {
   display: none;

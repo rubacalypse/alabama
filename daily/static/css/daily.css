@@ -1,3 +1,6 @@
+td {
+  padding: 10px;
+}
 #show_projects {
   width: 20%;
   display: inline-block;
@@ -6,8 +9,9 @@
 #emp-source-div {
   height: 40%;
 }
-.INCMP {
-  background: lightyellow;
+
+td.table-header {
+  font-weight: bold;
 }
 
 .CMP {

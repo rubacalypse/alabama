@@ -10,7 +10,7 @@ td {
   height: 40%;
 }
 
-td.table-header {
+.table-header {
   font-weight: bold;
 }
 

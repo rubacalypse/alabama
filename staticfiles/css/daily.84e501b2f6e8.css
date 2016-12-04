@@ -10,10 +10,6 @@ td {
   height: 40%;
 }
 
-td.table-header {
-  font-weight: bold;
-}
-
 .CMP {
   background: darkseagreen;
 }
