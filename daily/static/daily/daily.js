@@ -311,7 +311,7 @@ $(document).ready(function() {
 }
   
   $('tr.project.INCMP').show();
-  $('tr.project.CMP').hide();
+  $('tr.project.CMP').show();
   
   if($(location).attr('hash') == '#login-invalid') {
     $("#login-form").before("<h5 id='invalid-login-message'>Incorrect login</h5>");

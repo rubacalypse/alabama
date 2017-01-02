@@ -52,17 +52,23 @@ def schedule(request, year=None, month=None, day=None):
       date = tz.localize(date)
     except ValueError:
       raise Http404("Invalid date")
+  #11/5 - 11/30
+  #11/6 ->
+  #incompletes = Project.objects.filter(Q(start_date__lte=date, status='INCMP') | Q(start_date__year=date.year,
+   #   start_date__month=date.month, start_date__day=date.day))
   
-  incompletes = Project.objects.filter(Q(start_date__lte=date, status='INCMP') | Q(start_date__year=date.year,
+  incompletes = Project.objects.filter(Q(start_date__lte=date,
+    end_date__gte=date) | Q(start_date__lte=date,
+    end_date=None) | Q(start_date__year=date.year,
       start_date__month=date.month, start_date__day=date.day))
 
-  ''' 
+  '''
   incompletes = Project.objects.filter(Q(start_date__year__lte=date.year,
       start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
       start_date__month=date.month, start_date__day=date.day))
-'''
+  '''
   
-
+  pprint(incompletes)
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all().order_by('number')
   vehicles = Vehicle.objects.all().order_by('name')
@@ -101,6 +107,7 @@ def update_schedule(request):
     if int(s['proj-id']) == -1:
       proj = Project()
       proj.start_date = date
+
       #proj.start_date = tz.localize(proj.start_date)
     else:
       proj = Project.objects.get(pk=s['proj-id'])
