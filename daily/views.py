@@ -107,15 +107,15 @@ def update_schedule(request):
     if int(s['proj-id']) == -1:
       proj = Project()
       proj.start_date = date
-
-      #proj.start_date = tz.localize(proj.start_date)
     else:
       proj = Project.objects.get(pk=s['proj-id'])
     proj.name = s['proj-name']
     new_time = s['proj-time']
     complete = s['proj-status']
 
-    if (complete):
+    if proj.end_date is not None:
+      print("nvm it's done already don't update lol")
+    elif (complete):
       proj.status = 'CMP'
       proj.end_date = date
       proj.end_date = datetime.datetime.combine(proj.end_date.date(), current_time) 

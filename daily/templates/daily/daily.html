@@ -25,15 +25,17 @@
       <button type="button" class="btn btn-primary btn-lg"
         id="save-button" onclick="updateSchedule()">Save Changes</button>
       <input type="hidden" name="schedule" id="schedule"/>
-    <div class="form-inline form-group" id="show_projects">
+     <!-- 
+      <div class="form-inline form-group" id="show_projects">
       <label for="show">Show:</label>
       <select class="form-control" name="show" id="show">
         <option value="INCMP">ongoing projects</option>
         <option value="CMP">completed projects</option>
         <option value="all">all projects</option>
-      </select>
+      </select> 
         <input type="hidden" name='date' value='{{ date|date:"F d, Y" }}'>
-      </div> <!-- show_projects -->
+      </div> // show_projects 
+      -->
   </div> 
 
       {% endif %}
