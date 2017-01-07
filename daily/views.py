@@ -44,7 +44,11 @@ def schedule(request, year=None, month=None, day=None):
   pprint(month)
   pprint(day)
   if year is None and month is None and day is None:
-    date = timezone.now()
+    weird_date = timezone.now()
+    date = datetime.datetime(int(weird_date.year),
+        int(weird_date.month), int(weird_date.day))
+    tz = timezone.get_default_timezone()
+    date = tz.localize(date)
   else:
     try:
       date = datetime.datetime(int(year), int(month), int(day))
@@ -52,11 +56,7 @@ def schedule(request, year=None, month=None, day=None):
       date = tz.localize(date)
     except ValueError:
       raise Http404("Invalid date")
-  #11/5 - 11/30
-  #11/6 ->
-  #incompletes = Project.objects.filter(Q(start_date__lte=date, status='INCMP') | Q(start_date__year=date.year,
-   #   start_date__month=date.month, start_date__day=date.day))
-  
+
   incompletes = Project.objects.filter(Q(start_date__lte=date,
     end_date__gte=date) | Q(start_date__lte=date,
     end_date=None) | Q(start_date__year=date.year,
