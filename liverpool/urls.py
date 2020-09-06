@@ -19,8 +19,8 @@ from django.contrib import admin
 import datetime
 
 urlpatterns = [
-    url(r'', include('daily.urls')),
+    path('', include('daily.urls')),
     #should probably redirect this?
-    path(r'^daily/', include(('daily.urls', 'daily'), namespace='daily')),
+    path('^daily/', include(('daily.urls', 'daily'), namespace='daily')),
     url(r'^admin/', admin.site.urls),
 ]
