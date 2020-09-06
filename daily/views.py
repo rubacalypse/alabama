@@ -66,7 +66,7 @@ def schedule(request, year=None, month=None, day=None):
       start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
       start_date__month=date.month, start_date__day=date.day))
   '''
-  
+  print(incompletes)  
   pprint(incompletes)
   employees = Employee.objects.all().order_by('name')
   phones = Phone.objects.all().order_by('number')
