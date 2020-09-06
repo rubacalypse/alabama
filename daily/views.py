@@ -56,7 +56,7 @@ def schedule(request, year=None, month=None, day=None):
       date = tz.localize(date)
     except ValueError:
       raise Http404("Invalid date")
-
+  print("are we here yet")
   incompletes = Project.objects.filter(Q(start_date__lte=date,
     end_date__gte=date) | Q(start_date__lte=date,
     end_date=None) | Q(start_date__year=date.year,
