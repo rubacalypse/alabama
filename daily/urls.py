@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from . import views
 import datetime
-
+app_name = "daily"
 urlpatterns = [
         url(r'^$', views.schedule, name='schedule'),
         url(r'^dailyschedule', views.schedule, name='schedule'),
