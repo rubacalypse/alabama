@@ -17,11 +17,10 @@ from django.urls import include, path
 #from django.conf.urls import include, url
 from django.contrib import admin
 import datetime
-import daily
 
 urlpatterns = [
     path('', include('daily.urls')),
     #should probably redirect this?
-    path('^daily/', 'daily.urls', name='daily'),
+    path('^daily/', include('daily.urls')),
     path(r'^admin/', admin.site.urls),
 ]
