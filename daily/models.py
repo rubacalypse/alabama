@@ -31,6 +31,7 @@ class Phone(models.Model):
 
 class Project(models.Model):
   #TODO: check out this timezone.now().time() business
+  print("in Project")
   complete = 'CMP'
   incomplete = 'INCMP'
   status_choices = (
@@ -48,6 +49,7 @@ class Project(models.Model):
       choices=status_choices,
       default=incomplete
       )
+  print("status")
   
   def __str__(self):
     return self.name
