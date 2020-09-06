@@ -70,6 +70,8 @@ def schedule(request, year=None, month=None, day=None):
   print(incompletes)  
   pprint(incompletes)
   employees = Employee.objects.all().order_by('name')
+  print("are there employees")
+  print(employees)
   phones = Phone.objects.all().order_by('number')
   vehicles = Vehicle.objects.all().order_by('name')
   print(date)
