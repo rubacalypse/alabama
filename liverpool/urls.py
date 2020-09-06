@@ -22,6 +22,6 @@ import daily
 urlpatterns = [
     path('', include('daily.urls')),
     #should probably redirect this?
-    path('^daily/', include(('daily.urls'), name='daily')),
+    path('^daily/', 'daily.urls', name='daily'),
     path(r'^admin/', admin.site.urls),
 ]
