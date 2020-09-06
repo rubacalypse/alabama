@@ -21,6 +21,6 @@ import datetime
 urlpatterns = [
     url(r'', include('daily.urls')),
     #should probably redirect this?
-    path(r'^daily/', include('daily.urls', namespace='daily')),
+    path(r'^daily/', include('daily.urls','daily'), namespace='daily'),
     url(r'^admin/', admin.site.urls),
 ]
