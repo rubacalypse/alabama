@@ -155,7 +155,7 @@ def update_schedule(request):
 @login_required
 def manage_employees(request):
   employees = Employee.objects.all()
-  print employees
+  print(employees)
   categories = Category.objects.all()
   context = {'employees': employees, 'cats': categories}
   return render(request, 'daily/employees.html', context)
