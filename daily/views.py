@@ -54,6 +54,7 @@ def schedule(request, year=None, month=None, day=None):
       date = datetime.datetime(int(year), int(month), int(day))
       tz = timezone.get_default_timezone()
       date = tz.localize(date)
+      print(date)
     except ValueError:
       raise Http404("Invalid date")
   incompletes = Project.objects.filter(Q(start_date__lte=date,
