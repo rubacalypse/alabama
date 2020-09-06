@@ -1,3 +1,4 @@
+import os
 import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -9,6 +10,7 @@ STATICFILES_DIRS = (
 )
 
 WSGI_APPLICATION = "liverpool.wsgi.application"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = []
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
