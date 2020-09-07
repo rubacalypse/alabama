@@ -150,9 +150,9 @@ h3 {
 }
 
 #sources {
-  margin: 100px auto;
+  //margin: 100px auto;
   order: 3;
-  position: absolute;
+  //position: absolute;
   left: 85%;
   top: 50px;
   width: 10%;
