@@ -209,8 +209,8 @@ h3 {
 
 #daily-table {
   flex: 4;
-  width: auto;
-  //max-width: 80%;
+  //width: auto;
+  max-width: 66%;
 }
 
 ol {
