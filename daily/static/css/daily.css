@@ -146,7 +146,7 @@ h3 {
 #emps-source {
   overflow:hidden; 
   overflow-y:scroll;
-  height: 70%;
+  height: 50vh;
 }
 
 #sources {
