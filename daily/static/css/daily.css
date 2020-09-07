@@ -134,7 +134,7 @@ h3 {
   padding: 0;
   margin: auto;
   list-style: none;
-
+  flex: 1;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -208,8 +208,9 @@ h3 {
 }
 
 #daily-table {
-  flex: 2;
-  max-width: 80%;
+  flex: 4;
+  width: auto;
+  //max-width: 80%;
 }
 
 ol {
