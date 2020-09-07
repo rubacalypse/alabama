@@ -40,45 +40,49 @@ def login_user(request):
 
 
 def schedule(request, year=None, month=None, day=None):
-  pprint(year)
-  pprint(month)
-  pprint(day)
-  if year is None and month is None and day is None:
-    weird_date = timezone.now()
-    date = datetime.datetime(int(weird_date.year),
-        int(weird_date.month), int(weird_date.day))
-    tz = timezone.get_default_timezone()
-    date = tz.localize(date)
-  else:
-    try:
-      date = datetime.datetime(int(year), int(month), int(day))
-      tz = timezone.get_default_timezone()
-      date = tz.localize(date)
+  try:
+      pprint(year)
+      pprint(month)
+      pprint(day)
+      if year is None and month is None and day is None:
+        weird_date = timezone.now()
+        date = datetime.datetime(int(weird_date.year),
+            int(weird_date.month), int(weird_date.day))
+        tz = timezone.get_default_timezone()
+        date = tz.localize(date)
+      else:
+        try:
+          date = datetime.datetime(int(year), int(month), int(day))
+          tz = timezone.get_default_timezone()
+          date = tz.localize(date)
+          print(date)
+        except ValueError:
+          raise Http404("Invalid date")
+      incompletes = Project.objects.filter(Q(start_date__lte=date,
+        end_date__gte=date) | Q(start_date__lte=date,
+        end_date=None) | Q(start_date__year=date.year,
+          start_date__month=date.month, start_date__day=date.day))
+      print("after incompletes")
+      '''
+      incompletes = Project.objects.filter(Q(start_date__year__lte=date.year,
+          start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
+          start_date__month=date.month, start_date__day=date.day))
+      '''
+      print(incompletes)  
+      pprint(incompletes)
+      employees = Employee.objects.all().order_by('name')
+      print("are there employees")
+      print(employees)
+      phones = Phone.objects.all().order_by('number')
+      vehicles = Vehicle.objects.all().order_by('name')
       print(date)
-    except ValueError:
-      raise Http404("Invalid date")
-  incompletes = Project.objects.filter(Q(start_date__lte=date,
-    end_date__gte=date) | Q(start_date__lte=date,
-    end_date=None) | Q(start_date__year=date.year,
-      start_date__month=date.month, start_date__day=date.day))
-  print("after incompletes")
-  '''
-  incompletes = Project.objects.filter(Q(start_date__year__lte=date.year,
-      start_date__month__lte=date.month, start_date__day__lte=date.day, status='INCMP') | Q(start_date__year=date.year,
-      start_date__month=date.month, start_date__day=date.day))
-  '''
-  print(incompletes)  
-  pprint(incompletes)
-  employees = Employee.objects.all().order_by('name')
-  print("are there employees")
-  print(employees)
-  phones = Phone.objects.all().order_by('number')
-  vehicles = Vehicle.objects.all().order_by('name')
-  print(date)
-  context = {'schedule': incompletes, 'date': date,
-      'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
+      context = {'schedule': incompletes, 'date': date,
+          'emp_names': employees, 'phones': phones, 'vehicles': vehicles}
 
-  return render(request, 'daily/daily.html', context)
+      return render(request, 'daily/daily.html', context)
+  except Exception as e:
+      print(e)
+      return
 
 @login_required
 @transaction.atomic
