@@ -41,6 +41,7 @@ def login_user(request):
 
 def schedule(request, year=None, month=None, day=None):
   try:
+      pprint(request)
       pprint(year)
       pprint(month)
       pprint(day)
