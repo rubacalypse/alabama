@@ -57,7 +57,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     ]
 
-ROOT_URLCONF = 'liverpool.urls'
+#ROOT_URLCONF = 'liverpool.urls'
+ROOT_URLCONF = 'daily.urls'
 
 TEMPLATES = [
     {
