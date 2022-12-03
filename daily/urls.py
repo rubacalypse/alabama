@@ -2,7 +2,8 @@ from django.conf.urls import url
 import django.contrib.auth.views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import re_path
+from django.urls import path, re_path
+from django.contrib import admin
 
 from . import views
 import datetime
@@ -26,4 +27,5 @@ urlpatterns = [
         url(r'^login', views.login_user, name='login'),
         #re_path(r'^login', views.login_user), 
         url(r'^logout', views.logout_user, name='logout'),
+        path(r'^admin/', admin.site.urls),
         ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
