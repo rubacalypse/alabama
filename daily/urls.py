@@ -23,6 +23,7 @@ urlpatterns = [
         name='categories'),
         url(r'^update_category_list', views.update_category_list,
           name='update_category_list'),
-        re_path(r'^login', views.login_user), 
+        url(r'^login', views.login_user, name='login'),
+        #re_path(r'^login', views.login_user), 
         url(r'^logout', views.logout_user, name='logout'),
         ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

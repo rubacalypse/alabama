@@ -20,7 +20,7 @@ import datetime
 
 urlpatterns = [
     path('', include('daily.urls')),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    #path('login/', auth_views.LoginView.as_view(), name='login'),
     #should probably redirect this?
     path('^daily/', include('daily.urls')),
     path(r'^admin/', admin.site.urls),
