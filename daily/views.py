@@ -2,7 +2,7 @@ from pprint import pprint
 from django.db import transaction
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.utils import timezone
+#from django.utils import timezone
 from django.utils.dateparse import parse_time
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, Employee, Phone, Vehicle, Category
@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
 from itertools import chain 
+from pytz import timezone
 
 def logout_user(request):
   logout(request);
@@ -46,15 +47,18 @@ def schedule(request, year=None, month=None, day=None):
       pprint(month)
       pprint(day)
       if year is None and month is None and day is None:
-        weird_date = timezone.now()
+        #weird_date = timezone.now()
+        weird_date = datetime.datetime.now()
         date = datetime.datetime(int(weird_date.year),
             int(weird_date.month), int(weird_date.day))
-        tz = timezone.get_default_timezone()
+        #tz = timezone.get_default_timezone()
+        tz = timezone("Asia/Bahrain")
         date = tz.localize(date)
       else:
         try:
           date = datetime.datetime(int(year), int(month), int(day))
-          tz = timezone.get_default_timezone()
+          #tz = timezone.get_default_timezone()
+          tz = timezone("Asia/Bahrain")
           date = tz.localize(date)
           print(date)
         except ValueError:
@@ -89,9 +93,11 @@ def schedule(request, year=None, month=None, day=None):
 @transaction.atomic
 def update_schedule(request):
   print("we are in update schedule")
-  now = timezone.now()
+  #now = timezone.now()
+  now = datetime.datetime.now()
   current_time = now.time()
-  tz = timezone.get_default_timezone()
+  #tz = timezone.get_default_timezone()
+  tz = timezone("Asia/Bahrain")
   
   date = request.POST.get('schedule_date')
   date = datetime.datetime.strptime(date, "%B %d, %Y")
